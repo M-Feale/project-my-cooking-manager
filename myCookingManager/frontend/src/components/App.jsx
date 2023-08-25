@@ -1,11 +1,13 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
+import Header from "./Header";
 
 const App = () => {
 
   return (
     <Router>
       <GlobalStyles />
+      <Header />
       <Routes>
         <Route path="/" element={<h1>Welcome to Home Page!</h1>} />
         <Route path="/signin" element={<h1>Welcome to Login!</h1>} />
