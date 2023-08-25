@@ -2,13 +2,15 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
-    /* --primary-color: #cc5500;
-    --accent-bg-color: rgba(204, 85, 0, 0.1);
-    --page-horizontal-padding: 20px;
-    --header-height: 50px;
-    --max-content-width: 1200px;
-    --heading-font-family: 'Teko', sans-serif;
-    --user-img-width: 120px; */
+    --primary-color: #973324;
+    --secondary-color: #d5ba9c;
+    --tertiary-color: #b95821;
+    --heading-font-family: "Space Grotesk", sans-serif;
+    --copy-font-family: 'Archivo', sans-serif;
+    --link-font-family: 'JetBrains Mono', monospace;
+    --heading-font-weight: bold;
+    --heading-font-size: 30px;
+    
   }
 
   html, body, div, span, applet, object, iframe,
@@ -56,5 +58,8 @@ export default createGlobalStyle`
   }
   h2 {
     font-size: 28px;
+  }
+  button{
+    cursor: pointer;
   }
 `;
