@@ -4,7 +4,7 @@ const Header = () => {
 	return (
 		<Wrapper>
 			<BrandHeading>My Cooking Manager</BrandHeading>
-            {/* condition rendering for the button to say "Register" if the User in on Homepage and not signed in/registered, "Sign out" if signed in or no button if on the signin page  */}
+            {/* current user is logged &&  */}
             <Button>
                 Sign out
             </Button>
@@ -24,11 +24,13 @@ const Wrapper = styled.div`
 const BrandHeading = styled.h1`
 	color: var(--secondary-color);
     font-size: var(--heading-font-size);
+    font-family: var(--heading-font-family);
 `;
 
 const Button = styled.button`
     background-color: var(--tertiary-color);
     color: var(--secondary-color);
+    font-family: var(--link-font-family);
     font-size: 18px;
     padding: 10px 20px;
     outline: none;

@@ -56,9 +56,6 @@ export default createGlobalStyle`
     color: var(--primary-color);
     font-family: var(--heading-font-family);
   }
-  h2 {
-    font-size: 28px;
-  }
   button{
     cursor: pointer;
   }
