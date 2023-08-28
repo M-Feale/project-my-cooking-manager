@@ -1,7 +1,24 @@
+import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
 const CategoryMenu = ({ setCategory }) => {
 	const fakeCategories = ["All recipes", "Mains", "Desserts", "Sides"];
+
+	// temporary userId
+	const userId = 1234;
+
+	const [menuCategories, setMenuCategories] = useState([]);
+
+	useEffect(() => {
+		fetch(`http://localhost:4999/user/${userId}/categories`)
+            .then(res => res.json())
+            .then((parsedResponse) => {
+                console.log(parsedResponse)
+            })
+            .catch((error) => {
+				console.error("Fetch error:", error.message);
+			});
+	}, []);
 
 	const handleCategory = (category) => {
 		if (category === "All recipes") {
@@ -13,16 +30,17 @@ const CategoryMenu = ({ setCategory }) => {
 
 	return (
 		<Container>
-			{fakeCategories.map((category) => {
-				return (
-					<CategoryButton
-						key={category}
-						onClick={() => handleCategory(category)}
-					>
-						{category}
-					</CategoryButton>
-				);
-			})}
+			{menuCategories.length > 0 &&
+				menuCategories.map((category) => {
+					return (
+						<CategoryButton
+							key={category}
+							onClick={() => handleCategory(category)}
+						>
+							{category}
+						</CategoryButton>
+					);
+				})}
 		</Container>
 	);
 };
