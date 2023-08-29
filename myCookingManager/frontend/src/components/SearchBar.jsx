@@ -19,31 +19,41 @@ const SearchBar = ({ setSearchTerms, failedSearch }) => {
 
 	return (
 		<Container>
-			<Input
-				aria-label="search"
-				type="text"
-				name="searchBar"
-				value={searchField}
-				placeholder="Write a category, a word in a recipe name or the website associated with your recipes"
-				onChange={(event) => setSearchField(event.target.value)}
-				onKeyDown={handleSearchSubmit}
-			/>
-			<Button onClick={() => handleSearchSubmit()}>Search</Button>
-			<Button onClick={handleClearField}>Clear</Button>
-            {/* when the back end is set up, I'll have to modify the styling of the the paragraph to see how it appears */}
-            {failedSearch && <p>{failedSearch}</p>}
+			<SearchInputContainer>
+				<Input
+					aria-label="search"
+					type="text"
+					name="searchBar"
+					value={searchField}
+					placeholder="Write a category, a word in a recipe name or the website associated with your recipes"
+					onChange={(event) => setSearchField(event.target.value)}
+					onKeyDown={handleSearchSubmit}
+				/>
+				<Button onClick={() => handleSearchSubmit()}>Search</Button>
+				<Button onClick={handleClearField}>Clear</Button>
+			</SearchInputContainer>
+
+			{/* when the back end is set up, I'll have to modify the styling of the the paragraph to see how it appears */}
+			{failedSearch && <p>{failedSearch}</p>}
 		</Container>
 	);
 };
 
 const Container = styled.div`
 	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	max-width: 100vw;
+	background-color: var(--secondary-color);
+	height: 100px;
+`;
+
+const SearchInputContainer = styled.div`
+	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	width: 100vw;
-	background-color: var(--secondary-color);
-	height: 100px;
 `;
 
 const Input = styled.input`
@@ -65,7 +75,7 @@ const Button = styled.button`
 	margin: 0 10px;
 	border: 2px solid var(--primary-color);
 
-    &:focus {
+	&:focus {
 		border: 2px solid black;
 		outline: none;
 	}
