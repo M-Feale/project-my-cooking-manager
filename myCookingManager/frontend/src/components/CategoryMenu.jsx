@@ -9,7 +9,7 @@ const CategoryMenu = ({ setCategory }) => {
 	const [menuCategories, setMenuCategories] = useState([]);
 
 	useEffect(() => {
-		fetch(`http://localhost:4999/user/${userId}/categories`)
+		fetch(`/api/user/${userId}/categories`)
             .then(res => res.json())
             .then((parsedResponse) => {
                 if (parsedResponse.status === 200){

@@ -19,11 +19,11 @@ const RecipeCollection = () => {
 		// Logic to set the fetch endpoint url to the appropriate value
 		let endpoint;
 		if (searchTerms) {
-			endpoint = `http://localhost:4999/user/${userId}/recipes/search/${searchTerms}`;
+			endpoint = `/api/user/${userId}/recipes/search/${searchTerms}`;
 		} else if (category) {
-			endpoint = `http://localhost:4999/user/${userId}/categories/${category}`;
+			endpoint = `/api/user/${userId}/categories/${category}`;
 		} else {
-			endpoint = `http://localhost:4999/user/${userId}/recipes`;
+			endpoint = `/api/user/${userId}/recipes`;
 		}
 
 		fetch(endpoint)

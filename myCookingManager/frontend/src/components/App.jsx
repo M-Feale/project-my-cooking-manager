@@ -3,6 +3,7 @@ import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
 import Home from "./Home";
 import RecipeCollection from "./RecipeCollection";
+import RecipeDetails from "./RecipeDetails";
 
 const App = () => {
 	return (
@@ -18,7 +19,7 @@ const App = () => {
 				/>
 				<Route
 					path="/recipes/:recipeId"
-					element={<h1>Welcome to a specific recipe Page!</h1>}
+					element={ <RecipeDetails />}
 				/>
 				<Route path="*" element={<h1>Welcome to the ERROR page</h1>} />
 			</Routes>
