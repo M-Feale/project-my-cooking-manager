@@ -1,15 +1,14 @@
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
+import { useAuth0 } from "@auth0/auth0-react";
+
+import LoginButton from "./LoginButton";
 
 import ProductCarousel from "../assets/ProductCarousel.png";
 
 const Home = () => {
+	const { user, isAuthenticated } = useAuth0();
 	const navigate = useNavigate();
-
-	const handleSignin = () => {
-		// this function will redirect to the Auth0 eventually, now is will just make a console.log appear
-		console.log("Wow, I'm redirecting to the Auth0 page!");
-	};
 
 	return (
 		<Wrapper>
@@ -23,14 +22,18 @@ const Home = () => {
 				place to help you organize your online recipes!
 			</Slogan>
 			<ActionContainer>
-				{/* current user is logged in ? <ActionText>`Welcome back, ${user}`</ActionText> : <ActionText>Start Managing now!</ActionText>  */}
-				{/* <ActionText>Start Managing now!</ActionText> */}
-				<ActionText>Welcome back, user !</ActionText>
-				{/* current user is logged in ? <ActionButton>Browse your Recipe Collection</ActionButton>  : <ActionButton>Sign in / Register</ActionButton>  */}
-				{/* <ActionButton onClick={handleSignin}>Sign in / Register</ActionButton> */}
-				<ActionButton onClick={() => navigate("/recipes")}>
-					Browse your Recipe Collection
-				</ActionButton>
+				{user && isAuthenticated ? (
+					<ActionText>{`Welcome back, ${user?.name}`}</ActionText>
+				) : (
+					<ActionText>Start Managing now!</ActionText>
+				)}
+				{user && isAuthenticated ? (
+					<ActionButton onClick={() => navigate("/recipes")}>
+						Browse your Recipe Collection
+					</ActionButton>
+				) : (
+					<LoginButton />
+				)}
 			</ActionContainer>
 		</Wrapper>
 	);
