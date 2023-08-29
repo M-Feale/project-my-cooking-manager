@@ -15,6 +15,7 @@ const RecipeCollection = () => {
 
 	// Fetch logic to do one GET matching the value of the searchTerms and category states, if any value is set.
 	useEffect(() => {
+        setFailedSearch("")
 		// Logic to set the fetch endpoint url to the appropriate value
 		let endpoint;
 		if (searchTerms) {
@@ -26,21 +27,25 @@ const RecipeCollection = () => {
 		}
 
 		fetch(endpoint)
-			.then((res) => res.json())
-			.then((parsedRes) => {
-				console.log(parsedRes);
-
-				// if (parsedRes.status === 200) {
-				// 	setRecipes(parsedRes.data);
-				// } else {
-				// 	// The logic here would be to show the failed fetch message (like for an unsuccessful searchTerm search) somewhere so the user would know to try the search again but with different words. I think that I'll create a "failedFetch" state to make that message appear under the search bar. Logically, that would be the only failed fetch that could occur because the categories are going to be created from the already present categories in the database so they'll never be able to click on a category that doesn't point to any recipe in the DB.
-				// 	console.log(parsedRes.message);
-				// 	setFailedSearch(parsedRes.message);
-				// }
+			.then((res) => {
+				if (res.status !== 204) {
+					return res.json();
+				} else {
+					return res;
+				}
 			})
-			.catch((error) => {
-				console.error("Fetch error:", error.message);
-			});
+			.then((parsedRes) => {
+				if (parsedRes.status === 200) {
+					setRecipes(parsedRes.data);
+				} else if (parsedRes.status === 204) {
+					setFailedSearch(
+						`${searchTerms} didn't point to any recipes in your Recipe Collection`
+					);
+				}
+			})
+		.catch((error) => {
+			console.error("Fetch error:", error.message);
+		});
 	}, [searchTerms, category]);
 
 	return (

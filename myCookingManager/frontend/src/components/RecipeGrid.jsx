@@ -8,9 +8,13 @@ const RecipeGrid = ({ recipes }) => {
 			{recipes &&
 				recipes.map((recipe) => {
 					return (
-						<>
-							<h1>RecipeCard component</h1>
-						</>
+						<div key={recipe.recipeId}>
+                            <h1>{recipe.name}</h1>
+                            <img src={recipe.image} style={{width: "200px"}} />
+                            <p>{recipe.recipeId}</p>
+                            <p>{recipe.category}</p>
+
+                        </div>
 					);
 				})}
 		</>
