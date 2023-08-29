@@ -122,11 +122,11 @@ const searchRecipes = async (req, res) => {
         // Look for the document that matches the userId and filter the recipes array to only contain the recipes that match the projection.
         const searchTermsResult = await db.collection(RE_COLL).aggregate([matchQuery, projection]).toArray();
 
-        // If the recipes array in the document contains a recipe object, send back the array of recipes. If not, send 404.
+        // If the recipes array in the document contains a recipe object, send back the array of recipes. If not, send 204 and let FE create an error message for an unsuccessful searchTerm
         if (searchTermsResult[0]?.recipes.length > 0) {
             return res.status(200).json({ status: 200, message: "Success!", data: searchTermsResult[0].recipes })
         } else {
-            return res.status(404).json({ status: 404, userId, searchTerms, message: `The term you searched for (${searchTerms}) didn't point to any recipe in your recipe collection.` })
+            return res.status(204).json({ status: 204})
         }
     }
 
