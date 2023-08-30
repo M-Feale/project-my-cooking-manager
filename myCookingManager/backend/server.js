@@ -32,7 +32,8 @@ app.get("/api/user/:userId/categories", getCategories)
 // GET recipes by category for specified user (used in RecipeCollection for CategoryMenu)
 app.get("/api/user/:userId/categories/:category", getRecipesByCategory)
 
-app.get("/api/recipeList", createShoppingList)
+// POST a recipe list to create a saved shopping list for a the recipe
+app.post("/api/ingredient-list", createShoppingList)
 
 // Temporary PUT, will need to be modified /// the way it works now, the FE will have to generate the random numbers for the recipeId
 // app.put("/api/user/:userId/recipes/:recipeId", insertRecipe)

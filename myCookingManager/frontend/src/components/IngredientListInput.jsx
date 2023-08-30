@@ -1,4 +1,4 @@
-const TextInput = () => {
+const IngredientListInput = () => {
 	const handleSubmit = (e) => {
 		// Prevent the browser from reloading the page
 		e.preventDefault();
@@ -9,7 +9,6 @@ const TextInput = () => {
 
 		// console.log(formData, "this is formdata");
 
-
 		// const requestBody = {
 		// 	ingredientList: '1 cup potato, chopped\n1 cup parsley, minced\n230 grams cheese',
 		// 	servings: 1,
@@ -18,7 +17,7 @@ const TextInput = () => {
 
 		// const searchParams = new URLSearchParams(requestBody)
 		// console.log(searchParams.toString(), "this is search params")
-	
+
 		// Or you can work with it as a plain object:
 		const formJson = Object.fromEntries(formData.entries());
 		console.log(formJson, "this is formJson");
@@ -26,22 +25,18 @@ const TextInput = () => {
 		// console.log(searchParams, "might be uri encoded like I want ?")
 		// console.log(searchParams.toString(), "is this it?")
 
-		fetch("/recipeList", {
+		fetch("/api/ingredient-list", {
 			method: "POST",
 			headers: {
-				"Accept" : "application/json",
-				"Content-Type" : "application/json"
+				Accept: "application/json",
+				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(formJson)
+			body: JSON.stringify(formJson),
 		})
-		.then((response) => response.json())
-		.then((parsedResponse) => {
-			console.log(parsedResponse, "this is")
-		})
-
-
-
-
+			.then((response) => response.json())
+			.then((parsedResponse) => {
+				console.log(parsedResponse, "this is the response from the textinput fetch");
+			});
 	};
 
 	return (
@@ -62,4 +57,4 @@ const TextInput = () => {
 	);
 };
 
-export default TextInput;
+export default IngredientListInput;
