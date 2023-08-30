@@ -1,8 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 
-const { getRecipes, getSingleRecipe, insertRecipe, searchRecipes, getCategories, getRecipesByCategory } = require("./handlers");
-const {createShoppingList} = require("./extAPI_handlers")
+const { getRecipes, getSingleRecipe, insertRecipe, searchRecipes, getCategories, getRecipesByCategory, updateShoppingList } = require("./handlers");
+// const {createShoppingList} = require("./WIP_spoonacular_handler")
 
 const PORT = 4999;
 
@@ -32,8 +32,8 @@ app.get("/api/user/:userId/categories", getCategories)
 // GET recipes by category for specified user (used in RecipeCollection for CategoryMenu)
 app.get("/api/user/:userId/categories/:category", getRecipesByCategory)
 
-// POST a recipe list to create a saved shopping list for a the recipe
-app.post("/api/ingredient-list", createShoppingList)
+// PATCH a recipe list to create a saved shopping list for the specified recipeId for the specified userId
+app.patch("/api/user/:userId/recipes/:recipeId/ingredient-list", updateShoppingList)
 
 // Temporary PUT, will need to be modified /// the way it works now, the FE will have to generate the random numbers for the recipeId
 // app.put("/api/user/:userId/recipes/:recipeId", insertRecipe)
