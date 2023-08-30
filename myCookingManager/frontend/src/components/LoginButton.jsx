@@ -3,10 +3,17 @@ import { styled } from "styled-components";
 
 const LoginButton = () => {
 	const { loginWithRedirect, isAuthenticated } = useAuth0();
+	const handleLogin = async () => {
+		await loginWithRedirect({
+			appState: {
+				returnTo: "/"
+			}
+		})
+	}
 
 	return (
 		!isAuthenticated && (
-			<ActionButton onClick={() => loginWithRedirect()}>
+			<ActionButton onClick={handleLogin}>
 				Register/Sign In
 			</ActionButton>
 		)
