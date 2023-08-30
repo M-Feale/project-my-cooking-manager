@@ -1,5 +1,5 @@
 import { Auth0Provider } from "@auth0/auth0-react";
-import { redirect, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const Auth0ProviderWithNavigate = ({ children }) => {
 	const navigate = useNavigate();
