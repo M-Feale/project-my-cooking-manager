@@ -43,7 +43,7 @@ const sendShoppingListEmail = async (req, res) => {
         // Transform the shopping list into the right format for the API
         const emailHtmlBody = ingredientListToHtml("./html_email_list.html", shoppingList)
 
-        // 
+        // Format the email message as per the API documentation
         const msg = {
             to: `${email}`,
             from: {
@@ -54,6 +54,7 @@ const sendShoppingListEmail = async (req, res) => {
             html: emailHtmlBody
         }
 
+        // Send the email
         const emailExpeditionResult = await sgMail.send(msg)
         // If the Send Grid API answer is successful, sent a success message. If not, send 204 and let FE create an error message for an unsuccessful email expedition.
         if (emailExpeditionResult[0].statusCode === 202) {

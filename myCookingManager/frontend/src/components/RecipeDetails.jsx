@@ -13,7 +13,8 @@ const RecipeDetails = () => {
 	const { currentRecipeDetails, setCurrentRecipeDetails } =
 		useContext(RecipeDetailsContext);
 
-	// On mount, fetch recipe associated with the specific recipe's page we are on. Store the data in the RecipeDetailsContext for the other component to have easy access to it.
+	// On mount, fetch recipe associated with the specific recipe's page we are on. 
+	// Store the data in the RecipeDetailsContext for the other components to have easy access to it.
 	useEffect(() => {
 
 		// If the context is empty or if the context contains a recipe different from the current RecipeDetails' page we are on, fetch the details for the page we're on.
@@ -35,7 +36,6 @@ const RecipeDetails = () => {
 
 	return (
 		<>
-			<h1>This is a test for later</h1>
 			<IngredientListInput />
 		</>
 	);

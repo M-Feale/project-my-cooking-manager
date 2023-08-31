@@ -26,7 +26,7 @@ const IngredientListInput = () => {
 	// On mount, display the shopping list present in the context, if any.
 	useEffect(() => {
 		if (currentRecipeDetails.shopping_list.length > 0) {
-			// This is the transformation I'll have to do when I GET an existing shopping list from the database
+			// Transform the shopping list array from the db/context into one string separated by linebreaks for the textarea display.
 			const listAsParagraph = currentRecipeDetails.shopping_list
 				.toString()
 				.replaceAll(",", "\n");
@@ -47,7 +47,7 @@ const IngredientListInput = () => {
 			.filter((ingredient) => {
 				return ingredient.trim().length > 0;
 			});
-		// Ingredients array is what I will send to the BE for the shopping list field in my recipes array.
+		// Update the value of the shopping_list field in the database.
 		fetch(`/api/user/${userId}/recipes/${recipeId}/ingredient-list`, {
 			method: "PATCH",
 			headers: {
