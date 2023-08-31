@@ -200,12 +200,20 @@ const getRecipesByCategory = async (req, res) => {
     }
 }
 
-const updateShoppingList = async (req, res) => {
+const updateRecipeField = async (req, res) => {
     // Extract userId and recipeId from the req.params
     const { userId, recipeId } = req.params;
 
-    // Extract the new shoppingList from the req.body
-    const { shoppingList } = req.body;
+    // Extract the new field information from the req.body
+    const { info } = req.body
+
+    // Format the field info into the format Mongo DB requires
+    let fieldName;
+    fieldName = Object.keys(info)
+    let fieldValue;
+    fieldValue = Object.values(info)
+    let matchingField = {}
+    matchingField[`recipes.$.${fieldName}`] = fieldValue[0]
 
     const client = new MongoClient(MONGO_URI, options);
     try {
@@ -218,19 +226,19 @@ const updateShoppingList = async (req, res) => {
             _id: userId * 1, "recipes.recipeId": recipeId
         }
 
-        // Specify update transaction
+        // // Specify update transaction
         const updateTransaction = {
-            $set: { "recipes.$.shopping_list": shoppingList }
+            $set: matchingField
         }
 
         // Update the shopping_list field of the recipe matching the recipeId
-        const updateShoppingListResult = await db.collection(RE_COLL).updateOne(updateQuery, updateTransaction)
+        const updateRecipeFieldResult = await db.collection(RE_COLL).updateOne(updateQuery, updateTransaction)
 
-        // If the shopping list was found and updated (or not), send a success message to the FE. Else, send a 400 to notify FE of a problem.
-        if (updateShoppingListResult.matchedCount && (updateShoppingListResult.modifiedCount || !updateShoppingListResult.modifiedCount)){
-            return res.status(200).json({status: 200, message: "Ingredient List successfully updated!" })
+        // If the field was found and updated (or not), send a success message to the FE. Else, send a 400 to notify FE of a problem.
+        if (updateRecipeFieldResult.matchedCount && (updateRecipeFieldResult.modifiedCount || !updateRecipeFieldResult.modifiedCount)) {
+            return res.status(200).json({ status: 200, message: "Success!" })
         } else {
-            return res.status(400).json({status: 400, userId, recipeId, message: "The provided info didn't allow for a proper update of the resource."})
+            return res.status(400).json({ status: 400, userId, recipeId, message: "The provided info didn't allow for a proper update of the resource." })
         }
     }
 
@@ -298,6 +306,6 @@ module.exports = {
     searchRecipes,
     getCategories,
     getRecipesByCategory,
-    updateShoppingList,
+    updateRecipeField,
     // insertRecipe
 }

@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 
-const { getRecipes, getSingleRecipe, insertRecipe, searchRecipes, getCategories, getRecipesByCategory, updateShoppingList } = require("./handlers");
+const { getRecipes, getSingleRecipe, insertRecipe, searchRecipes, getCategories, getRecipesByCategory, updateRecipeField } = require("./handlers");
 const { sendShoppingListEmail } = require("./sendgrid_handlers");
 // const {createShoppingList} = require("./WIP_spoonacular_handler")
 
@@ -34,7 +34,7 @@ app.get("/api/user/:userId/categories", getCategories)
 app.get("/api/user/:userId/categories/:category", getRecipesByCategory)
 
 // PATCH to update the shopping_list field of the specified recipe for the specified user in the database (used in IngredientListInput on RecipeDetails page)
-app.patch("/api/user/:userId/recipes/:recipeId/ingredient-list", updateShoppingList)
+app.patch("/api/user/:userId/recipes/:recipeId/update", updateRecipeField)
 
 // POST an email of a shopping list to the user's email address (used in IngredientListInput on RecipeDetails page)
 app.post("/api/user/:userId/recipes/:recipeId/ingredient-list/email", sendShoppingListEmail)

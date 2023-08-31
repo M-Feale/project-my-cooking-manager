@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import { styled } from "styled-components";
 
 const IngredientListInput = () => {
 	// temporary userId
@@ -26,7 +27,7 @@ const IngredientListInput = () => {
 	// On mount, display the shopping list present in the context, if any.
 	useEffect(() => {
 		if (currentRecipeDetails.shopping_list.length > 0) {
-			// This is the transformation I'll have to do when I GET an existing shopping list from the database
+			// Transform the shopping list array from the db/context into one string separated by linebreaks for the textarea display.
 			const listAsParagraph = currentRecipeDetails.shopping_list
 				.toString()
 				.replaceAll(",", "\n");
@@ -47,14 +48,14 @@ const IngredientListInput = () => {
 			.filter((ingredient) => {
 				return ingredient.trim().length > 0;
 			});
-		// Ingredients array is what I will send to the BE for the shopping list field in my recipes array.
-		fetch(`/api/user/${userId}/recipes/${recipeId}/ingredient-list`, {
+		// Update the value of the shopping_list field in the database.
+		fetch(`/api/user/${userId}/recipes/${recipeId}/update`, {
 			method: "PATCH",
 			headers: {
 				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ shoppingList: ingredientsArray }),
+			body: JSON.stringify({ info: {shopping_list: ingredientsArray}}),
 		})
 			.then((response) => response.json())
 			.then((parsedResponse) => {
@@ -91,10 +92,13 @@ const IngredientListInput = () => {
 		fetch(`/api/user/${userId}/recipes/${recipeId}/ingredient-list/email`, {
 			method: "POST",
 			headers: {
-				"Accept": "application/json",
+				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ email: user.email, shoppingList: ingredientsArray }),
+			body: JSON.stringify({
+				email: user.email,
+				shoppingList: ingredientsArray,
+			}),
 		})
 			.then((response) => response.json())
 			.then((parsedResponse) => {
@@ -108,55 +112,75 @@ const IngredientListInput = () => {
 			.catch((error) => {
 				console.error("Fetch error:", error);
 			});
-	}
+	};
 
 	return (
 		<>
-			<form>
-				<label>
+			<Wrapper>
+				<Label htmlFor="ingredient-list">
 					Create your ingredient list
-					<textarea
-						name="ingredientList"
-						placeholder="Paste your ingredient list with a carriage return (Pressing 'Enter') between each ingredient"
-						rows="12"
-						cols="80"
-						value={listTextarea.list}
-						disabled={!listTextarea.isEditable}
-						onChange={(e) => {
-							setListTextarea({
-								...listTextarea,
-								list: e.target.value,
-							});
-						}}
-					/>
-				</label>
+				</Label>
+				<textarea
+					id="ingredient-list"
+					name="ingredientList"
+					placeholder="Paste your ingredient list with a carriage return (Pressing 'Enter') between each ingredient"
+					rows="12"
+					cols="80"
+					value={listTextarea.list}
+					disabled={!listTextarea.isEditable}
+					onChange={(e) => {
+						setListTextarea({
+							...listTextarea,
+							list: e.target.value,
+						});
+					}}
+				/>
 
-				{}
-				{!listTextarea.isGenerated && (
-					<button
-						type="button"
-						disabled={listTextarea.list ? false : true}
-						onClick={handleGenerate}
-					>
-						Save List
-					</button>
-				)}
-				{listTextarea.isGenerated && !listTextarea.isEdited && (
-					<button type="button" onClick={handleEdit}>
-						Edit
-					</button>
-				)}
-				{listTextarea.isEdited && (
-					<button type="button" onClick={handleGenerate}>
-						Save Edits
-					</button>
-				)}
-				{listTextarea.isGenerated && !listTextarea.isEditable && (
-					<button type="button" onClick={handleEmail}>Send as Email</button>
-				)}
-			</form>
+				<ButtonContainer>
+					{!listTextarea.isGenerated && (
+						<button
+							type="button"
+							disabled={listTextarea.list ? false : true}
+							onClick={handleGenerate}
+						>
+							Save List
+						</button>
+					)}
+					{listTextarea.isGenerated && !listTextarea.isEdited && (
+						<button type="button" onClick={handleEdit}>
+							Edit
+						</button>
+					)}
+					{listTextarea.isEdited && (
+						<button type="button" onClick={handleGenerate}>
+							Save Edits
+						</button>
+					)}
+					{listTextarea.isGenerated && !listTextarea.isEditable && (
+						<button type="button" onClick={handleEmail}>
+							Send as Email
+						</button>
+					)}
+				</ButtonContainer>
+			</Wrapper>
 		</>
 	);
 };
+
+const Wrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+`;
+
+const Label = styled.label`
+	display: inline-block;
+`;
+
+const ButtonContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+`;
 
 export default IngredientListInput;
