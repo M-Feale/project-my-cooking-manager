@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const IngredientListInput = () => {
 	// temporary userId
@@ -10,6 +11,9 @@ const IngredientListInput = () => {
 
 	// Import RecipeDetails context
 	const { currentRecipeDetails } = useContext(RecipeDetailsContext);
+
+	// Import User info from Auth0
+	const { user } = useAuth0();
 
 	// State used to store the TextArea interactions/information
 	const [listTextarea, setListTextarea] = useState({
@@ -22,15 +26,16 @@ const IngredientListInput = () => {
 	// On mount, display the shopping list present in the context, if any.
 	useEffect(() => {
 		if (currentRecipeDetails.shopping_list.length > 0) {
-			
 			// This is the transformation I'll have to do when I GET an existing shopping list from the database
-			const listAsParagraph = currentRecipeDetails.shopping_list.toString().replaceAll(",", "\n")
+			const listAsParagraph = currentRecipeDetails.shopping_list
+				.toString()
+				.replaceAll(",", "\n");
 
 			setListTextarea({
 				...listTextarea,
 				list: listAsParagraph,
 				isGenerated: true,
-				isEditable: false
+				isEditable: false,
 			});
 		}
 	}, [currentRecipeDetails]);
@@ -54,6 +59,7 @@ const IngredientListInput = () => {
 			.then((response) => response.json())
 			.then((parsedResponse) => {
 				if (parsedResponse.status === 200) {
+					// Decide if I want to add a success message for a successful ingredient list update
 					console.log(parsedResponse.message);
 				} else {
 					throw new Error(parsedResponse);
@@ -74,6 +80,35 @@ const IngredientListInput = () => {
 	const handleEdit = () => {
 		setListTextarea({ ...listTextarea, isEditable: true, isEdited: true });
 	};
+
+	const handleEmail = () => {
+		const ingredientsArray = listTextarea.list
+			.split("\n")
+			.filter((ingredient) => {
+				return ingredient.trim().length > 0;
+			});
+
+		fetch(`/api/user/${userId}/recipes/${recipeId}/ingredient-list/email`, {
+			method: "POST",
+			headers: {
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ email: user.email, shoppingList: ingredientsArray }),
+		})
+			.then((response) => response.json())
+			.then((parsedResponse) => {
+				if (parsedResponse.status >= 200) {
+					// Decide if I want to send a success message on 200 and error message on 204
+					console.log(parsedResponse.message);
+				} else {
+					throw new Error(parsedResponse);
+				}
+			})
+			.catch((error) => {
+				console.error("Fetch error:", error);
+			});
+	}
 
 	return (
 		<>
@@ -117,7 +152,7 @@ const IngredientListInput = () => {
 					</button>
 				)}
 				{listTextarea.isGenerated && !listTextarea.isEditable && (
-					<button type="button">Send as Email</button>
+					<button type="button" onClick={handleEmail}>Send as Email</button>
 				)}
 			</form>
 		</>
