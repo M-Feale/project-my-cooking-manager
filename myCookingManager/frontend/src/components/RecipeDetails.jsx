@@ -1,11 +1,12 @@
 import { useContext, useEffect } from "react";
+import { styled } from "styled-components";
 
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
 
 import DetailsPreview from "./DetailsPreview";
 import IngredientListInput from "./IngredientListInput";
-import { styled } from "styled-components";
 import MakeAgain from "./MakeAgain";
+import NavigateRecipeWebsite from "./NavigateRecipeWebsite";
 
 const RecipeDetails = () => {
 	// I'll need to see how I can access the UserContext from auth0.
@@ -53,6 +54,7 @@ const RecipeDetails = () => {
 					<RightSection>
 						<IngredientListInput />
 						<MakeAgain />
+						<NavigateRecipeWebsite />
 					</RightSection>
 				</Wrapper>
 			)}
