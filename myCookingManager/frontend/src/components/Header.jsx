@@ -33,15 +33,15 @@ const BrandHeading = styled.h1`
     cursor: pointer;
 `;
 
-const Button = styled.button`
-	background-color: var(--tertiary-color);
-	color: var(--secondary-color);
-	font-family: var(--link-font-family);
-	font-size: 18px;
-	padding: 10px 20px;
-	outline: none;
-	border: none;
-	border-radius: 10px;
-`;
+// const Button = styled.button`
+// 	background-color: var(--tertiary-color);
+// 	color: var(--secondary-color);
+// 	font-family: var(--link-font-family);
+// 	font-size: 18px;
+// 	padding: 10px 20px;
+// 	outline: none;
+// 	border: none;
+// 	border-radius: 10px;
+// `;
 
 export default Header;
