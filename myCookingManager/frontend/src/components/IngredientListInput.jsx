@@ -49,13 +49,13 @@ const IngredientListInput = () => {
 				return ingredient.trim().length > 0;
 			});
 		// Update the value of the shopping_list field in the database.
-		fetch(`/api/user/${userId}/recipes/${recipeId}/ingredient-list`, {
+		fetch(`/api/user/${userId}/recipes/${recipeId}/update`, {
 			method: "PATCH",
 			headers: {
 				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ shoppingList: ingredientsArray }),
+			body: JSON.stringify({ info: {shopping_list: ingredientsArray}}),
 		})
 			.then((response) => response.json())
 			.then((parsedResponse) => {
@@ -170,8 +170,6 @@ const IngredientListInput = () => {
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	/* justify-content: center;
-	align-items: center; */
 `;
 
 const Label = styled.label`
