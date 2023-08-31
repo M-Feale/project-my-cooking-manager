@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import { styled } from "styled-components";
 
 const IngredientListInput = () => {
 	// temporary userId
@@ -91,10 +92,13 @@ const IngredientListInput = () => {
 		fetch(`/api/user/${userId}/recipes/${recipeId}/ingredient-list/email`, {
 			method: "POST",
 			headers: {
-				"Accept": "application/json",
+				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ email: user.email, shoppingList: ingredientsArray }),
+			body: JSON.stringify({
+				email: user.email,
+				shoppingList: ingredientsArray,
+			}),
 		})
 			.then((response) => response.json())
 			.then((parsedResponse) => {
@@ -108,55 +112,77 @@ const IngredientListInput = () => {
 			.catch((error) => {
 				console.error("Fetch error:", error);
 			});
-	}
+	};
 
 	return (
 		<>
-			<form>
-				<label>
+			<Wrapper>
+				<Label htmlFor="ingredient-list">
 					Create your ingredient list
-					<textarea
-						name="ingredientList"
-						placeholder="Paste your ingredient list with a carriage return (Pressing 'Enter') between each ingredient"
-						rows="12"
-						cols="80"
-						value={listTextarea.list}
-						disabled={!listTextarea.isEditable}
-						onChange={(e) => {
-							setListTextarea({
-								...listTextarea,
-								list: e.target.value,
-							});
-						}}
-					/>
-				</label>
+				</Label>
+				<textarea
+					id="ingredient-list"
+					name="ingredientList"
+					placeholder="Paste your ingredient list with a carriage return (Pressing 'Enter') between each ingredient"
+					rows="12"
+					cols="80"
+					value={listTextarea.list}
+					disabled={!listTextarea.isEditable}
+					onChange={(e) => {
+						setListTextarea({
+							...listTextarea,
+							list: e.target.value,
+						});
+					}}
+				/>
 
-				{}
-				{!listTextarea.isGenerated && (
-					<button
-						type="button"
-						disabled={listTextarea.list ? false : true}
-						onClick={handleGenerate}
-					>
-						Save List
-					</button>
-				)}
-				{listTextarea.isGenerated && !listTextarea.isEdited && (
-					<button type="button" onClick={handleEdit}>
-						Edit
-					</button>
-				)}
-				{listTextarea.isEdited && (
-					<button type="button" onClick={handleGenerate}>
-						Save Edits
-					</button>
-				)}
-				{listTextarea.isGenerated && !listTextarea.isEditable && (
-					<button type="button" onClick={handleEmail}>Send as Email</button>
-				)}
-			</form>
+				<ButtonContainer>
+					{!listTextarea.isGenerated && (
+						<button
+							type="button"
+							disabled={listTextarea.list ? false : true}
+							onClick={handleGenerate}
+						>
+							Save List
+						</button>
+					)}
+					{listTextarea.isGenerated && !listTextarea.isEdited && (
+						<button type="button" onClick={handleEdit}>
+							Edit
+						</button>
+					)}
+					{listTextarea.isEdited && (
+						<button type="button" onClick={handleGenerate}>
+							Save Edits
+						</button>
+					)}
+					{listTextarea.isGenerated && !listTextarea.isEditable && (
+						<button type="button" onClick={handleEmail}>
+							Send as Email
+						</button>
+					)}
+				</ButtonContainer>
+			</Wrapper>
 		</>
 	);
 };
+
+const Wrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	/* justify-content: center;
+	align-items: center; */
+`;
+
+const Label = styled.label`
+	display: inline-block;
+`;
+
+const ButtonContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+`;
 
 export default IngredientListInput;
