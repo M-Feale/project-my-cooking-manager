@@ -54,24 +54,6 @@ const getSingleRecipe = async (req, res) => {
         const db = client.db(DB_NAME);
         console.log("connected");
 
-        // Projection variations tried to make it work with find() or findOne() methods, to no avail.
-        // const query = {
-        //     _id: userId * 1, "recipes.recipeId": recipeId
-        // }
-
-        // const dbOptions = {
-        //     projection: {
-        //         "recipes.$": 1
-        //     }
-        // }
-
-        // const singleRecipeResult = await db.collection(RE_COLL).find({
-        //     recipes: { $elemMatch: { recipeId: "1a2b3c" } }
-        // }, {
-        //     _id: userId * 1, "recipes.$": 1
-        // }
-        // ).toArray()
-
         // Find the specified recipe tied to the user (userId is multiplied by 1 to convert it from a string to a number)
         const singleRecipeResult = await db.collection(RE_COLL).aggregate([
             { $match: { _id: userId * 1 } },
@@ -126,7 +108,7 @@ const searchRecipes = async (req, res) => {
         if (searchTermsResult[0]?.recipes.length > 0) {
             return res.status(200).json({ status: 200, message: "Success!", data: searchTermsResult[0].recipes })
         } else {
-            return res.status(204).json({ status: 204})
+            return res.status(204).json({ status: 204 })
         }
     }
 
@@ -218,6 +200,51 @@ const getRecipesByCategory = async (req, res) => {
     }
 }
 
+const updateShoppingList = async (req, res) => {
+    // Extract userId and recipeId from the req.params
+    const { userId, recipeId } = req.params;
+
+    // Extract the new shoppingList from the req.body
+    const { shoppingList } = req.body;
+
+    const client = new MongoClient(MONGO_URI, options);
+    try {
+        await client.connect();
+        const db = client.db(DB_NAME);
+        console.log("connected");
+
+        // Create query matching the user (multiplied by one to convert it to a number ) with the document and the specific recipe in the recipes array
+        const updateQuery = {
+            _id: userId * 1, "recipes.recipeId": recipeId
+        }
+
+        // Specify update transaction
+        const updateTransaction = {
+            $set: { "recipes.$.shopping_list": shoppingList }
+        }
+
+        // Update the shopping_list field of the recipe matching the recipeId
+        const updateShoppingListResult = await db.collection(RE_COLL).updateOne(updateQuery, updateTransaction)
+
+        // If the shopping list was found and updated (or not), send a success message to the FE. Else, send a 400 to notify FE of a problem.
+        if (updateShoppingListResult.matchedCount && (updateShoppingListResult.modifiedCount || !updateShoppingListResult.modifiedCount)){
+            return res.status(200).json({status: 200, message: "Ingredient List successfully updated!" })
+        } else {
+            return res.status(400).json({status: 400, userId, recipeId, message: "The provided info didn't allow for a proper update of the resource."})
+        }
+    }
+
+    catch (err) {
+        console.log("Error:", err);
+        return res.status(500).json({ status: 500, message: "An error was caught in the corresponding handler function. Verify server console." });
+    }
+
+    finally {
+        client.close();
+        console.log("disconnected")
+    }
+}
+
 // const insertRecipe = async (req, res) => {
 //     // Extract userId and recipeId from the params
 //     const { userId, recipeId } = req.params;
@@ -271,5 +298,6 @@ module.exports = {
     searchRecipes,
     getCategories,
     getRecipesByCategory,
+    updateShoppingList,
     // insertRecipe
 }
