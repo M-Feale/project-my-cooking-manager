@@ -5,6 +5,7 @@ import { RecipeDetailsContext } from "./RecipeDetailsContext";
 import DetailsPreview from "./DetailsPreview";
 import IngredientListInput from "./IngredientListInput";
 import { styled } from "styled-components";
+import MakeAgain from "./MakeAgain";
 
 const RecipeDetails = () => {
 	// I'll need to see how I can access the UserContext from auth0.
@@ -46,12 +47,13 @@ const RecipeDetails = () => {
 				<h1>Loading...</h1>
 			) : (
 				<Wrapper>
-					<>
+					<LeftSection>
 						<DetailsPreview />
-					</>
-					<>
+					</LeftSection>
+					<RightSection>
 						<IngredientListInput />
-					</>
+						<MakeAgain />
+					</RightSection>
 				</Wrapper>
 			)}
 		</>
@@ -62,6 +64,16 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+`;
+
+const LeftSection = styled.div`
+display: flex;
+flex-direction: column;
+`;
+
+const RightSection = styled.div`
+display: flex;
+flex-direction: column;
 `;
 
 export default RecipeDetails;
