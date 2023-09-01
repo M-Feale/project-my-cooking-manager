@@ -1,47 +1,82 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { styled } from "styled-components";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
 
 const UrlInput = () => {
+	// temporary userId
+	const userId = 1234;
+
+	// Import context
 	const { catalogueFlow, setCatalogueFlow } =
 		useContext(CatalogueFlowContext);
 
+	// This state will be used to notify when thw search is unsuccessful
+	const [failedSearch, setFailedSearch] = useState("");
+
 	const handleFindSubmit = (event) => {
 		if (
-			event === undefined &&
-			catalogueFlow.recipeInfo.recipe_url.length > 0
+			(event === undefined &&
+				catalogueFlow.recipeInfo.recipe_url.length > 0) ||
+			(event?.code === "Enter" &&
+				catalogueFlow.recipeInfo.recipe_url.length > 0)
 		) {
-			console.log(
-				"this is when I call the grabity endpoint from the button click"
-			);
-			console.log(
-				catalogueFlow.recipeInfo.recipe_url,
-				"this is the website I was given"
-			);
-		} else if (
-			event?.code === "Enter" &&
-			catalogueFlow.recipeInfo.recipe_url.length > 0
-		) {
-			console.log(
-				"this is when I call the grabity endpoint from the enter "
-			);
-			console.log(
-				catalogueFlow.recipeInfo.recipe_url,
-				"this is the website I was given"
-			);
+			fetch(`/api/user/${userId}/catalogue`, {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					recipe_url: catalogueFlow.recipeInfo.recipe_url,
+				}),
+			})
+				.then((res) => {
+					if (res.status === 200) {
+						return res.json();
+					} else {
+						return res;
+					}
+				})
+				.then((parsedResponse) => {
+					if (parsedResponse.status === 200) {
+						// Decide if I want to add a success message for a successful search
+						console.log(parsedResponse);
+						setCatalogueFlow({
+							...catalogueFlow, isRecipeInput: true, 
+							recipeInfo: parsedResponse.data,
+						});
+					} else if (parsedResponse.status === 204) {
+						// Do a message for an unsuccessful url search
+						console.log(
+							"The URL you pasted didn't return any results. Verify your URL and try again."
+						);
+						setFailedSearch(
+							"The URL you pasted didn't return any results. Verify your URL and try again."
+						);
+					} else {
+						throw new Error(parsedResponse.message);
+					}
+				})
+				.catch((error) => {
+					// Remove console.error before submitting the project
+					console.error("Fetch error:", error);
+					setFailedSearch(
+						"The URL you pasted didn't return any results. Verify your URL and try again."
+					);
+				});
 		}
 	};
 
 	const handleClearField = () => {
-		console.log("I'm being cleared!");
-		// setCatalogueFlow({
-		// 	...catalogueFlow,
-		// 	recipeInfo: {
-		// 		...catalogueFlow.recipeInfo,
-		// 		recipe_url: "",
-		// 	},
-		// });
+		setCatalogueFlow({
+			...catalogueFlow,
+			recipeInfo: {
+				...catalogueFlow.recipeInfo,
+				recipe_url: "",
+			},
+		});
+		setFailedSearch("");
 	};
 
 	return (
@@ -69,6 +104,7 @@ const UrlInput = () => {
 				<Button onClick={() => handleFindSubmit()}>Find</Button>
 				<Button onClick={handleClearField}>Clear</Button>
 			</UrlInputContainer>
+			{failedSearch && <p>{failedSearch}</p>}
 		</Container>
 	);
 };
