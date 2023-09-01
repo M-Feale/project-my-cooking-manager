@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 
@@ -7,6 +7,7 @@ import { CatalogueFlowContext } from "./CatalogueFlowContext";
 import UrlInput from "./UrlInput";
 import RecipePreview from "./RecipePreview";
 import DialogueBox from "./DialogueBox";
+import CategorySelect from "./CategorySelect";
 
 const CataloguingPage = () => {
 	// Import context to control conditional rendering
@@ -15,13 +16,21 @@ const CataloguingPage = () => {
 
 	// Import navigate
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if(catalogueFlow.isCategoryConfirmed){
+		console.log("The category is confirmed! Time to do the put")
+		}
+		
+
+	}, [catalogueFlow.isCategoryConfirmed])
+
+
 	return (
 		<Wrapper>
 			<UrlInput />
 			{catalogueFlow.isRecipeInput && <RecipePreview />}
-			{catalogueFlow.isRecipePreviewCorrect && (
-				<h1>CategorySelect component</h1>
-			)}
+			{catalogueFlow.isRecipePreviewCorrect && <CategorySelect />}
 			{
 				catalogueFlow.isRecipePreviewCorrect === false && (
 					<DialogueBox
@@ -32,7 +41,8 @@ const CataloguingPage = () => {
 								function: () =>
 									setCatalogueFlow({
 										...catalogueFlow,
-										isRecipeInput: false, isRecipePreviewCorrect: null
+										isRecipeInput: false,
+										isRecipePreviewCorrect: null,
 									}),
 							},
 							{
