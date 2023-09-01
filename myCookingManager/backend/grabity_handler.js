@@ -15,7 +15,6 @@ const createRecipePreview = async (req, res) => {
     try {
         // Save the result of the method to a variable
         const previewResult = await grabity.grab(recipe_url);
-        console.log(previewResult, "the is preview result")
 
         // ----------------------------------------------------------------------- //
         // If we get something back a preview and the data includes the recipe_url 
