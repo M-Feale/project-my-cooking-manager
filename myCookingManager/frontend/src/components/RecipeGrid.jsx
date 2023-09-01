@@ -13,7 +13,7 @@ const RecipeGrid = ({ recipes }) => {
 					return (
 						<div key={recipe.recipeId} onClick={() => navigate("/recipes/:recipeId")}>
                             <h1>{recipe.name}</h1>
-                            <img src={recipe.image} style={{width: "200px"}} />
+                            <img src={recipe.image} style={{width: "200px"}} alt={recipe.name} />
                             <p>{recipe.recipeId}</p>
                             <p>{recipe.category}</p>
 
