@@ -61,7 +61,7 @@ const RecipePreview = () => {
 						<SectionTitle>Preview Image</SectionTitle>
 						{/* $url={catalogueFlow.recipeInfo.image} */}
 						<ImageDiv>
-							<Image src={catalogueFlow.recipeInfo.image} />
+							<Image src={catalogueFlow.recipeInfo.image} alt={catalogueFlow.recipeInfo.name} />
 						</ImageDiv>
 					</ImagePreviewContainer>
 				</>
