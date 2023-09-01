@@ -13,11 +13,15 @@ const createRecipePreview = async (req, res) => {
     const recipeId = uuidv4();
 
     try {
-        // Save the result from the method to a variable
+        // Save the result of the method to a variable
         const previewResult = await grabity.grab(recipe_url);
-        console.log(previewResult.description, "this is grabity preview result description")
-        // If we get something back, include only the useful fields of the preview to the returned data
-        if (Object.keys(previewResult)?.includes("title")){
+
+        // ----------------------------------------------------------------------- //
+        // If we get something back a preview and the data includes the recipe_url 
+        // that we used to get the preview, include only the useful fields of the 
+        // preview to the returned data.
+        // ----------------------------------------------------------------------- //
+        if (Object.values(previewResult)?.includes(recipe_url)){
             let data = {
                 recipeId: recipeId,
                 name: previewResult["og:title"],
@@ -27,10 +31,10 @@ const createRecipePreview = async (req, res) => {
                 description: previewResult.description,
                 category: ""
             };
-
-            console.log(data, "this is the data we're sending back")
-
-            // return res.status(200).json({status: 200, message: "Success!"})
+            return res.status(200).json({status: 200, message: "Success!", data: data})
+        } // If we don't, send 204 and let FE create an unsuccessful message for the preview
+        else {
+            return res.status(204).json({ status: 204 }) 
         }
     }
     catch (err) {

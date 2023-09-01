@@ -1,14 +1,17 @@
+import { useNavigate } from "react-router";
+
 const RecipeGrid = ({ recipes }) => {
+	const navigate = useNavigate()
 	return (
 		<>
 			<div>
-				<button>Add a recipe</button>
+				<button onClick={() => navigate("/catalogue")}>Add a recipe</button>
 			</div>
 
 			{recipes &&
 				recipes.map((recipe) => {
 					return (
-						<div key={recipe.recipeId}>
+						<div key={recipe.recipeId} onClick={() => navigate("/recipes/:recipeId")}>
                             <h1>{recipe.name}</h1>
                             <img src={recipe.image} style={{width: "200px"}} />
                             <p>{recipe.recipeId}</p>

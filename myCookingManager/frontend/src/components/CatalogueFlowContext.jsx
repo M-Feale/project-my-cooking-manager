@@ -3,12 +3,12 @@ import { createContext, useState } from "react";
 export const CatalogueFlowContext = createContext(null);
 
 export const CatalogueFlowProvider = ({ children }) => {
-	// State needed for the conditional rendering of the CataloguingPage
+	// State needed for the CataloguingPage components
 	const [catalogueFlow, setCatalogueFlow] = useState({
 		isRecipeInput: false,
-		isRecipePreviweCorrect: false,
-		isCategoryConfirmed: false,
-		isPutSuccessful: false,
+		isRecipePreviewCorrect: null,
+		isCategoryConfirmed: null,
+		isPutSuccessful: null,
         recipeInfo:  {
             recipeId: "", 
             name: "",
