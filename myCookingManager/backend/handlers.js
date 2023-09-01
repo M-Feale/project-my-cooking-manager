@@ -95,8 +95,10 @@ const searchRecipes = async (req, res) => {
                 _id: userId * 1
             }
         }
-
-        // This projection returns all array objects (individual recipe object) that contain the provided (case-insensitive) searchTerms in the name, category or website field.
+        // ----------------------------------------------------------------------------------------------- //
+        // This projection returns all array objects (individual recipe object) that contain the provided 
+        // (case-insensitive) searchTerms in the name, category or website field.
+        // ----------------------------------------------------------------------------------------------- //
         const projection = {
             $project: { recipes: { $filter: { input: "$recipes", as: "recipe", cond: { $or: [{ $regexMatch: { input: "$$recipe.name", regex: searchTerms, options: "i" } }, { $regexMatch: { input: "$$recipe.website", regex: searchTerms, options: "i" } }, { $regexMatch: { input: "$$recipe.category", regex: searchTerms, options: "i" } }] } } } }
         }
@@ -104,7 +106,10 @@ const searchRecipes = async (req, res) => {
         // Look for the document that matches the userId and filter the recipes array to only contain the recipes that match the projection.
         const searchTermsResult = await db.collection(RE_COLL).aggregate([matchQuery, projection]).toArray();
 
-        // If the recipes array in the document contains a recipe object, send back the array of recipes. If not, send 204 and let FE create an error message for an unsuccessful searchTerm
+        // ----------------------------------------------------------------------------------------------- //
+        // If the recipes array in the document contains a recipe object, send back the array of recipes. 
+        // If not, send 204 and let FE create an error message for an unsuccessful searchTerm
+        // ----------------------------------------------------------------------------------------------- //
         if (searchTermsResult[0]?.recipes.length > 0) {
             return res.status(200).json({ status: 200, message: "Success!", data: searchTermsResult[0].recipes })
         } else {
@@ -139,11 +144,20 @@ const getCategories = async (req, res) => {
                 _id: userId * 1
             }
         }
+        // ---------------------------------------------------------------------------------------------------- //
+        // Find the specific document that matches the userId, separate every object in the array into a 
+        // single document and group every single document under an _id corresponding to the "recipes.category" 
+        // value. Because each _id is unique, this creates a document for every *distinct* category. This 
+        // aggregation pipeline then returns an array of objects with an _id key and a value matching the distinct 
+        // categories. 
+        // ---------------------------------------------------------------------------------------------------- //
+        const distinctCategoriesResult = await db.collection(RE_COLL).aggregate([matchQuery, 
+            { $unwind: "$recipes" }, { $group: { _id: "$recipes.category" } }]).toArray()
 
-        // Find the specific document that matches the userId, separate every object in the array into a single document and group every single document under an _id corresponding to the "recipes.category" value. Because each _id is unique, this creates a document for every *distinct* category. This aggregation pipeline then returns an array of objects with an _id key and a value matching the distinct categories. 
-        const distinctCategoriesResult = await db.collection(RE_COLL).aggregate([matchQuery, { $unwind: "$recipes" }, { $group: { _id: "$recipes.category" } }]).toArray()
-
-        // Map through the array to return only an array of category strings instead of an array of objects with _id key and a value corresponding to the category string.
+        // ----------------------------------------------------------------------------------------------- //
+        // Map through the array to return only an array of category strings instead of an array of objects 
+        // with _id key and a value corresponding to the category string.
+        // ----------------------------------------------------------------------------------------------- //
         const categories = distinctCategoriesResult.map((category) => {
             return category._id
         })
@@ -173,14 +187,19 @@ const getRecipesByCategory = async (req, res) => {
         const db = client.db(DB_NAME);
         console.log("connected");
 
+        // -------------------------------------------------------------------------------------------------------------- //
         // Find the specified recipe tied to the user (userId is multiplied by 1 to convert it from a string to a number)
         // Return every recipe in the recipes array that has a category matching the category provided in the req.params
+        // -------------------------------------------------------------------------------------------------------------- //
         const recipesByCategoryResult = await db.collection(RE_COLL).aggregate([
             { $match: { _id: userId * 1 } },
             { $project: { recipes: { $filter: { input: "$recipes", as: "recipe", cond: { $eq: ["$$recipe.category", category] } } } } }
         ]).toArray();
 
-        // Return the recipes array if the database matched with any userId (can be an empty array if the user has no recipes). If not, return a 404 for the userId
+         // ------------------------------------------------------------------------------------------------------------------ //
+        // Return the recipes array if the database matched with any userId (can be an empty array if the user has no recipes). 
+        // If not, return a 404 for the userId
+         // ------------------------------------------------------------------------------------------------------------------ //
         if (recipesByCategoryResult.length > 0) {
             return res.status(200).json({ status: 200, message: "Success", data: recipesByCategoryResult[0].recipes })
         }
