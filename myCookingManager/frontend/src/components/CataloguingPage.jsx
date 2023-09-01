@@ -1,24 +1,23 @@
 import { useContext } from "react";
 import { styled } from "styled-components";
+
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
+
 import UrlInput from "./UrlInput";
+import RecipePreview from "./RecipePreview";
 
 const CataloguingPage = () => {
+    // Import context to control conditional rendering
 	const { catalogueFlow } = useContext(CatalogueFlowContext);
-
-	// State needed for this conditional rendering
-	// isRecipeInput : true/false
-	// isRecipePreviewCorrect: true/false
-	// isCategoryConfirmed: true/false // when true this will put the recipe in the database
-	// isPutSuccessful: true/false // when true, the success message will appear and the context will be reset.
 
 	return (
 		<Wrapper>
 			<UrlInput />
+			{catalogueFlow.isRecipeInput && (
+				<RecipePreview />
+			)}
 			{/* {when add is clicked in Url Input, the recipe preview appears} */}
-			<div>
-				Recipe Preview with "maybe" one dialogue box component within
-			</div>
+
 			{/* when the dialogue box inside the recipe preview is "yes", the category select box appear
             when the dialogue box is no, the preview disappear and when are brought back to url input */}
 			<div>Dialogue box</div>
