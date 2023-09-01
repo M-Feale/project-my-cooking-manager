@@ -3,7 +3,7 @@ const morgan = require("morgan");
 
 const { getRecipes, getSingleRecipe, insertRecipe, searchRecipes, getCategories, getRecipesByCategory, updateRecipeField } = require("./handlers");
 const { sendShoppingListEmail } = require("./sendgrid_handlers");
-const { getRecipePreview, createRecipePreview } = require("./grabity_handler");
+const { createRecipePreview } = require("./grabity_handler");
 // const {createShoppingList} = require("./WIP_spoonacular_handler")
 
 const PORT = 4999;
