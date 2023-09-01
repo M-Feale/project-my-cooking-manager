@@ -43,7 +43,8 @@ const UrlInput = () => {
 						// Decide if I want to add a success message for a successful search
 						console.log(parsedResponse);
 						setCatalogueFlow({
-							...catalogueFlow, isRecipeInput: true, 
+							...catalogueFlow,
+							isRecipeInput: true,
 							recipeInfo: parsedResponse.data,
 						});
 					} else if (parsedResponse.status === 204) {
@@ -81,15 +82,16 @@ const UrlInput = () => {
 
 	return (
 		<Container>
+			<Label htmlFor="urlInput">
+				Paste the URL of the coveted recipe and click "Find" !
+			</Label>
 			<UrlInputContainer>
-				<Label htmlFor="urlInput">
-					Paste the URL of the coveted recipe and click "Find" !{" "}
-				</Label>
 				<Input
 					id="urlInput"
 					type="text"
 					value={catalogueFlow.recipeInfo.recipe_url}
 					placeholder="Paste your recipe website address here !"
+					autoFocus={!catalogueFlow.isRecipeInput}
 					onChange={(event) =>
 						setCatalogueFlow({
 							...catalogueFlow,
