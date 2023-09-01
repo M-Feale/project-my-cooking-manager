@@ -6,9 +6,9 @@ export const CatalogueFlowProvider = ({ children }) => {
 	// State needed for the CataloguingPage components
 	const [catalogueFlow, setCatalogueFlow] = useState({
 		isRecipeInput: false,
-		isRecipePreviewCorrect: false,
-		isCategoryConfirmed: false,
-		isPutSuccessful: false,
+		isRecipePreviewCorrect: null,
+		isCategoryConfirmed: null,
+		isPutSuccessful: null,
         recipeInfo:  {
             recipeId: "", 
             name: "",
