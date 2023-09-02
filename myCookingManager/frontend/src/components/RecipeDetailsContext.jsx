@@ -10,7 +10,12 @@ export const RecipeDetailsProvider = ({ children }) => {
 		website: "",
 		image: "",
 		description: "",
-		ratings: [],
+		ratings: [
+			{ label: "Overall", rating: 0 },
+			{ label: "Time Accuracy", rating: 0 },
+			{ label: "Easy Cleanup", rating: 0 },
+			{ label: "Taste", rating: 0 },
+		],
 		shopping_list: [],
 		dates_created: [],
 		notes: [],
