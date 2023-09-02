@@ -11,10 +11,9 @@ const RecipeGrid = ({ recipes }) => {
 			{recipes &&
 				recipes.map((recipe) => {
 					return (
-						<div key={recipe.recipeId} onClick={() => navigate("/recipes/:recipeId")}>
+						<div key={recipe.recipeId} onClick={() => navigate(`/recipes/${recipe.recipeId}`)}>
                             <h1>{recipe.name}</h1>
                             <img src={recipe.image} style={{width: "200px"}} alt={recipe.name} />
-                            <p>{recipe.recipeId}</p>
                             <p>{recipe.category}</p>
 
                         </div>
