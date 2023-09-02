@@ -8,6 +8,7 @@ import DetailsPreview from "./DetailsPreview";
 import IngredientListInput from "./IngredientListInput";
 import MakeAgain from "./MakeAgain";
 import NavigateRecipeWebsite from "./NavigateRecipeWebsite";
+import Notepad from "./Notepad";
 
 const RecipeDetails = () => {
 	// I'll need to see how I can access the UserContext from auth0.
@@ -55,6 +56,7 @@ const RecipeDetails = () => {
 					</LeftSection>
 					<RightSection>
 						<IngredientListInput />
+						<Notepad />
 						<MakeAgain />
 						<NavigateRecipeWebsite />
 					</RightSection>
