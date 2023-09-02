@@ -151,7 +151,7 @@ const getCategories = async (req, res) => {
         // aggregation pipeline then returns an array of objects with an _id key and a value matching the distinct 
         // categories. 
         // ---------------------------------------------------------------------------------------------------- //
-        const distinctCategoriesResult = await db.collection(RE_COLL).aggregate([matchQuery, 
+        const distinctCategoriesResult = await db.collection(RE_COLL).aggregate([matchQuery,
             { $unwind: "$recipes" }, { $group: { _id: "$recipes.category" } }]).toArray()
 
         // ----------------------------------------------------------------------------------------------- //
@@ -196,10 +196,10 @@ const getRecipesByCategory = async (req, res) => {
             { $project: { recipes: { $filter: { input: "$recipes", as: "recipe", cond: { $eq: ["$$recipe.category", category] } } } } }
         ]).toArray();
 
-         // ------------------------------------------------------------------------------------------------------------------ //
+        // ------------------------------------------------------------------------------------------------------------------ //
         // Return the recipes array if the database matched with any userId (can be an empty array if the user has no recipes). 
         // If not, return a 404 for the userId
-         // ------------------------------------------------------------------------------------------------------------------ //
+        // ------------------------------------------------------------------------------------------------------------------ //
         if (recipesByCategoryResult.length > 0) {
             return res.status(200).json({ status: 200, message: "Success", data: recipesByCategoryResult[0].recipes })
         }
@@ -272,52 +272,79 @@ const updateRecipeField = async (req, res) => {
     }
 }
 
-// const insertRecipe = async (req, res) => {
-//     // Extract userId and recipeId from the params
-//     const { userId, recipeId } = req.params;
-//     console.log(recipeId, "this is recipe id")
+const insertRecipe = async (req, res) => {
+    // Extract userId from the params
+    const { userId } = req.params;
 
-//     const client = new MongoClient(MONGO_URI, options);
-//     try {
-//         await client.connect();
-//         const db = client.db(DB_NAME);
-//         console.log("connected");
+    // Extract the recipe info from the PUT body
+    const { newRecipe } = req.body
 
-//         // Find the specified recipe tied to the user
-//         const insertRecipeResult = await db.collection(RE_COLL).updateOne({
-//             _id: userId * 1
-//         },
-//             {
-//                 $push: {
-//                     recipes: {
-//                         recipeId: '1a2b5e',
-//                         name: 'Crunchy Thai Kale Salad',
-//                         website: 'Minimalist Baker',
-//                         image: 'https://minimalistbaker.com/wp-content/uploads/2014/03/20-Minute-Thai-Kale-Salad-with-a-Simple-Peanut-Dressing.jpg',
-//                         description: 'A colorful, crunchy, Thai-inspired salad with kale, carrots, radishes, sesame-tofu, and a spicy-sweet peanut dressing.',
-//                         ratings: [],
-//                         shopping_list: [],
-//                         dates_created: [],
-//                         notes: [],
-//                         make_again: false,
-//                         category: 'Mains',
-//                         recipe_url: 'https://minimalistbaker.com/crunchy-thai-kale-salad/'
-//                     }
-//                 }
-//             })
-//         console.log(insertRecipeResult, "this is db result")
-//     }
+    const client = new MongoClient(MONGO_URI, options);
+    try {
+        await client.connect();
+        const db = client.db(DB_NAME);
+        console.log("connected");
 
-//     catch (err) {
-//         console.log("Error:", err);
-//         return res.status(500).json({ status: 500, message: "An error was caught in the corresponding handler function. Verify server console." });
-//     }
+        // Create variables to make database interaction cleaneré
+        const match = { $match: { _id: userId * 1 } }
+        // We're filtering our recipes array to only contain a recipe matching the information given by the grabity link preview.
+        const projection = {
+            $project: {
+                recipes:
+                {
+                    $filter:
+                    {
+                        input: "$recipes", as: "recipe",
+                        cond: {
+                            $and: [{ $eq: ["$$recipe.website", newRecipe.website] },
+                            { $eq: ["$$recipe.name", newRecipe.name] },
+                            { $eq: ["$$recipe.description", newRecipe.description] },
+                            { $eq: ["$$recipe.recipe_url", newRecipe.recipe_url] },
+                            { $eq: ["$$recipe.image", newRecipe.image] }]
+                        }
+                    }
+                }
+            }
+        }
+        // --------------------------------------------------------------------------------------------------- //
+        // Find if the recipe already exists in the database for that user.
+        // If the aggregation pipeline returns a recipes array containing something, it means that the "new" 
+        // recipe matched with an already existing recipe and we don't want to add it.
+        // --------------------------------------------------------------------------------------------------- //
+        const findDuplicatesResult = await db.collection(RE_COLL).aggregate([match, projection]).toArray()
 
-//     finally {
-//         client.close();
-//         console.log("disconnected")
-//     }
-// }
+        // If the recipe is found, return a 204 to allow FE to create a unsuccessful message.
+        if (findDuplicatesResult[0].recipes.length > 0) {
+            return res.status(204).json({ status: 204 })
+        }
+        else {
+            // ------------------------------------------------------------------------ //
+            // If it's actually new, add the missing fields to the received newRecipe
+            // and update the database with the complete object.
+            // ------------------------------------------------------------------------ //
+            const completeRecipeObject = { ...newRecipe, shopping_list: [], dates_created: [], notes: [], make_again: null, ratings: [{ overall: 0 }, { taste: 0 }, { time_accuracy: 0 }, { cleanup: 0 }] }
+
+            const insertRecipeResult = await db.collection(RE_COLL).updateOne({
+                _id: userId * 1
+            },
+                { $push: { recipes: completeRecipeObject } })
+
+            if (insertRecipeResult.modifiedCount) {
+                return res.status(200).json({ status: 200, message: "New recipe successfully added!" })
+            }
+        }
+    }
+
+    catch (err) {
+        console.log("Error:", err);
+        return res.status(500).json({ status: 500, message: "An error was caught in the corresponding handler function. Verify server console." });
+    }
+
+    finally {
+        client.close();
+        console.log("disconnected")
+    }
+}
 
 module.exports = {
     getRecipes,
@@ -326,5 +353,5 @@ module.exports = {
     getCategories,
     getRecipesByCategory,
     updateRecipeField,
-    // insertRecipe
+    insertRecipe
 }

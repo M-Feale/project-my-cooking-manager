@@ -35,7 +35,7 @@ app.get("/api/user/:userId/categories", getCategories)
 app.get("/api/user/:userId/categories/:category", getRecipesByCategory)
 
 // POST recipe website to retrieve preview information of the specified url
-app.post("/api/user/:userId/catalogue/", createRecipePreview)
+app.post("/api/user/:userId/catalogue", createRecipePreview)
 
 // PATCH to update the shopping_list field of the specified recipe for the specified user in the database (used in IngredientListInput on RecipeDetails page)
 app.patch("/api/user/:userId/recipes/:recipeId/update", updateRecipeField)
@@ -44,8 +44,7 @@ app.patch("/api/user/:userId/recipes/:recipeId/update", updateRecipeField)
 app.post("/api/user/:userId/recipes/:recipeId/ingredient-list/email", sendShoppingListEmail)
 
 // Temporary PUT, will need to be modified /// the way it works now, the FE will have to generate the random numbers for the recipeId
-// app.put("/api/user/:userId/recipes/:recipeId", insertRecipe)
-
+app.put("/api/user/:userId/recipes", insertRecipe)
 
 app.listen(PORT, () => {
     console.log(`Server is up and listenening at port: ${PORT}`)

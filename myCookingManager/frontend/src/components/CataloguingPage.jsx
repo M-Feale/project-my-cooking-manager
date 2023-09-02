@@ -10,6 +10,9 @@ import DialogueBox from "./DialogueBox";
 import CategorySelect from "./CategorySelect";
 
 const CataloguingPage = () => {
+	// Temporary userid
+	const userId = 1234;
+
 	// Import context to control conditional rendering
 	const { catalogueFlow, setCatalogueFlow } =
 		useContext(CatalogueFlowContext);
@@ -18,13 +21,46 @@ const CataloguingPage = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if(catalogueFlow.isCategoryConfirmed){
-		console.log("The category is confirmed! Time to do the put")
+		if (catalogueFlow.isCategoryConfirmed) {
+			console.log("The category is confirmed! Time to do the put");
+
+			fetch(`/api/user/${userId}/recipes`, {
+				method: "PUT",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					newRecipe: catalogueFlow.recipeInfo,
+				}),
+			})
+				.then((res) => {
+					if (res.status === 200) {
+						return res.json();
+					} else {
+						return res;
+					}
+				})
+				.then((parsedResponse) => {
+					if (parsedResponse.status === 200) {
+						// Decide if I want to add a success message for a successful search
+						console.log(
+							parsedResponse,
+							"this is PUT response from Cataloguing page"
+						);
+					} else if (parsedResponse.status === 204) {
+						// Do a message for an unsuccessful transaction
+						console.log("this is the same recipe you already have");
+					} else {
+						throw new Error(parsedResponse.message);
+					}
+				})
+				.catch((error) => {
+					// Remove console.error before submitting the project
+					console.error("Fetch error:", error);
+				});
 		}
-		
-
-	}, [catalogueFlow.isCategoryConfirmed])
-
+	}, [catalogueFlow.isCategoryConfirmed]);
 
 	return (
 		<Wrapper>
