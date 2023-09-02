@@ -1,12 +1,12 @@
 import { styled } from "styled-components";
 
-const CreateNewCategory = ({ label, inputOnChangeFunc, buttonClickFunc }) => {
+const CategoryCreation= ({ label, inputOnChangeFunc, buttonClickFunc }) => {
 
 	return (
 		<Container>
 			<Label htmlFor={label}>{label}</Label>
 			<Input id={label} onChange={(e) => inputOnChangeFunc(e.target.value)} />
-            <button onClick={() => buttonClickFunc()}>Save New Category</button>
+            <button onClick={() => buttonClickFunc()}>Create New Category</button>
 		</Container>
 	);
 };
@@ -31,4 +31,4 @@ const Input = styled.input`
 	}
 `;
 
-export default CreateNewCategory;
+export default CategoryCreation;

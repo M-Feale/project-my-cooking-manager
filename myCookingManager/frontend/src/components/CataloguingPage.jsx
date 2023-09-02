@@ -48,6 +48,10 @@ const CataloguingPage = () => {
 							parsedResponse,
 							"this is PUT response from Cataloguing page"
 						);
+						setCatalogueFlow({
+							...catalogueFlow,
+							isPutSuccessful: true,
+						});
 					} else if (parsedResponse.status === 204) {
 						// Do a message for an unsuccessful transaction
 						console.log("this is the same recipe you already have");
@@ -62,43 +66,76 @@ const CataloguingPage = () => {
 		}
 	}, [catalogueFlow.isCategoryConfirmed]);
 
+	const handleReset = () => {
+		setCatalogueFlow({
+			isRecipeInput: false,
+			isRecipePreviewCorrect: null,
+			isCategoryConfirmed: null,
+			isPutSuccessful: null,
+			recipeInfo: {
+				recipeId: "",
+				name: "",
+				website: "",
+				recipe_url: "",
+				image: "",
+				description: "",
+				category: "",
+			},
+		});
+	};
+
+	const navigateAndReset = (url) => {
+		handleReset();
+		navigate(url);
+	};
+
 	return (
 		<Wrapper>
 			<UrlInput />
 			{catalogueFlow.isRecipeInput && <RecipePreview />}
 			{catalogueFlow.isRecipePreviewCorrect && <CategorySelect />}
-			{
-				catalogueFlow.isRecipePreviewCorrect === false && (
-					<DialogueBox
-						title={"What do you want to do next ?"}
-						buttonArray={[
-							{
-								text: "Try Again",
-								function: () =>
-									setCatalogueFlow({
-										...catalogueFlow,
-										isRecipeInput: false,
-										isRecipePreviewCorrect: null,
-									}),
-							},
-							{
-								text: "Navigate to my Recipe Collection",
-								function: () => navigate("/recipes"),
-							},
-						]}
-					/>
-				)
-				// <h1>Dialogue box with try again or navigate to recipeCollection</h1>
-			}
-			{/* {when add is clicked in Url Input, the recipe preview appears} */}
-
-			{/* when the dialogue box inside the recipe preview is "yes", the category select box appear
-            when the dialogue box is no, the preview disappear and when are brought back to url input */}
-			{/* <div>Dialogue box</div>
-			<div>Category select</div> */}
-			{/* when the category select is confirmed the recipe is added to the db and a success notification box appears
-            after that, the dialogue box appears and ask if we want to add another recipe,
-            navigate to the newly added recipe details or if we want to go page to recipe collection */}
+			{catalogueFlow.isRecipePreviewCorrect === false && (
+				<DialogueBox
+					title={"What do you want to do next ?"}
+					buttonArray={[
+						{
+							text: "Try Again",
+							function: () =>
+								setCatalogueFlow({
+									...catalogueFlow,
+									isRecipeInput: false,
+									isRecipePreviewCorrect: null,
+								}),
+						},
+						{
+							text: "Navigate to my Recipe Collection",
+							function: () => navigate("/recipes"),
+						},
+					]}
+				/>
+			)}
+			{catalogueFlow.isPutSuccessful && (
+				<DialogueBox
+					title={"What do you want to do next ?"}
+					buttonArray={[
+						{
+							text: "Add another recipe",
+							function: () => handleReset(),
+						},
+						{
+							text: "Navigate to my new Recipe page!",
+							function: () =>
+								navigateAndReset(
+									`/recipes/${catalogueFlow.recipeInfo.recipeId}`
+								),
+						},
+						{
+							text: "Return to my Recipe Collection",
+							function: () => navigateAndReset("/recipes"),
+						},
+					]}
+				/>
+			)}
 		</Wrapper>
 	);
 };

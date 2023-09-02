@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
 
-import CreateNewCategory from "./CreateNewCategory";
+import CategoryCreation from "./CategoryCreation";
 
 const CategorySelect = () => {
 	// temporary userId
@@ -60,7 +60,11 @@ const CategorySelect = () => {
 					--Choose a Category--
 				</Option>
 				{selectCategories?.map((category) => {
-					return <Option key={category} disabled={createNewCategory}>{category}</Option>;
+					return (
+						<Option key={category} disabled={createNewCategory}>
+							{category}
+						</Option>
+					);
 				})}
 				<Option value="Unspecified Category">
 					{!catalogueFlow.recipeInfo.category
@@ -68,8 +72,20 @@ const CategorySelect = () => {
 						: `${catalogueFlow.recipeInfo.category}`}
 				</Option>
 			</Select>
+			{!createNewCategory && catalogueFlow.recipeInfo.category && (
+				<button
+					onClick={() =>
+						setCatalogueFlow({
+							...catalogueFlow,
+							isCategoryConfirmed: true,
+						})
+					}
+				>
+					Save New Recipe
+				</button>
+			)}
 			{createNewCategory && (
-				<CreateNewCategory
+				<CategoryCreation
 					label={"New Category Name"}
 					buttonClickFunc={() =>
 						setCatalogueFlow({
