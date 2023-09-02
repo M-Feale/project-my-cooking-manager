@@ -7,9 +7,6 @@ const MakeAgain = () => {
 	// temporary userId
 	const userId = 1234;
 
-	// temporary recipeId (will be replaced by url params)
-	const recipeId = "1a2b3c";
-
 	// Import RecipeDetails context
 	const { currentRecipeDetails } = useContext(RecipeDetailsContext);
 
@@ -38,7 +35,7 @@ const MakeAgain = () => {
 
 		if (currentRecipeDetails.make_again !== valueUserHasClickedOn) {
 			// Update the value of the make_again field in the database.
-			fetch(`/api/user/${userId}/recipes/${recipeId}/update`, {
+			fetch(`/api/user/${userId}/recipes/${currentRecipeDetails.recipeId}/update`, {
 				method: "PATCH",
 				headers: {
 					Accept: "application/json",
