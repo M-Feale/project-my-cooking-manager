@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import { styled } from "styled-components";
+import { useParams } from "react-router-dom";
 
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
 
@@ -13,8 +14,9 @@ const RecipeDetails = () => {
 	// temporary userId
 	const userId = 1234;
 
-	// temporary recipeId (will be replaced by url params)
-	const recipeId = "1a2b3c";
+	// // temporary recipeId (will be replaced by url params)
+	// const recipeId = "1a2b3c";
+	const { recipeId } = useParams();
 
 	const { currentRecipeDetails, setCurrentRecipeDetails } =
 		useContext(RecipeDetailsContext);
@@ -69,13 +71,13 @@ const Wrapper = styled.div`
 `;
 
 const LeftSection = styled.div`
-display: flex;
-flex-direction: column;
+	display: flex;
+	flex-direction: column;
 `;
 
 const RightSection = styled.div`
-display: flex;
-flex-direction: column;
+	display: flex;
+	flex-direction: column;
 `;
 
 export default RecipeDetails;
