@@ -322,7 +322,14 @@ const insertRecipe = async (req, res) => {
             // If it's actually new, add the missing fields to the received newRecipe
             // and update the database with the complete object.
             // ------------------------------------------------------------------------ //
-            const completeRecipeObject = { ...newRecipe, shopping_list: [], dates_created: [], notes: [], make_again: null, ratings: [{ overall: 0 }, { taste: 0 }, { time_accuracy: 0 }, { cleanup: 0 }] }
+            const completeRecipeObject = {
+                ...newRecipe, shopping_list: [], dates_created: [], notes: [], make_again: null, ratings: [
+                    { label: "Overall", rating: 0 },
+                    { label: "Time Accuracy", rating: 0 },
+                    { label: "Easy Cleanup", rating: 0 },
+                    { label: "Taste", rating: 0 },
+                ]
+            }
 
             const insertRecipeResult = await db.collection(RE_COLL).updateOne({
                 _id: userId * 1
