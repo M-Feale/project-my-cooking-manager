@@ -1,14 +1,57 @@
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from "react";
 
 import LoginButton from "./LoginButton";
 
 import ProductCarousel from "../assets/ProductCarousel.png";
 
 const Home = () => {
-	const { user, isAuthenticated } = useAuth0();
+	// Import info from auth0 context
+	const { user, isAuthenticated, isLoading } = useAuth0();
+
 	const navigate = useNavigate();
+
+	const [isDatabaseVerified, setIsDatabaseVerified] = useState(false);
+	const [isUserNew, setIsUserNew] = useState(false);
+
+	// Check the database to see if the auth0 user is new to My Cooking Manager.
+	// If new, create the user in the database.
+	useEffect(() => {
+		if (!isLoading && isAuthenticated && !isDatabaseVerified && user.sub) {
+			console.log("this is the user id ", user.sub);
+			fetch("/api/user", {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					userId: user.sub,
+				}),
+			})
+				.then((response) => response.json())
+				.then((parsedResponse) => {
+					if (parsedResponse.status === 200) {
+						console.log(parsedResponse);
+						console.log("this user is not new");
+						setIsDatabaseVerified(true);
+						setIsUserNew(false);
+					} else if (parsedResponse.status === 201) {
+						console.log(parsedResponse);
+						console.log("this user is new");
+						setIsDatabaseVerified(true);
+						setIsUserNew(true);
+					} else {
+						throw new Error(parsedResponse.message);
+					}
+				})
+				.catch((error) => {
+					console.error("Fetch error:", error);
+				});
+		}
+	}, []);
 
 	return (
 		<Wrapper>
@@ -21,20 +64,26 @@ const Home = () => {
 				Welcome to <ItalicSpan>My Cooking Manager</ItalicSpan>, the
 				place to help you organize your online recipes!
 			</Slogan>
-			<ActionContainer>
-				{user && isAuthenticated ? (
-					<ActionText>{`Welcome back, ${user?.name}`}</ActionText>
-				) : (
+			{!isAuthenticated ? (
+				<ActionContainer>
 					<ActionText>Start Managing now!</ActionText>
-				)}
-				{user && isAuthenticated ? (
+					<LoginButton />
+				</ActionContainer>
+			) : isUserNew ? (
+				<ActionContainer>
+					<ActionText>{`Nice to meet you, ${user.name}`}</ActionText>
+					<ActionButton onClick={() => navigate("/catalogue")}>
+						Add your first recipe!
+					</ActionButton>
+				</ActionContainer>
+			) : (
+				<ActionContainer>
+					<ActionText>{`Welcome back, ${user.name}`}</ActionText>
 					<ActionButton onClick={() => navigate("/recipes")}>
 						Browse your Recipe Collection
 					</ActionButton>
-				) : (
-					<LoginButton />
-				)}
-			</ActionContainer>
+				</ActionContainer>
+			)}
 		</Wrapper>
 	);
 };
