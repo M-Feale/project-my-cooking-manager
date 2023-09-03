@@ -11,6 +11,7 @@ import NavigateRecipeWebsite from "./NavigateRecipeWebsite";
 import Notepad from "./Notepad";
 import RatingSystem from "./RatingSystem";
 import DateTracker from "./DateTracker";
+import RecipeDetailsCategorySelect from "./RecipeDetailsCategorySelect";
 
 const RecipeDetails = () => {
 	// I'll need to see how I can access the UserContext from auth0.
@@ -62,6 +63,7 @@ const RecipeDetails = () => {
 						<Notepad />
 						<MakeAgain />
 						<DateTracker />
+						<RecipeDetailsCategorySelect />
 						<NavigateRecipeWebsite />
 					</RightSection>
 				</Wrapper>
