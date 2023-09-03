@@ -1,11 +1,14 @@
 import { useContext, useState } from "react";
 import { styled } from "styled-components";
 
+import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
 
 const UrlInput = () => {
 	// temporary userId
 	const userId = 1234;
+
+	const searchInput = useAutoFocus();
 
 	// Import context
 	const { catalogueFlow, setCatalogueFlow } =
@@ -92,6 +95,7 @@ const UrlInput = () => {
 					value={catalogueFlow.recipeInfo.recipe_url}
 					placeholder="Paste your recipe website address here !"
 					autoFocus={!catalogueFlow.isRecipeInput}
+					ref={searchInput}
 					onChange={(event) =>
 						setCatalogueFlow({
 							...catalogueFlow,

@@ -2,12 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
+import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
 
 import CategoryCreation from "./CategoryCreation";
 
-const CategorySelect = () => {
+const CatalogueCategorySelect = () => {
 	// temporary userId
 	const userId = 1234;
+
+	const selectInput = useAutoFocus();
 
 	// Import the CatalogueFlow Context
 	const { catalogueFlow, setCatalogueFlow } =
@@ -55,6 +58,7 @@ const CategorySelect = () => {
 				value={catalogueFlow.recipeInfo.category}
 				onChange={handleCategoryChange}
 				disabled={createNewCategory}
+				ref={selectInput}
 			>
 				<Option disabled={true} value="">
 					--Choose a Category--
@@ -142,4 +146,4 @@ const Option = styled.option`
 	padding: 2px 2px 5px 2px;
 `;
 
-export default CategorySelect;
+export default CatalogueCategorySelect;
