@@ -1,13 +1,18 @@
-import { Rating } from "@smastrom/react-rating";
 import { useContext, useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Rating } from "@smastrom/react-rating";
+import { styled } from "styled-components";
+
+import { RecipeDetailsContext } from "./RecipeDetailsContext";
 
 import "@smastrom/react-rating/style.css";
-import { styled } from "styled-components";
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
 
 const RatingSystem = () => {
 	// temporary user id
 	const userId = 1234;
+
+		//Import user object from auth0
+		const {user} = useAuth0()
 
 	const { currentRecipeDetails, setCurrentRecipeDetails } =
 		useContext(RecipeDetailsContext);
@@ -17,7 +22,7 @@ const RatingSystem = () => {
 	useEffect(() => {
 		if (wereRatingsEdited) {
 			console.log("the ratings have changed!!!");
-			fetch(`/api/user/${userId}/recipes/${currentRecipeDetails.recipeId}/update`, {
+			fetch(`/api/user/${user.sub}/recipes/${currentRecipeDetails.recipeId}/update`, {
 				method: "PATCH",
 				headers: {
 					Accept: "application/json",

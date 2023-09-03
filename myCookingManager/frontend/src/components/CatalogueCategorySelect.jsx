@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
 import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
@@ -7,8 +8,11 @@ import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
 import CategoryCreation from "./CategoryCreation";
 
 const CatalogueCategorySelect = () => {
-	// temporary userId
-	const userId = 1234;
+	// // temporary userId
+	// const userId = 1234;
+
+	//Import user object from auth0
+	const {user} = useAuth0()
 
 	const selectInput = useAutoFocus();
 
@@ -24,7 +28,7 @@ const CatalogueCategorySelect = () => {
 
 	// GET all the recipe categories associated with the user's recipe collection
 	useEffect(() => {
-		fetch(`/api/user/${userId}/categories`)
+		fetch(`/api/user/${user.sub}/categories`)
 			.then((res) => res.json())
 			.then((parsedResponse) => {
 				if (parsedResponse.status === 200) {

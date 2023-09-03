@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { styled } from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
@@ -7,6 +8,9 @@ import { CatalogueFlowContext } from "./CatalogueFlowContext";
 const UrlInput = () => {
 	// temporary userId
 	const userId = 1234;
+
+		//Import user object from auth0
+		const {user} = useAuth0()
 
 	const searchInput = useAutoFocus();
 
@@ -24,7 +28,7 @@ const UrlInput = () => {
 			(event?.code === "Enter" &&
 				catalogueFlow.recipeInfo.recipe_url.length > 0)
 		) {
-			fetch(`/api/user/${userId}/catalogue`, {
+			fetch(`/api/user/${user.sub}/catalogue`, {
 				method: "POST",
 				headers: {
 					Accept: "application/json",

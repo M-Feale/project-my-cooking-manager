@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
 
@@ -13,6 +14,9 @@ const CataloguingPage = () => {
 	// Temporary userid
 	const userId = 1234;
 
+		//Import user object from auth0
+		const {user} = useAuth0()
+
 	// Import context to control conditional rendering
 	const { catalogueFlow, setCatalogueFlow } =
 		useContext(CatalogueFlowContext);
@@ -24,7 +28,7 @@ const CataloguingPage = () => {
 		if (catalogueFlow.isCategoryConfirmed) {
 			console.log("The category is confirmed! Time to do the put");
 
-			fetch(`/api/user/${userId}/recipes`, {
+			fetch(`/api/user/${user.sub}/recipes`, {
 				method: "PUT",
 				headers: {
 					Accept: "application/json",

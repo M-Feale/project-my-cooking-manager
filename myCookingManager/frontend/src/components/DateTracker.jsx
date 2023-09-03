@@ -1,10 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
 
 const DateTracker = () => {
 	//temporary user id
 	const userId = 1234;
+
+		//Import user object from auth0
+		const {user} = useAuth0()
 
 	const { currentRecipeDetails, setCurrentRecipeDetails } =
 		useContext(RecipeDetailsContext);
@@ -16,7 +21,7 @@ const DateTracker = () => {
 	useEffect(() => {
 		if (wereDatesEdited) {
 			fetch(
-				`/api/user/${userId}/recipes/${currentRecipeDetails.recipeId}/update`,
+				`/api/user/${user.sub}/recipes/${currentRecipeDetails.recipeId}/update`,
 				{
 					method: "PATCH",
 					headers: {

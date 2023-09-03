@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const CategoryMenu = ({ setCategory }) => {
 
 	// temporary userId
 	const userId = 1234;
 
+		//Import user object from auth0
+		const {user} = useAuth0()
+
 	const [menuCategories, setMenuCategories] = useState([]);
 
 	useEffect(() => {
-		fetch(`/api/user/${userId}/categories`)
+		fetch(`/api/user/${user.sub}/categories`)
             .then(res => res.json())
             .then((parsedResponse) => {
                 if (parsedResponse.status === 200){

@@ -1,11 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
 import { styled } from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Notepad = () => {
 
 	//temporary user id
 	const userId = 1234;
+
+		//Import user object from auth0
+		const {user} = useAuth0()
 
 	const { currentRecipeDetails, setCurrentRecipeDetails } =
 		useContext(RecipeDetailsContext);
@@ -17,7 +21,7 @@ const Notepad = () => {
 	useEffect(() => {
 		if (wereNotesEdited) {
 
-			fetch(`/api/user/${userId}/recipes/${currentRecipeDetails.recipeId}/update`, {
+			fetch(`/api/user/${user.sub}/recipes/${currentRecipeDetails.recipeId}/update`, {
 				method: "PATCH",
 				headers: {
 					Accept: "application/json",
