@@ -1,13 +1,17 @@
 import { styled } from "styled-components";
 
+import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
+
 const CategoryCreation= ({ label, inputOnChangeFunc, buttonClickFunc }) => {
+
+	const categoryInput = useAutoFocus()
 
 	return (
 		<Container>
 			<Label htmlFor={label}>{label}</Label>
-			<Input id={label} onChange={(e) => inputOnChangeFunc(e.target.value)} />
-            <button onClick={() => buttonClickFunc()}>Create New Category</button>
-		</Container>
+			<Input  id={label} onChange={(e) => inputOnChangeFunc(e.target.value)} />
+            <button ref={categoryInput} onClick={() => buttonClickFunc()}>Create New Category</button>
+		</Container >
 	);
 };
 

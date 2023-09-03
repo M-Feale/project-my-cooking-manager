@@ -1,8 +1,12 @@
 import { styled } from "styled-components";
+import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
 
 const DialogueButton = ({ onClickFunc, text }) => {
+
+	const buttonRef = useAutoFocus()
+
 	return (
-			<Button onClick={onClickFunc}>{text}</Button>
+			<Button ref={buttonRef} onClick={onClickFunc}>{text}</Button>
 	);
 };
 
