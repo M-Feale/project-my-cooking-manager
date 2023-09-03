@@ -5,7 +5,7 @@ import { CatalogueFlowContext } from "./CatalogueFlowContext";
 
 import CategoryCreation from "./CategoryCreation";
 
-const CategorySelect = () => {
+const CatalogueCategorySelect = () => {
 	// temporary userId
 	const userId = 1234;
 
@@ -142,4 +142,4 @@ const Option = styled.option`
 	padding: 2px 2px 5px 2px;
 `;
 
-export default CategorySelect;
+export default CatalogueCategorySelect;

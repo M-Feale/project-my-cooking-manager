@@ -7,7 +7,7 @@ import { CatalogueFlowContext } from "./CatalogueFlowContext";
 import UrlInput from "./UrlInput";
 import RecipePreview from "./RecipePreview";
 import DialogueBox from "./DialogueBox";
-import CategorySelect from "./CategorySelect";
+import CatalogueCategorySelect from "./CatalogueCategorySelect";
 
 const CataloguingPage = () => {
 	// Temporary userid
@@ -93,7 +93,7 @@ const CataloguingPage = () => {
 		<Wrapper>
 			<UrlInput />
 			{catalogueFlow.isRecipeInput && <RecipePreview />}
-			{catalogueFlow.isRecipePreviewCorrect && <CategorySelect />}
+			{catalogueFlow.isRecipePreviewCorrect && <CatalogueCategorySelect />}
 			{catalogueFlow.isRecipePreviewCorrect === false && (
 				<DialogueBox
 					title={"What do you want to do next ?"}
