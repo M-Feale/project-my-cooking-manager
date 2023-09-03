@@ -7,11 +7,11 @@ const IngredientListInput = () => {
 	// temporary userId
 	const userId = 1234;
 
+		//Import user object from auth0
+		const {user} = useAuth0()
+
 	// Import RecipeDetails context
 	const { currentRecipeDetails } = useContext(RecipeDetailsContext);
-
-	// Import User info from Auth0
-	const { user } = useAuth0();
 
 	// State used to store the TextArea interactions/information
 	const [listTextarea, setListTextarea] = useState({
@@ -46,7 +46,7 @@ const IngredientListInput = () => {
 				return ingredient.trim().length > 0;
 			});
 		// Update the value of the shopping_list field in the database.
-		fetch(`/api/user/${userId}/recipes/${currentRecipeDetails.recipeId}/update`, {
+		fetch(`/api/user/${user.sub}/recipes/${currentRecipeDetails.recipeId}/update`, {
 			method: "PATCH",
 			headers: {
 				Accept: "application/json",
@@ -86,7 +86,7 @@ const IngredientListInput = () => {
 				return ingredient.trim().length > 0;
 			});
 
-		fetch(`/api/user/${userId}/recipes/${recipeId}/ingredient-list/email`, {
+		fetch(`/api/user/${user.sub}/recipes/${currentRecipeDetails.recipeId}/ingredient-list/email`, {
 			method: "POST",
 			headers: {
 				Accept: "application/json",

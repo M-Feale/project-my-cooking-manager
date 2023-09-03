@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import SearchBar from "./SearchBar";
 import CategoryMenu from "./CategoryMenu";
@@ -7,6 +8,9 @@ import RecipeGrid from "./RecipeGrid";
 const RecipeCollection = () => {
 	// temporary userId
 	const userId = 1234;
+
+		//Import user object from auth0
+		const {user} = useAuth0()
 
 	const [recipes, setRecipes] = useState("");
 	const [searchTerms, setSearchTerms] = useState("");
@@ -19,11 +23,11 @@ const RecipeCollection = () => {
 		// Logic to set the fetch endpoint url to the appropriate value
 		let endpoint;
 		if (searchTerms) {
-			endpoint = `/api/user/${userId}/recipes/search/${searchTerms}`;
+			endpoint = `/api/user/${user.sub}/recipes/search/${searchTerms}`;
 		} else if (category) {
-			endpoint = `/api/user/${userId}/categories/${category}`;
+			endpoint = `/api/user/${user.sub}/categories/${category}`;
 		} else {
-			endpoint = `/api/user/${userId}/recipes`;
+			endpoint = `/api/user/${user.sub}/recipes`;
 		}
 
 		fetch(endpoint)

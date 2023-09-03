@@ -1,11 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
 
 const MakeAgain = () => {
 	// temporary userId
 	const userId = 1234;
+
+		//Import user object from auth0
+		const {user} = useAuth0()
 
 	// Import RecipeDetails context
 	const { currentRecipeDetails } = useContext(RecipeDetailsContext);
@@ -35,7 +39,7 @@ const MakeAgain = () => {
 
 		if (currentRecipeDetails.make_again !== valueUserHasClickedOn) {
 			// Update the value of the make_again field in the database.
-			fetch(`/api/user/${userId}/recipes/${currentRecipeDetails.recipeId}/update`, {
+			fetch(`/api/user/${user.sub}/recipes/${currentRecipeDetails.recipeId}/update`, {
 				method: "PATCH",
 				headers: {
 					Accept: "application/json",

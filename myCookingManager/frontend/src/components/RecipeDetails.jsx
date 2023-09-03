@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { styled } from "styled-components";
 import { useParams } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
 
@@ -18,6 +19,9 @@ const RecipeDetails = () => {
 	// temporary userId
 	const userId = 1234;
 
+		//Import user object from auth0
+		const {user} = useAuth0()
+
 	// // temporary recipeId (will be replaced by url params)
 	// const recipeId = "1a2b3c";
 	const { recipeId } = useParams();
@@ -33,7 +37,7 @@ const RecipeDetails = () => {
 		// 	!currentRecipeDetails.recipeId &&
 		// 	currentRecipeDetails.recipeId !== recipeId
 		// ) {
-		fetch(`/api/user/${userId}/recipes/${recipeId}`)
+		fetch(`/api/user/${user.sub}/recipes/${recipeId}`)
 			.then((res) => res.json())
 			.then((parsedResponse) => {
 				if (parsedResponse.status === 200) {
