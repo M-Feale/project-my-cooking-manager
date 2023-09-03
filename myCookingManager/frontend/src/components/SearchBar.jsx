@@ -25,16 +25,22 @@ const SearchBar = ({ setSearchTerms, failedSearch }) => {
 					type="text"
 					name="searchBar"
 					value={searchField}
-					placeholder="Write a category, a word in a recipe name or the website associated with your recipes"
+					placeholder="Search by category, recipe name or website of origin"
 					onChange={(event) => setSearchField(event.target.value)}
 					onKeyDown={handleSearchSubmit}
 				/>
 				<Button onClick={() => handleSearchSubmit()}>Search</Button>
 				<Button onClick={handleClearField}>Clear</Button>
 			</SearchInputContainer>
-
-			{/* when the back end is set up, I'll have to modify the styling of the the paragraph to see how it appears */}
-			{failedSearch && <p>{failedSearch}</p>}
+			{!failedSearch ? (
+				<FailedSearchDiv>
+					<FailedSearchText></FailedSearchText>
+				</FailedSearchDiv>
+			) : (
+				<FailedSearchDiv>
+					<FailedSearchText> {failedSearch}</FailedSearchText>
+				</FailedSearchDiv>
+			)}
 		</Container>
 	);
 };
@@ -74,11 +80,19 @@ const Button = styled.button`
 	color: white;
 	margin: 0 10px;
 	border: 2px solid var(--primary-color);
+	border-radius: 5px;
 
 	&:focus {
 		border: 2px solid black;
 		outline: none;
 	}
 `;
+
+const FailedSearchDiv = styled.div`
+	width: 60vw;
+	min-height: 16px; // same height as the font-size of the FailedSearchText
+`;
+
+const FailedSearchText = styled.p``;
 
 export default SearchBar;
