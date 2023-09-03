@@ -2,9 +2,9 @@ import { Rating } from "@smastrom/react-rating";
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
 
-import { lastDateCalculator } from "../../utility_functions/lastDateCalculator";
 import { FaListUl } from "react-icons/fa";
 import { FaRegNoteSticky } from "react-icons/fa6";
+import { lastDateCalculator } from "../utility_functions/lastDateCalculator";
 
 const RecipeCard = ({ recipe }) => {
 	const navigate = useNavigate();
