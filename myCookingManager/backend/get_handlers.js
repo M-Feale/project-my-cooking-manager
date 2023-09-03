@@ -22,8 +22,8 @@ const getRecipes = async (req, res) => {
         const db = client.db(DB_NAME);
         console.log("connected");
 
-        // Find all recipes associated to the user in the database (userId is multiplied by 1 to convert it from a string to a number)
-        const recipesResult = await db.collection(RE_COLL).findOne({ _id: userId * 1 }, { projection: { _id: 0, recipes: 1 } })
+        // Find all recipes associated to the user in the database 
+        const recipesResult = await db.collection(RE_COLL).findOne({ _id: userId }, { projection: { _id: 0, recipes: 1 } })
 
         // Return success when results exist. If not return 404
         if (recipesResult && Object.keys(recipesResult).length > 0) {
@@ -54,9 +54,9 @@ const getSingleRecipe = async (req, res) => {
         const db = client.db(DB_NAME);
         console.log("connected");
 
-        // Find the specified recipe tied to the user (userId is multiplied by 1 to convert it from a string to a number)
+        // Find the specified recipe tied to the user 
         const singleRecipeResult = await db.collection(RE_COLL).aggregate([
-            { $match: { _id: userId * 1 } },
+            { $match: { _id: userId } },
             { $project: { recipes: { $filter: { input: "$recipes", as: "recipe", cond: { $eq: ["$$recipe.recipeId", recipeId] }, limit: 1 } } } }
         ]).toArray()
 
@@ -89,10 +89,10 @@ const searchRecipes = async (req, res) => {
         const db = client.db(DB_NAME);
         console.log("connected");
 
-        // Construct variables for the aggregation pipeline stages (userId is multiplied by 1 to convert it from a string to a number)
+        // Construct variables for the aggregation pipeline stages 
         const matchQuery = {
             $match: {
-                _id: userId * 1
+                _id: userId
             }
         }
         // ----------------------------------------------------------------------------------------------- //
@@ -138,10 +138,10 @@ const getCategories = async (req, res) => {
         const db = client.db(DB_NAME);
         console.log("connected");
 
-        // Construct match query for the aggregation pipeline (userId is multiplied by 1 to convert it from a string to a number)
+        // Construct match query for the aggregation pipeline 
         const matchQuery = {
             $match: {
-                _id: userId * 1
+                _id: userId 
             }
         }
         // ---------------------------------------------------------------------------------------------------- //
@@ -188,11 +188,11 @@ const getRecipesByCategory = async (req, res) => {
         console.log("connected");
 
         // -------------------------------------------------------------------------------------------------------------- //
-        // Find the specified recipe tied to the user (userId is multiplied by 1 to convert it from a string to a number)
+        // Find the specified recipe tied to the user 
         // Return every recipe in the recipes array that has a category matching the category provided in the req.params
         // -------------------------------------------------------------------------------------------------------------- //
         const recipesByCategoryResult = await db.collection(RE_COLL).aggregate([
-            { $match: { _id: userId * 1 } },
+            { $match: { _id: userId } },
             { $project: { recipes: { $filter: { input: "$recipes", as: "recipe", cond: { $eq: ["$$recipe.category", category] } } } } }
         ]).toArray();
 

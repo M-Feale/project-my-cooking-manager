@@ -35,7 +35,7 @@ const sendShoppingListEmail = async (req, res) => {
 
         // Find the specified recipe tied to the user and extract the recipe name
         const specificRecipeResult = await db.collection(RE_COLL).aggregate([
-            { $match: { _id: userId * 1 } },
+            { $match: { _id: userId } },
             { $project: { recipes: { $filter: { input: "$recipes", as: "recipe", cond: { $eq: ["$$recipe.recipeId", recipeId] }, limit: 1 } } } }
         ]).toArray();
         const recipeName = specificRecipeResult[0].recipes[0].name

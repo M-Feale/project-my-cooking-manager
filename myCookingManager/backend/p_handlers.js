@@ -32,9 +32,9 @@ const updateRecipeField = async (req, res) => {
         const db = client.db(DB_NAME);
         console.log("connected");
 
-        // Create query matching the user (multiplied by one to convert it to a number ) with the document and the specific recipe in the recipes array
+        // Create query matching the user with the document and the specific recipe in the recipes array
         const updateQuery = {
-            _id: userId * 1, "recipes.recipeId": recipeId
+            _id: userId, "recipes.recipeId": recipeId
         }
 
         // // Specify update transaction
@@ -77,8 +77,8 @@ const insertRecipe = async (req, res) => {
         const db = client.db(DB_NAME);
         console.log("connected");
 
-        // Create variables to make database interaction cleaneré
-        const match = { $match: { _id: userId * 1 } }
+        // Create variables to make database interaction clearer
+        const match = { $match: { _id: userId } }
         // We're filtering our recipes array to only contain a recipe matching the information given by the grabity link preview.
         const projection = {
             $project: {
@@ -124,7 +124,7 @@ const insertRecipe = async (req, res) => {
             }
 
             const insertRecipeResult = await db.collection(RE_COLL).updateOne({
-                _id: userId * 1
+                _id: userId 
             },
                 { $push: { recipes: completeRecipeObject } })
 
