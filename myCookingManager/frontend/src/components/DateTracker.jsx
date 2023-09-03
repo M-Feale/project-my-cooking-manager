@@ -51,7 +51,7 @@ const DateTracker = () => {
 	const handleClearInputAndAddDate = () => {
 		setDates([
 			...dates,
-			{ id: singleDate + dates.length, text: singleDate },
+			{ id: singleDate, text: singleDate },
 		]);
 		setSingleDate("");
 		setWereDatesEdited(true);
@@ -78,7 +78,7 @@ const DateTracker = () => {
 			hour12: false,
 		});
 
-		setDates([...dates, { id: singleDate + dates.length, text: today }]);
+		setDates([...dates, { id: today, text: today }]);
 		setWereDatesEdited(true);
 	};
 
