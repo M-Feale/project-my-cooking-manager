@@ -22,8 +22,8 @@ const RecipeDetailsCategorySelect = () => {
 	// State used to determine if the select should be disabled or not.
 	const [isCategoryEdited, setIsCategoryEdited] = useState(false);
 
-    // State used to determine when to change the category in the database
-    const [isNewCategoryConfirmed, setIsNewCategoryConfirmed] = useState(false)
+	// State used to determine when to change the category in the database
+	const [isNewCategoryConfirmed, setIsNewCategoryConfirmed] = useState(false);
 
 	// GET all the recipe categories associated with the user's recipe collection
 	useEffect(() => {
@@ -41,23 +41,25 @@ const RecipeDetailsCategorySelect = () => {
 			});
 	}, []);
 
-    useEffect(() => {
-        if (isNewCategoryConfirmed) {
-            console.log("ive confirmed the new category!")
-            setSelectCategories([...selectCategories, currentRecipeDetails.category])
-            setIsCategoryEdited(false)
-            setCreateNewCategory(false)
-            setIsNewCategoryConfirmed(false)
-        }
-
-    }, [isNewCategoryConfirmed])
+	useEffect(() => {
+		if (isNewCategoryConfirmed) {
+			console.log("ive confirmed the new category!");
+			setSelectCategories([
+				...selectCategories,
+				currentRecipeDetails.category,
+			]);
+			setIsCategoryEdited(false);
+			setCreateNewCategory(false);
+			setIsNewCategoryConfirmed(false);
+		}
+	}, [isNewCategoryConfirmed]);
 
 	const handleCategoryChange = (event) => {
 		setCurrentRecipeDetails({
 			...currentRecipeDetails,
 			category: event.target.value,
 		});
-        setIsCategoryEdited(false)
+		// setIsCategoryEdited(false)
 		if (event.target.value === "Unspecified Category") {
 			setCreateNewCategory(true);
 		}
@@ -76,7 +78,10 @@ const RecipeDetailsCategorySelect = () => {
 				</Option>
 				{selectCategories?.map((category, index) => {
 					return (
-						<Option key={category+index} disabled={createNewCategory}>
+						<Option
+							key={category + index}
+							disabled={createNewCategory}
+						>
 							{category}
 						</Option>
 					);
@@ -85,11 +90,17 @@ const RecipeDetailsCategorySelect = () => {
 					Create a New Category
 				</Option>
 			</Select>
-			{!createNewCategory && currentRecipeDetails.category && (
-				<button onClick={() => setIsCategoryEdited(true)}>
-					Edit Category
-				</button>
-			)}
+			{!createNewCategory &&
+				currentRecipeDetails.category &&
+				(!isCategoryEdited ? (
+					<button onClick={() => setIsCategoryEdited(true)}>
+						Edit Category
+					</button>
+				) : (
+					<button onClick={() => setIsCategoryEdited(false)}>
+						Save Category
+					</button>
+				))}
 			{createNewCategory && (
 				<CategoryCreation
 					label={"New Category Name"}
@@ -116,9 +127,9 @@ const Wrapper = styled.div`
 `;
 
 const Label = styled.label`
-    color: var(--primary-color);
-    font-family: var(--heading-font-family);
-    font-weight: var(--heading-font-weight)
+	color: var(--primary-color);
+	font-family: var(--heading-font-family);
+	font-weight: var(--heading-font-weight);
 `;
 
 const Select = styled.select`
