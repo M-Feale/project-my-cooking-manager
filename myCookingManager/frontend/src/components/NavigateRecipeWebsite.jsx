@@ -28,6 +28,7 @@ const Wrapper = styled.div`
 	border: none;
 	outline: none;
 	border-radius: 5px;
+	margin: 20px 0;
 `;
 
 const LinkText = styled.p`

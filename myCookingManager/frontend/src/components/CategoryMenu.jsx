@@ -3,30 +3,31 @@ import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const CategoryMenu = ({ setCategory }) => {
+	//Import user object from auth0
+	const { user } = useAuth0();
 
-	// temporary userId
-	const userId = 1234;
-
-		//Import user object from auth0
-		const {user} = useAuth0()
-
+	// Stores the categories fetched for the current user.
 	const [menuCategories, setMenuCategories] = useState([]);
 
 	useEffect(() => {
 		fetch(`/api/user/${user.sub}/categories`)
-            .then(res => res.json())
-            .then((parsedResponse) => {
-                if (parsedResponse.status === 200){
-                    setMenuCategories(parsedResponse.data)
-                } else {
-                    throw new Error(data.message)
-                }
-            })
-            .catch((error) => {
+			.then((res) => res.json())
+			.then((parsedResponse) => {
+				if (parsedResponse.status === 200) {
+					setMenuCategories(parsedResponse.data);
+				} else {
+					throw new Error(data.message);
+				}
+			})
+			.catch((error) => {
 				console.error("Fetch error:", error.message);
 			});
 	}, []);
 
+	// --------------------------------------------------------------------------------------- //
+	// Sets the category to the value of the button clicked. Results is brought back to 
+	// RecipeCollection to handle fetching the recipes associated with the specified category.
+	// --------------------------------------------------------------------------------------- //
 	const handleCategory = (category) => {
 		if (category === "All recipes") {
 			setCategory("");
@@ -37,9 +38,9 @@ const CategoryMenu = ({ setCategory }) => {
 
 	return (
 		<Container>
-            <CategoryButton onClick={() => handleCategory("All recipes")} >
-                All Recipes
-            </CategoryButton>
+			<CategoryButton onClick={() => handleCategory("All recipes")}>
+				All Recipes
+			</CategoryButton>
 			{menuCategories.length > 0 &&
 				menuCategories.map((category) => {
 					return (
@@ -73,6 +74,8 @@ const CategoryButton = styled.button`
 	color: var(--primary-color);
 	margin: 0 10px;
 	border: 2px solid var(--secondary-color);
+	min-width: 125px;
+	border-radius: 5px;
 
 	&:focus {
 		border: 2px solid black;

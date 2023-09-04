@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
 
 const DetailsPreview = () => {
+	// Import the context that provides information about the current recipe
 	const { currentRecipeDetails } = useContext(RecipeDetailsContext);
 
 	return (
@@ -31,12 +32,15 @@ const Wrapper = styled.div`
 	justify-content: center;
 	align-items: start;
 	width: 40vw;
+	flex-grow: 1;
 `;
 
 const RecipeTextContainer = styled.div``;
 
 const RecipeTitle = styled.h1`
 	display: block;
+	padding: 5px 0;
+	font-size: 24px;
 `;
 
 const RecipeAuthor = styled.p`
@@ -45,15 +49,22 @@ const RecipeAuthor = styled.p`
 
 const RecipeDescription = styled.p`
 	text-align: justify;
+	margin: 10px 0;
+	font-size: 18px;
 `;
 
 const RecipeImageContainer = styled.div`
 	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-height: 60vh;
+	overflow: hidden;
 `;
 
 const RecipeImage = styled.img`
-    // This will have to be played with for it to be cropped in some way and not take the whole height of the page.
-	width: 300px;
+	display: block;
+	width: 100%;
 `;
 
 export default DetailsPreview;

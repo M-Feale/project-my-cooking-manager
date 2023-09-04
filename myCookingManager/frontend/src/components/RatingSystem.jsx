@@ -1,37 +1,39 @@
 import { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Rating } from "@smastrom/react-rating";
 import { styled } from "styled-components";
 
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
-
+import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 
+import { RecipeDetailsContext } from "./RecipeDetailsContext";
+import { allRatingsCalculator } from "../utility_functions/allRatingsCalculator";
+
 const RatingSystem = () => {
-	// temporary user id
-	const userId = 1234;
+	// Import user object from auth0
+	const { user } = useAuth0();
 
-		//Import user object from auth0
-		const {user} = useAuth0()
-
+	// Import the context that provides information about the current recipe
 	const { currentRecipeDetails, setCurrentRecipeDetails } =
 		useContext(RecipeDetailsContext);
 
+	// State that tracks if the Ratings were edited to trigger the fetch PATCH
 	const [wereRatingsEdited, setWereRatingsEdited] = useState(false);
 
 	useEffect(() => {
 		if (wereRatingsEdited) {
-			console.log("the ratings have changed!!!");
-			fetch(`/api/user/${user.sub}/recipes/${currentRecipeDetails.recipeId}/update`, {
-				method: "PATCH",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					info: { ratings: currentRecipeDetails.ratings },
-				}),
-			})
+			fetch(
+				`/api/user/${user.sub}/recipes/${currentRecipeDetails.recipeId}/update`,
+				{
+					method: "PATCH",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						info: { ratings: currentRecipeDetails.ratings },
+					}),
+				}
+			)
 				.then((response) => response.json())
 				.then((parsedResponse) => {
 					if (parsedResponse.status === 200) {
@@ -49,49 +51,68 @@ const RatingSystem = () => {
 
 	const handleRating = (rating, label) => {
 		setWereRatingsEdited(true);
+		// Make a hard copy of the state to use it in the utility function
 		const currentRatings = [...currentRecipeDetails.ratings];
-		const foundRating = currentRatings.find((rating) => {
-			return rating.label === label;
-		});
-		foundRating.rating = rating;
-		const overallRating = currentRatings.find((rating) => {
-			return rating.label === "Overall";
-		});
-		let total = 0;
-		currentRatings
-			.filter((rating) => rating.label !== "Overall")
-			.forEach((rating) => {
-				total = rating.rating + total;
-			});
-		const average = total / 3;
-		overallRating.rating = average.toFixed(2) * 1;
+		// ------------------------------------------------------------------------- //
+		// The "ratings" array contains 4 objects labeled "Overall", "Time Accuracy",
+		// "Easy Cleanup" and "Taste". This function handles the rating matching the
+		// provided label and makes an average of the 3 ratings to set it as the
+		// "Overall" rating. It returns the "ratings" array with the right ratings.
+		// (The ones coming from the onChange input and the calculated "Overall")
+		// ------------------------------------------------------------------------- //
+		const modifiedRatingsArray = allRatingsCalculator(
+			rating,
+			label,
+			currentRatings
+		);
+		// Set the return of the utility function to the context
 		setCurrentRecipeDetails({
 			...currentRecipeDetails,
-			ratings: currentRatings,
+			ratings: modifiedRatingsArray,
 		});
 	};
 
 	return (
-		<div>
+		<Wrapper>
 			{currentRecipeDetails.ratings
 				.filter((rating) => rating.label !== "Overall")
 				.map((rating) => {
 					return (
-						<div key={rating.label}>
-							<Label>{rating.label}</Label>
+						<RatingAndLabelContainer key={rating.label}>
+							<Label htmlFor={rating.label}>{rating.label}</Label>
 							<Rating
+								id={rating.label}
 								style={{ maxWidth: 250 }}
 								value={rating.rating}
 								onChange={(newRating) =>
 									handleRating(newRating, rating.label)
 								}
 							/>
-						</div>
+						</RatingAndLabelContainer>
 					);
 				})}
-		</div>
+		</Wrapper>
 	);
 };
 
-const Label = styled.label``;
+const Wrapper = styled.div`
+	margin: 20px 0;
+	padding: 20px;
+	background-color: var(--secondary-color);
+	flex-grow: 1;
+`;
+
+const RatingAndLabelContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+`;
+
+const Label = styled.label`
+	color: var(--primary-color);
+	font-family: var(--heading-font-family);
+	font-weight: bold;
+	display: block;
+`;
 export default RatingSystem;
