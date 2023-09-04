@@ -1,10 +1,19 @@
 import { styled } from "styled-components";
+import { useState } from "react";
 
 import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
 
 const CategoryCreation = ({ label, inputOnChangeFunc, buttonClickFunc }) => {
 	// Import custom useRef hook that outputs a focused ref
 	const categoryInput = useAutoFocus();
+
+	// State that stores a flag for enabling/disabling category creation button
+	const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+
+	const handleOnChange = (event) => {
+		inputOnChangeFunc(event.target.value)
+		setIsButtonDisabled(false)
+	}
 
 	return (
 		<Container>
@@ -13,9 +22,13 @@ const CategoryCreation = ({ label, inputOnChangeFunc, buttonClickFunc }) => {
 				<Input
 					id={label}
 					placeholder="Write your new category here !"
-					onChange={(e) => inputOnChangeFunc(e.target.value)}
+					onChange={(ev) => handleOnChange(ev)}
 				/>
-				<Button ref={categoryInput} onClick={() => buttonClickFunc()}>
+				<Button
+					disabled={isButtonDisabled}
+					ref={categoryInput}
+					onClick={buttonClickFunc}
+				>
 					Create New Category
 				</Button>
 			</InputAndButtonDiv>
@@ -27,7 +40,7 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: flex-start;
+	align-items: center;
 	width: 100%;
 `;
 
@@ -45,7 +58,6 @@ const InputAndButtonDiv = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-
 `;
 
 const Input = styled.input`
@@ -67,6 +79,8 @@ const Button = styled.button`
 	padding: 5px;
 	max-width: 150px;
 	border-radius: 3px;
+	opacity: ${(props) => (props.disabled ? "0.5" : "1")};
+	cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 
 	&:focus {
 		border: 2px solid black;
