@@ -80,9 +80,9 @@ const RatingSystem = () => {
 				.map((rating) => {
 					return (
 						<RatingAndLabelContainer key={rating.label}>
-							<Label htmlFor={rating.label}>{rating.label}</Label>
+							<TitleText>{rating.label}</TitleText>
 							<Rating
-								id={rating.label}
+								visibleLabelId={rating.label}
 								style={{ maxWidth: 250 }}
 								value={rating.rating}
 								onChange={(newRating) =>
@@ -110,7 +110,7 @@ const RatingAndLabelContainer = styled.div`
 	align-items: center;
 `;
 
-const Label = styled.label`
+const TitleText = styled.h2`
 	color: var(--primary-color);
 	font-family: var(--heading-font-family);
 	font-weight: bold;
