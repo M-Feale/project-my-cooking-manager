@@ -100,7 +100,6 @@ const Wrapper = styled.div`
 	margin: 20px 0;
 	padding: 20px;
 	background-color: var(--secondary-color);
-	flex-grow: 1;
 `;
 
 const RatingAndLabelContainer = styled.div`
