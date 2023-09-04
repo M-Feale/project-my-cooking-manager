@@ -123,14 +123,13 @@ const DateTracker = () => {
 					</Button>
 				</ButtonDiv>
 				<InputDiv>
-								<Input
-					id="date"
-					placeholder="Write when you created this recipe here !"
-					value={singleDate}
-					onChange={(ev) => setSingleDate(ev.target.value)}
-				/>
+					<Input
+						id="date"
+						placeholder="Write when you created this recipe here !"
+						value={singleDate}
+						onChange={(ev) => setSingleDate(ev.target.value)}
+					/>
 				</InputDiv>
-
 			</InputAndButtonDiv>
 		</Wrapper>
 	);
@@ -155,7 +154,7 @@ const ListParent = styled.ul`
 
 const ListChild = styled.li`
 	width: 100%;
-    display: block;
+	display: block;
 `;
 
 const InputDiv = styled.div`
@@ -180,7 +179,7 @@ const InputAndButtonDiv = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	align-items: flex-end; 
+	align-items: flex-end;
 `;
 
 const ButtonDiv = styled.div`
@@ -213,7 +212,7 @@ const TodayButton = styled.button`
 	padding: 5px;
 	width: 150px;
 	border-radius: 3px;
-	margin-bottom: 5px; 
+	margin-bottom: 5px;
 
 	&:focus {
 		border: 2px solid black;
