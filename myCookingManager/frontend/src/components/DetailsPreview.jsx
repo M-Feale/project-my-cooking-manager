@@ -32,6 +32,7 @@ const Wrapper = styled.div`
 	justify-content: center;
 	align-items: start;
 	width: 40vw;
+	flex-grow: 1;
 `;
 
 const RecipeTextContainer = styled.div``;

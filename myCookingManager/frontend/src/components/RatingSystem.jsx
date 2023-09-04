@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Rating } from "@smastrom/react-rating";
 import { styled } from "styled-components";
+
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
 import { allRatingsCalculator } from "../utility_functions/allRatingsCalculator";
-
-import "@smastrom/react-rating/style.css";
 
 const RatingSystem = () => {
 	// Import user object from auth0
@@ -54,13 +54,17 @@ const RatingSystem = () => {
 		// Make a hard copy of the state to use it in the utility function
 		const currentRatings = [...currentRecipeDetails.ratings];
 		// ------------------------------------------------------------------------- //
-		// The "ratings" array contains 4 objects labeled "Overall", "Time Accuracy", 
+		// The "ratings" array contains 4 objects labeled "Overall", "Time Accuracy",
 		// "Easy Cleanup" and "Taste". This function handles the rating matching the
 		// provided label and makes an average of the 3 ratings to set it as the
-		// "Overall" rating. It returns the "ratings array" with the right ratings.
+		// "Overall" rating. It returns the "ratings" array with the right ratings.
 		// (The ones coming from the onChange input and the calculated "Overall")
 		// ------------------------------------------------------------------------- //
-		const modifiedRatingsArray = allRatingsCalculator(rating, label, currentRatings)
+		const modifiedRatingsArray = allRatingsCalculator(
+			rating,
+			label,
+			currentRatings
+		);
 		// Set the return of the utility function to the context
 		setCurrentRecipeDetails({
 			...currentRecipeDetails,
@@ -69,26 +73,46 @@ const RatingSystem = () => {
 	};
 
 	return (
-		<div>
+		<Wrapper>
 			{currentRecipeDetails.ratings
 				.filter((rating) => rating.label !== "Overall")
 				.map((rating) => {
 					return (
-						<div key={rating.label}>
-							<Label>{rating.label}</Label>
+						<RatingAndLabelContainer key={rating.label}>
+							<Label htmlFor={rating.label}>{rating.label}</Label>
 							<Rating
+								id={rating.label}
 								style={{ maxWidth: 250 }}
 								value={rating.rating}
 								onChange={(newRating) =>
 									handleRating(newRating, rating.label)
 								}
 							/>
-						</div>
+						</RatingAndLabelContainer>
 					);
 				})}
-		</div>
+		</Wrapper>
 	);
 };
 
-const Label = styled.label``;
+const Wrapper = styled.div`
+	margin: 20px 0;
+	padding: 20px;
+	background-color: var(--secondary-color);
+	flex-grow: 1;
+`;
+
+const RatingAndLabelContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+`;
+
+const Label = styled.label`
+	color: var(--primary-color);
+	font-family: var(--heading-font-family);
+	font-weight: bold;
+	display: block;
+`;
 export default RatingSystem;

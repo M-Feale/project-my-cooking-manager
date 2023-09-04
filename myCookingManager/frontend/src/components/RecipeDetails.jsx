@@ -75,7 +75,7 @@ const RecipeDetails = () => {
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	margin: 20px auto;
 	width: 90vw;
 `;
