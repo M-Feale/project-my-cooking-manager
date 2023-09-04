@@ -1,25 +1,22 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
 
-const UrlInput = () => {
-	// temporary userId
-	const userId = 1234;
-
-		//Import user object from auth0
-		const {user} = useAuth0()
-
-	const searchInput = useAutoFocus();
+const UrlInput = ({ resetOnClickFunction }) => {
+	//Import user object from auth0
+	const { user } = useAuth0();
 
 	// Import context
 	const { catalogueFlow, setCatalogueFlow } =
 		useContext(CatalogueFlowContext);
 
-	// This state will be used to notify when thw search is unsuccessful
+	// This state will be used to notify when the search is unsuccessful
 	const [failedSearch, setFailedSearch] = useState("");
+
+	// Initialize a useRef to bring focus to the search input onClick later
+	const searchRef = useRef(null);
 
 	const handleFindSubmit = (event) => {
 		if (
@@ -77,14 +74,9 @@ const UrlInput = () => {
 	};
 
 	const handleClearField = () => {
-		setCatalogueFlow({
-			...catalogueFlow,
-			recipeInfo: {
-				...catalogueFlow.recipeInfo,
-				recipe_url: "",
-			},
-		});
+		resetOnClickFunction();
 		setFailedSearch("");
+		searchRef.current.focus();
 	};
 
 	return (
@@ -99,7 +91,7 @@ const UrlInput = () => {
 					value={catalogueFlow.recipeInfo.recipe_url}
 					placeholder="Paste your recipe website address here !"
 					autoFocus={!catalogueFlow.isRecipeInput}
-					ref={searchInput}
+					ref={searchRef}
 					onChange={(event) =>
 						setCatalogueFlow({
 							...catalogueFlow,
@@ -147,10 +139,18 @@ const Input = styled.input`
 	}
 `;
 
-const Label = styled.label``;
+const Label = styled.label`
+	color: var(--primary-color);
+	font-family: var(--heading-font-family);
+	font-weight: bold;
+	display: block;
+	padding: 5px 0;
+`;
 
 const Button = styled.button`
 	padding: 10px 20px;
+	min-width: 80px;
+	border-radius: 3px;
 	background-color: var(--primary-color);
 	font-family: var(--link-font-family);
 	color: white;
