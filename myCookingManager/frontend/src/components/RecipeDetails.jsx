@@ -83,11 +83,15 @@ const Wrapper = styled.div`
 const LeftSection = styled.div`
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
+	width: 40vw;
 `;
 
 const RightSection = styled.div`
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
+	width: 40vw;
 `;
 
 export default RecipeDetails;
