@@ -21,6 +21,7 @@ const RecipeDetails = () => {
 	// Get the recipeId from the params
 	const { recipeId } = useParams();
 
+	// Import the context that provides information about the current recipe
 	const { currentRecipeDetails, setCurrentRecipeDetails } =
 		useContext(RecipeDetailsContext);
 

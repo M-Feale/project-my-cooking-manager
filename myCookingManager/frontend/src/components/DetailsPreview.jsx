@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import { RecipeDetailsContext } from "./RecipeDetailsContext";
 
 const DetailsPreview = () => {
+	// Import the context that provides information about the current recipe
 	const { currentRecipeDetails } = useContext(RecipeDetailsContext);
 
 	return (
