@@ -7,11 +7,8 @@ import { RecipeDetailsContext } from "./RecipeDetailsContext";
 import CategoryCreation from "./CategoryCreation";
 
 const RecipeDetailsCategorySelect = () => {
-	// temporary userId
-	const userId = 1234;
-
-		//Import user object from auth0
-		const {user} = useAuth0()
+	//Import user object from auth0
+	const { user } = useAuth0();
 
 	// Import the RecipeDetails context
 	const { currentRecipeDetails, setCurrentRecipeDetails } =
@@ -71,48 +68,51 @@ const RecipeDetailsCategorySelect = () => {
 	return (
 		<Wrapper>
 			<Label htmlFor="category-select">Category</Label>
-			<Select
-				id="category-select"
-				value={currentRecipeDetails.category}
-				onChange={handleCategoryChange}
-				disabled={!isCategoryEdited}
-			>
-				<Option disabled={true} value="">
-					--Choose a Category--
-				</Option>
-				{selectCategories?.map((category, index) => {
-					return (
-						<Option
-							key={category + index}
-							disabled={createNewCategory}
-						>
-							{category}
-						</Option>
-					);
-				})}
-				<Option value="Unspecified Category">
-					Create a New Category
-				</Option>
-			</Select>
-			{!createNewCategory &&
-				currentRecipeDetails.category &&
-				(!isCategoryEdited ? (
-					<button onClick={() => setIsCategoryEdited(true)}>
-						Edit Category
-					</button>
-				) : (
-					<button onClick={() => setIsCategoryEdited(false)}>
-						Save Category
-					</button>
-				))}
+			<SelectAndButtonDiv>
+				<Select
+					id="category-select"
+					value={currentRecipeDetails.category}
+					onChange={handleCategoryChange}
+					disabled={!isCategoryEdited}
+				>
+					<Option disabled={true} value="">
+						--Choose a Category--
+					</Option>
+					{selectCategories?.map((category, index) => {
+						return (
+							<Option
+								key={category + index}
+								disabled={createNewCategory}
+							>
+								{category}
+							</Option>
+						);
+					})}
+					<Option value="Unspecified Category">
+						Create a New Category
+					</Option>
+				</Select>
+				{!createNewCategory &&
+					currentRecipeDetails.category &&
+					(!isCategoryEdited ? (
+						<Button onClick={() => setIsCategoryEdited(true)}>
+							Edit Category
+						</Button>
+					) : (
+						<Button onClick={() => setIsCategoryEdited(false)}>
+							Save Category
+						</Button>
+					))}
+			</SelectAndButtonDiv>
+
 			{createNewCategory && (
 				<CategoryCreation
 					label={"New Category Name"}
 					buttonClickFunc={() => setIsNewCategoryConfirmed(true)}
-					inputOnChangeFunc={() =>
+					inputOnChangeFunc={(categoryName) =>
 						setCurrentRecipeDetails({
 							...currentRecipeDetails,
-							category: event.target.value,
+							category: categoryName,
 						})
 					}
 				/>
@@ -133,7 +133,16 @@ const Wrapper = styled.div`
 const Label = styled.label`
 	color: var(--primary-color);
 	font-family: var(--heading-font-family);
-	font-weight: var(--heading-font-weight);
+	font-weight: bold;
+	display: block;
+	padding: 5px 0;
+`;
+
+const SelectAndButtonDiv = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 10px 0 0 0;
 `;
 
 const Select = styled.select`
@@ -145,6 +154,7 @@ const Select = styled.select`
 	box-sizing: border-box;
 	padding: 2px 2px 5px 2px;
 	text-align: center;
+	margin-bottom: 5px;
 
 	&:focus {
 		border: 2px solid black;
@@ -157,6 +167,21 @@ const Option = styled.option`
 	line-height: 115%;
 	font-family: var(--copy-font-family);
 	padding: 2px 2px 5px 2px;
+`;
+
+const Button = styled.button`
+	background-color: var(--tertiary-color);
+	color: black;
+	border: 2px solid var(--tertiary-color);
+	padding: 5px;
+	min-width: 105px;
+	border-radius: 3px;
+	margin: 5px 0 0 0;
+
+	&:focus {
+		border: 2px solid black;
+		outline: none;
+	}
 `;
 
 export default RecipeDetailsCategorySelect;
