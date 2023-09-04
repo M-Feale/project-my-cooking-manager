@@ -29,8 +29,8 @@ const DetailsPreview = () => {
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: start;
+	justify-content: flex-start;
+	align-items: flex-start;
 	width: 40vw;
 	flex-grow: 1;
 `;
@@ -58,8 +58,9 @@ const RecipeImageContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	max-height: 60vh;
 	overflow: hidden;
+	flex-grow: 1; // This works with the current recipe image. I'll check if it looks good with any image. If not, change max-height.
+	max-height: 70vh;
 `;
 
 const RecipeImage = styled.img`
