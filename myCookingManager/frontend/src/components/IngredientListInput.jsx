@@ -129,9 +129,7 @@ const IngredientListInput = () => {
 	return (
 		<>
 			<Wrapper>
-				<Label htmlFor="ingredient-list">
-					Shopping List
-				</Label>
+				<Label htmlFor="ingredient-list">Shopping List</Label>
 				<Textarea
 					id="ingredient-list"
 					name="ingredientList"
@@ -166,11 +164,13 @@ const IngredientListInput = () => {
 							Save Edits
 						</Button>
 					)}
-					{listTextarea.isGenerated && !listTextarea.isEditable && listTextarea.list.length > 0 && (
-						<Button type="button" onClick={handleEmail}>
-							Send as Email
-						</Button>
-					)}
+					{listTextarea.isGenerated &&
+						!listTextarea.isEditable &&
+						listTextarea.list.length > 0 && (
+							<Button type="button" onClick={handleEmail}>
+								Send as Email
+							</Button>
+						)}
 				</ButtonContainer>
 			</Wrapper>
 		</>
@@ -210,11 +210,15 @@ const ButtonContainer = styled.div`
 const Button = styled.button`
 	background-color: var(--tertiary-color);
 	color: black;
-	border: none;
+	border: 2px solid var(--tertiary-color);
 	padding: 5px;
 	min-width: 105px;
 	border-radius: 3px;
 
+	&:focus {
+		border: 2px solid black;
+		outline: none;
+	}
 `;
 
 export default IngredientListInput;
