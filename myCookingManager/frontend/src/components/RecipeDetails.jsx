@@ -15,15 +15,10 @@ import DateTracker from "./DateTracker";
 import RecipeDetailsCategorySelect from "./RecipeDetailsCategorySelect";
 
 const RecipeDetails = () => {
-	// I'll need to see how I can access the UserContext from auth0.
-	// temporary userId
-	const userId = 1234;
+	// Import user object from auth0
+	const { user } = useAuth0();
 
-		//Import user object from auth0
-		const {user} = useAuth0()
-
-	// // temporary recipeId (will be replaced by url params)
-	// const recipeId = "1a2b3c";
+	// Get the recipeId from the params
 	const { recipeId } = useParams();
 
 	const { currentRecipeDetails, setCurrentRecipeDetails } =
@@ -80,6 +75,8 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	margin: 20px auto;
+	width: 90vw;
 `;
 
 const LeftSection = styled.div`
