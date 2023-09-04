@@ -54,16 +54,18 @@ const Notepad = () => {
 	}, [wereNotesEdited]);
 
 	const handleClearInputAndAddNote = () => {
-		setNotes([
-			...notes,
-			{ id: singleNote + notes.length, text: singleNote },
-		]);
-		setSingleNote("");
-		setWereNotesEdited(true);
+		if (singleNote.length > 0) {
+			setNotes([
+				...notes,
+				{ id: singleNote + notes.length, text: singleNote },
+			]);
+			setSingleNote("");
+			setWereNotesEdited(true);
+		}
 	};
 
 	// ------------------------------------------------------------ //
-	// Remove a note from the notes array by keeping all the ones  
+	// Remove a note from the notes array by keeping all the ones
 	// that don't match the id of the one we want to delete.
 	// ------------------------------------------------------------ //
 	const handleDeleteNote = (deletedNote) => {
@@ -105,7 +107,10 @@ const Notepad = () => {
 					value={singleNote}
 					onChange={(ev) => setSingleNote(ev.target.value)}
 				/>
-				<Button onClick={() => handleClearInputAndAddNote()}>
+				<Button
+					disabled={!singleNote.length}
+					onClick={() => handleClearInputAndAddNote()}
+				>
 					Add note
 				</Button>
 			</InputAndButtonDiv>
@@ -153,6 +158,8 @@ const Button = styled.button`
 	min-width: 80px;
 	border-radius: 3px;
 	margin-top: 1px; // To be aligned with the input
+	opacity: ${(props) => (props.disabled ? "0.5" : "1")};
+	cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 
 	&:focus {
 		border: 2px solid black;
