@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { styled } from "styled-components";
+
+import { RecipeDetailsContext } from "./RecipeDetailsContext";
 
 const IngredientListInput = () => {
 	// temporary userId

@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
+import { FaListUl } from "react-icons/fa";
+import { FaRegNoteSticky } from "react-icons/fa6";
 
 // Library used to create and manage the star ratings
 import { Rating } from "@smastrom/react-rating";
 
-import { FaListUl } from "react-icons/fa";
-import { FaRegNoteSticky } from "react-icons/fa6";
 import { lastDateCalculator } from "../utility_functions/lastDateCalculator";
 
 const RecipeCard = ({ recipe }) => {

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { styled } from "styled-components";
 
+// Library used to create and manage the star ratings
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 
