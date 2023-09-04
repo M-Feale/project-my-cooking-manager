@@ -152,6 +152,7 @@ const Button = styled.button`
 	padding: 5px;
 	min-width: 80px;
 	border-radius: 3px;
+	margin-top: 1px; // To be aligned with the input
 
 	&:focus {
 		border: 2px solid black;
