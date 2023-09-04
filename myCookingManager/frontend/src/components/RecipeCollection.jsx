@@ -6,12 +6,10 @@ import CategoryMenu from "./CategoryMenu";
 import RecipeGrid from "./RecipeGrid";
 
 const RecipeCollection = () => {
-	// temporary userId
-	const userId = 1234;
+	// Import user object from auth0
+	const { user } = useAuth0();
 
-		//Import user object from auth0
-		const {user} = useAuth0()
-
+	// States used to control children components of RecipeCollection and allow for all the fetch logic to be in one place.
 	const [recipes, setRecipes] = useState("");
 	const [searchTerms, setSearchTerms] = useState("");
 	const [category, setCategory] = useState("");
@@ -19,7 +17,7 @@ const RecipeCollection = () => {
 
 	// Fetch logic to do one GET matching the value of the searchTerms and category states, if any value is set.
 	useEffect(() => {
-        setFailedSearch("")
+		setFailedSearch("");
 		// Logic to set the fetch endpoint url to the appropriate value
 		let endpoint;
 		if (searchTerms) {
@@ -47,9 +45,9 @@ const RecipeCollection = () => {
 					);
 				}
 			})
-		.catch((error) => {
-			console.error("Fetch error:", error.message);
-		});
+			.catch((error) => {
+				console.error("Fetch error:", error.message);
+			});
 	}, [searchTerms, category]);
 
 	return (
