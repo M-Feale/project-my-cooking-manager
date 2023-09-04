@@ -164,8 +164,10 @@ const Label = styled.label`
 
 const SelectAndButtonDiv = styled.div`
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: center;
+	align-items: center;
+	width: 100%;
 	margin: 10px 0 0 0;
 `;
 
@@ -200,7 +202,7 @@ const Button = styled.button`
 	padding: 5px;
 	min-width: 105px;
 	border-radius: 3px;
-	margin: 5px 0 0 0;
+	margin: 5px 20px 9px;
 
 	&:focus {
 		border: 2px solid black;
