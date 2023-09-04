@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -11,11 +11,8 @@ import DialogueBox from "./DialogueBox";
 import CatalogueCategorySelect from "./CatalogueCategorySelect";
 
 const CataloguingPage = () => {
-	// Temporary userid
-	const userId = 1234;
-
-		//Import user object from auth0
-		const {user} = useAuth0()
+	//Import user object from auth0
+	const { user } = useAuth0();
 
 	// Import context to control conditional rendering
 	const { catalogueFlow, setCatalogueFlow } =
@@ -95,22 +92,17 @@ const CataloguingPage = () => {
 
 	return (
 		<Wrapper>
-			<UrlInput />
+			{!catalogueFlow.isRecipePreviewCorrect && <UrlInput resetOnClickFunction={handleReset} />}
+			
 			{catalogueFlow.isRecipeInput && <RecipePreview />}
-			{catalogueFlow.isRecipePreviewCorrect && <CatalogueCategorySelect />}
+			{catalogueFlow.isRecipePreviewCorrect && (
+				<CatalogueCategorySelect />
+			)}
 			{catalogueFlow.isRecipePreviewCorrect === false && (
 				<DialogueBox
 					title={"What do you want to do next ?"}
 					buttonArray={[
-						{
-							text: "Try Again",
-							function: () =>
-								setCatalogueFlow({
-									...catalogueFlow,
-									isRecipeInput: false,
-									isRecipePreviewCorrect: null,
-								}),
-						},
+						{ text: "Try Again", function: () => handleReset() },
 						{
 							text: "Navigate to my Recipe Collection",
 							function: () => navigate("/recipes"),
