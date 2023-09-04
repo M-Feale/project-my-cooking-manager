@@ -1,6 +1,8 @@
-import { Rating } from "@smastrom/react-rating";
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
+
+// Library used to create and manage the star ratings
+import { Rating } from "@smastrom/react-rating";
 
 import { FaListUl } from "react-icons/fa";
 import { FaRegNoteSticky } from "react-icons/fa6";
@@ -9,10 +11,12 @@ import { lastDateCalculator } from "../utility_functions/lastDateCalculator";
 const RecipeCard = ({ recipe }) => {
 	const navigate = useNavigate();
 
+	// A recipe object has an array of 4 ratings. Here, the rating called "Overall" is used for the component.
 	const overallRating = recipe.ratings.find((rating) => {
 		return rating.label === "Overall";
 	});
 
+	// Function that calculates and returns the most recent date from the dates_created array associated with the recipe object.
 	const arrayOfDateObjects = [...recipe.dates_created];
 	const lastDateMade = lastDateCalculator(arrayOfDateObjects);
 
@@ -25,23 +29,29 @@ const RecipeCard = ({ recipe }) => {
 				<Image src={recipe.image} alt={recipe.name} />
 			</ImageContainer>
 			<RecipeName>
-				{recipe.name.length > 35
-					? `${recipe.name.substring(0, 35)}...`
+				{/* // Modify the recipe name to shorten it for a better display */}
+				{recipe.name.length > 30
+					? `${recipe.name.substring(0, 30)}...`
 					: recipe.name}
 			</RecipeName>
 			<TextAndIconContainer>
 				<LeftContainer>
-					<p>by {recipe.website}</p>
-					<p>Category: {recipe.category}</p>
+					<SmallItalicText>by {recipe.website}</SmallItalicText>
+					{/* // Component used for the star rating. 
+					// With readOnly set to true, the stars are not interactive but can display non-integer ratings. */}
 					<Rating
 						style={{ maxWidth: 150 }}
 						readOnly={true}
 						value={overallRating.rating}
 					/>
-					<p>
-						Last made:{" "}
-						{recipe.dates_created.length ? lastDateMade : "Never"}
-					</p>
+					<DateCopy>
+						<ItalicSpan>Last made: </ItalicSpan>
+						{recipe.dates_created.length ? (
+							lastDateMade
+						) : (
+							<ItalicSpan>Never</ItalicSpan>
+						)}
+					</DateCopy>
 				</LeftContainer>
 				<RightContainer>
 					<ListIcon $isPresent={recipe.shopping_list.length} />
@@ -56,7 +66,6 @@ const Wrapper = styled.div`
 	max-width: 400px;
 	height: 500px;
 	max-height: 500px;
-	border: 1px solid black;
 	border-radius: 10px;
 	background-color: white;
 	padding: 24px;
@@ -84,13 +93,24 @@ const Image = styled.img`
 
 const RecipeName = styled.h1`
 	min-width: calc(300px - (2 * 24px));
+	font-size: 18px;
+	display: block;
+	text-align: center;
+	padding: 5px 0;
+	background-color: var(--primary-color);
+	color: var(--secondary-color);
+	margin: 10px 0 4px 0;
 `;
 
 const TextAndIconContainer = styled.div`
 	display: flex;
 	flex-direction: row;
-	height: calc((0.28 * 500px) - (2 * 24px));
+	height: calc((0.25 * 500px) - (2 * 24px));
 	min-width: calc(300px - (2 * 24px));
+`;
+
+const ItalicSpan = styled.span`
+	font-style: italic;
 `;
 
 const LeftContainer = styled.div`
@@ -99,6 +119,15 @@ const LeftContainer = styled.div`
 	flex-direction: column;
 	justify-content: space-between;
 `;
+
+const SmallItalicText = styled.p`
+	color: black;
+	opacity: 0.8;
+	font-style: italic;
+	font-size: 14px;
+`;
+
+const DateCopy = styled.p``;
 
 const RightContainer = styled.div`
 	flex-grow: 1;
@@ -114,12 +143,14 @@ const ListIcon = styled(FaListUl)`
 	border-radius: 4px;
 	font-size: 19px;
 	display: block;
+	margin: 2px 0;
 	opacity: ${(props) => (props.$isPresent ? "1" : "0.5")};
 `;
 
 const NoteIcon = styled(FaRegNoteSticky)`
 	font-size: 30px;
 	display: block;
+	margin: 2px 0;
 	opacity: ${(props) => (props.$isPresent ? "1" : "0.5")};
 `;
 
