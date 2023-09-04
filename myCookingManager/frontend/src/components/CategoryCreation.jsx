@@ -8,12 +8,12 @@ const CategoryCreation = ({ label, inputOnChangeFunc, buttonClickFunc }) => {
 	const categoryInput = useAutoFocus();
 
 	// State that stores a flag for enabling/disabling category creation button
-	const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
 	const handleOnChange = (event) => {
-		inputOnChangeFunc(event.target.value)
-		setIsButtonDisabled(false)
-	}
+		inputOnChangeFunc(event.target.value);
+		setIsButtonDisabled(false);
+	};
 
 	return (
 		<Container>
@@ -23,11 +23,11 @@ const CategoryCreation = ({ label, inputOnChangeFunc, buttonClickFunc }) => {
 					id={label}
 					placeholder="Write your new category here !"
 					onChange={(ev) => handleOnChange(ev)}
+					ref={categoryInput}
 				/>
 				<Button
 					disabled={isButtonDisabled}
-					ref={categoryInput}
-					onClick={buttonClickFunc}
+					onClick={() => buttonClickFunc()}
 				>
 					Create New Category
 				</Button>
