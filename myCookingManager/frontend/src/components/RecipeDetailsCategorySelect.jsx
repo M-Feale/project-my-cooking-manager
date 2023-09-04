@@ -42,16 +42,41 @@ const RecipeDetailsCategorySelect = () => {
 			});
 	}, []);
 
+	// Update the category for the recipe in the database when a new category is chosen
 	useEffect(() => {
 		if (isNewCategoryConfirmed) {
-			console.log("ive confirmed the new category!");
-			setSelectCategories([
-				...selectCategories,
-				currentRecipeDetails.category,
-			]);
-			setIsCategoryEdited(false);
-			setCreateNewCategory(false);
-			setIsNewCategoryConfirmed(false);
+			fetch(
+				`/api/user/${user.sub}/recipes/${currentRecipeDetails.recipeId}/update`,
+				{
+					method: "PATCH",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						info: { category: currentRecipeDetails.category },
+					}),
+				}
+			)
+				.then((response) => response.json())
+				.then((parsedResponse) => {
+					if (parsedResponse.status === 200) {
+						// Decide if I want to add a success message for a successful ingredient list update
+						console.log(parsedResponse);
+						setSelectCategories([
+							...selectCategories,
+							currentRecipeDetails.category,
+						]);
+						setIsCategoryEdited(false);
+						setCreateNewCategory(false);
+						setIsNewCategoryConfirmed(false);
+					} else {
+						throw new Error(parsedResponse.message);
+					}
+				})
+				.catch((error) => {
+					console.error("Fetch error:", error);
+				});
 		}
 	}, [isNewCategoryConfirmed]);
 
@@ -60,7 +85,7 @@ const RecipeDetailsCategorySelect = () => {
 			...currentRecipeDetails,
 			category: event.target.value,
 		});
-		// setIsCategoryEdited(false)
+		setIsCategoryEdited(false)
 		if (event.target.value === "Unspecified Category") {
 			setCreateNewCategory(true);
 		}
@@ -104,7 +129,6 @@ const RecipeDetailsCategorySelect = () => {
 						</Button>
 					))}
 			</SelectAndButtonDiv>
-
 			{createNewCategory && (
 				<CategoryCreation
 					label={"New Category Name"}
