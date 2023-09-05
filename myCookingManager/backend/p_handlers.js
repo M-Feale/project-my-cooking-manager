@@ -105,9 +105,9 @@ const insertRecipe = async (req, res) => {
         // --------------------------------------------------------------------------------------------------- //
         const findDuplicatesResult = await db.collection(RE_COLL).aggregate([match, projection]).toArray()
 
-        // If the recipe is found, return a 204 to allow FE to create a unsuccessful message.
+        // If the recipe is found, return a partial success and the recipeId corresponding to the found recipe.
         if (findDuplicatesResult[0].recipes.length > 0) {
-            return res.status(204).json({ status: 204 })
+            return res.status(206).json({ status: 206, message: "This recipe is already present is your Recipe Collection", data: findDuplicatesResult[0].recipes[0].recipeId })
         }
         else {
             // ------------------------------------------------------------------------ //
@@ -124,7 +124,7 @@ const insertRecipe = async (req, res) => {
             }
 
             const insertRecipeResult = await db.collection(RE_COLL).updateOne({
-                _id: userId 
+                _id: userId
             },
                 { $push: { recipes: completeRecipeObject } })
 
