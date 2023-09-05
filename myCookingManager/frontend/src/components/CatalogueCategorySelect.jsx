@@ -13,10 +13,11 @@ const CatalogueCategorySelect = () => {
 	const { user } = useAuth0();
 
 	// Import custom useRef hook that outputs a focused ref
-	const selectInput = useAutoFocus();
+	const focusSelectInput = useAutoFocus();
 
-	// Import a custom useRef hook that outputs a scrolled into view ref
-	const viewComponent = useAutoScrollIntoView();
+	// Import and assign custom useRef hook that outputs a scrolled into view ref to some elements on the page
+	const viewCategorySelectWrapper = useAutoScrollIntoView();
+	const viewButton = useAutoScrollIntoView()
 
 	// Import the CatalogueFlow Context
 	const { catalogueFlow, setCatalogueFlow } =
@@ -57,14 +58,14 @@ const CatalogueCategorySelect = () => {
 		}
 	};
 	return (
-		<Wrapper>
+		<Wrapper ref={viewCategorySelectWrapper}>
 			<Label htmlFor="category-select">Categorize your New Recipe</Label>
 			<Select
 				id="category-select"
 				value={catalogueFlow.recipeInfo.category}
 				onChange={handleCategoryChange}
 				disabled={createNewCategory}
-				ref={selectInput}
+				ref={focusSelectInput}
 			>
 				<Option disabled={true} value="">
 					--Choose a Category--
@@ -82,7 +83,7 @@ const CatalogueCategorySelect = () => {
 			</Select>
 			{!createNewCategory && catalogueFlow.recipeInfo.category && (
 				<Button
-					ref={viewComponent}
+					ref={viewButton}
 					onClick={() =>
 						setCatalogueFlow({
 							...catalogueFlow,
@@ -95,7 +96,6 @@ const CatalogueCategorySelect = () => {
 			)}
 			{createNewCategory && (
 				<CategoryCreation
-					ref={viewComponent}
 					label={"New Category Name"}
 					buttonClickFunc={() =>
 						setCatalogueFlow({
