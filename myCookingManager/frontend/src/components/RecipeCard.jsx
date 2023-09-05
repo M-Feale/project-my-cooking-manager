@@ -100,6 +100,9 @@ const RecipeName = styled.h1`
 	background-color: var(--primary-color);
 	color: var(--secondary-color);
 	margin: 10px 0 4px 0;
+
+	background-color: #27540C; // darkest green
+	color: white;
 `;
 
 const TextAndIconContainer = styled.div`

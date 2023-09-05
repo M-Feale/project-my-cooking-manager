@@ -64,6 +64,8 @@ const Container = styled.div`
 	max-width: 100vw;
 	background-color: var(--tertiary-color);
 	height: 100px;
+
+	background-color: #27540C; // darkest green
 `;
 
 const CategoryButton = styled.button`
@@ -76,6 +78,9 @@ const CategoryButton = styled.button`
 	border: 2px solid var(--secondary-color);
 	min-width: 125px;
 	border-radius: 5px;
+
+	background-color: #D67503;
+	color: black;
 
 	&:focus {
 		border: 2px solid black;

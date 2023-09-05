@@ -53,6 +53,8 @@ const Container = styled.div`
 	max-width: 100vw;
 	background-color: var(--secondary-color);
 	height: 100px;
+
+	background-color: white;
 `;
 
 const SearchInputContainer = styled.div`
@@ -66,6 +68,8 @@ const Input = styled.input`
 	padding: 6px 0 6px 6px;
 	width: 60vw;
 	border: 2px solid var(--secondary-color);
+
+	background-color: #F1F1F1; // same grey as shadows behind recipe cards.
 
 	&:focus {
 		border: 2px solid black;
@@ -81,6 +85,8 @@ const Button = styled.button`
 	margin: 0 10px;
 	border: 2px solid var(--primary-color);
 	border-radius: 5px;
+
+	background-color: #27540C; // darkest green
 
 	&:focus {
 		border: 2px solid black;
