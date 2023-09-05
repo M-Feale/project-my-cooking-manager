@@ -17,18 +17,24 @@ const RecipePreview = () => {
 				<>
 					<TextAndDialogueBoxContainer>
 						<TextContainer>
-							<RecipeName>
+							<div>
 								<SectionTitle>Recipe name</SectionTitle>
-								{catalogueFlow.recipeInfo.name}
-							</RecipeName>
-							<WebsiteName>
+								<RecipePreviewCopy>
+									{catalogueFlow.recipeInfo.name}
+								</RecipePreviewCopy>
+							</div>
+							<div>
 								<SectionTitle>Website name</SectionTitle>
-								{catalogueFlow.recipeInfo.website}
-							</WebsiteName>
-							<RecipeDescription>
+								<RecipePreviewCopy>
+									{catalogueFlow.recipeInfo.website}
+								</RecipePreviewCopy>
+							</div>
+							<div>
 								<SectionTitle>Recipe description</SectionTitle>
-								{catalogueFlow.recipeInfo.description}
-							</RecipeDescription>
+								<RecipePreviewCopy>
+									{catalogueFlow.recipeInfo.description}
+								</RecipePreviewCopy>
+							</div>
 						</TextContainer>
 						<DialogueBoxContainer>
 							<DialogueBox
@@ -57,13 +63,12 @@ const RecipePreview = () => {
 							/>
 						</DialogueBoxContainer>
 					</TextAndDialogueBoxContainer>
-					<ImagePreviewContainer>
-						<SectionTitle>Preview Image</SectionTitle>
-						{/* $url={catalogueFlow.recipeInfo.image} */}
-						<ImageDiv>
-							<Image src={catalogueFlow.recipeInfo.image} alt={catalogueFlow.recipeInfo.name} />
-						</ImageDiv>
-					</ImagePreviewContainer>
+					<ImageDiv>
+						<Image
+							src={catalogueFlow.recipeInfo.image}
+							alt={catalogueFlow.recipeInfo.name}
+						/>
+					</ImageDiv>
 				</>
 			)}
 		</Wrapper>
@@ -73,59 +78,66 @@ const RecipePreview = () => {
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
+	margin: 10px 0;
+	width: 100%;
 `;
 
 const TextAndDialogueBoxContainer = styled.div`
-	flex-grow: 2;
 	display: flex;
 	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: 80%;
 `;
-
-const RecipeName = styled.p`
-	text-align: justify;
-`;
-
-const SectionTitle = styled.span`
-	display: block;
-	font-weight: bold;
-	font-size: 20px;
-	margin: 10px 0;
-`;
-
-const WebsiteName = styled(RecipeName)``;
-
-const RecipeDescription = styled.p``;
 
 const TextContainer = styled.div`
-	flex-grow: 3;
+	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: space-evenly;
+	width: 80%;
+`;
+
+const SectionTitle = styled.h2`
+	color: var(--primary-color);
+	font-family: var(--heading-font-family);
+	font-weight: bold;
+	display: block;
+	font-size: 20px;
+	margin: 5px 0;
+`;
+
+const RecipePreviewCopy = styled.p`
+	text-align: justify;
+	font-size: 16px;
+	line-height: 115%;
+	margin: 5px 0 5px 5px;
 `;
 
 const DialogueBoxContainer = styled.div`
-	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
-	justify-content: end;
+	justify-content: center;
 	align-items: center;
-`;
-
-const ImagePreviewContainer = styled.div`
-	flex-grow: 1;
+	width: 30vw;
 `;
 
 const ImageDiv = styled.div`
-	height: 450px;
+	height: 480px;
+
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	overflow: hidden;
-	/* background-image: url(${(props) => props.$url}); */
+	max-height: 75vh;
+	max-width: 50%;
 `;
 
 const Image = styled.img`
-	/* max-width: 100%; */
-	height: 100%;
 	display: block;
-	/* margin: 0 auto; */
+	width: 30vw;
 `;
 
 export default RecipePreview;
