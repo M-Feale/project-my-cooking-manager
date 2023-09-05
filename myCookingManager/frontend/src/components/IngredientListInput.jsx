@@ -197,9 +197,18 @@ const Label = styled.label`
 
 const Textarea = styled.textarea`
 	min-height: 160px; // 10 lines of 16px-high text
-	border: 2px solid var(--secondary-color);
+	border: 2px solid var(--input-bg-color);
 	resize: none;
-	/* background-color: white; */
+	background-color: var(--input-bg-color);
+
+	&:focus {
+		border: 2px solid black;
+		outline: none;
+	}
+
+	&:disabled{
+		background-color: #e1e1e1;
+	}
 `;
 
 const ButtonContainer = styled.div`

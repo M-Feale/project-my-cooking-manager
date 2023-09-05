@@ -138,7 +138,8 @@ const Label = styled.label`
 const Input = styled.input`
 	padding: 6px;
 	width: 80%;
-	border: 2px solid var(--secondary-color);
+	border: 2px solid var(--input-bg-color);
+	background-color: var(--input-bg-color);
 
 	&:focus {
 		border: 2px solid black;

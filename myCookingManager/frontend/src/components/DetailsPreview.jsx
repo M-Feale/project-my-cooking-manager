@@ -47,7 +47,7 @@ const RecipeTitle = styled.h1`
 	padding: 5px 0;
 	font-size: 24px;
 
-	color:#D67503;
+	color: var(--tertiary-color);
 `;
 
 const RecipeAuthor = styled.p`

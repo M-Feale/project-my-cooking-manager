@@ -17,19 +17,19 @@ const NavigateRecipeWebsite = () => {
 };
 
 const AnchorTag = styled.a`
-	color: black;
+	
 	text-decoration: none;
 	cursor: pointer;
+	margin-bottom: 20px;
 `;
 
 const Wrapper = styled.div`
 	width: 100%;
-	background-color: var(--tertiary-color);
-	padding: 10px;
+	background-color: var(--primary-color);
+	padding: 15px 10px;
 	border: none;
 	outline: none;
 	border-radius: 5px;
-	margin: 20px 0;
 
 	box-shadow:
 	0 6px 20px 0 rgba(0, 0, 0, 0.19),
@@ -37,7 +37,7 @@ const Wrapper = styled.div`
 `;
 
 const LinkText = styled.p`
-	color: black;
+	color: var(--secondary-color);
 	font-family: var(--link-font-family);
 `;
 

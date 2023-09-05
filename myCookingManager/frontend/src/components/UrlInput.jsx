@@ -134,7 +134,8 @@ const UrlInputContainer = styled.div`
 const Input = styled.input`
 	padding: 6px 0 6px 6px;
 	width: 60vw;
-	border: 2px solid var(--secondary-color);
+	border: 2px solid var(--input-bg-color);
+	background-color: var(--input-bg-color);
 
 	&:focus {
 		border: 2px solid black;

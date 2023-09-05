@@ -141,6 +141,13 @@ const Input = styled.input`
 	width: 16px; // same as label font-size
 	height: 16px; // same as label font-size
 	margin: 10px;
+	background-color: var(--input-bg-color);
+	border: 2px solid var(--input-bg-color);
+
+	&:focus {
+		border: 2px solid black;
+		outline: none;
+	}
 `;
 
 export default MakeAgain;

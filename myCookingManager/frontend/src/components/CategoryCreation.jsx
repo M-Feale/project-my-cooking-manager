@@ -63,8 +63,9 @@ const InputAndButtonDiv = styled.div`
 const Input = styled.input`
 	padding: 6px 0 6px 6px;
 	width: 250px;
-	border: 2px solid var(--secondary-color);
+	border: 2px solid var(--input-bg-color);
 	margin: 0 0 10px 0;
+	background-color: var(--input-bg-color);
 
 	&:focus {
 		border: 2px solid black;
