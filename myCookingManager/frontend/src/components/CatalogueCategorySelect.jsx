@@ -121,6 +121,7 @@ const Wrapper = styled.div`
 	align-items: center;
 	padding: 20px 0;
 	background-color: var(--secondary-color);
+	width: 80%;
 `;
 
 const Label = styled.label`

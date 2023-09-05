@@ -51,7 +51,6 @@ const RecipePreview = () => {
 											}),
 									},
 									{
-										// I want to make the input field in focus when "No" is clicked. As it is now, it just makes the whole RecipePreview disappear and it's pretty jarring.
 										text: "No",
 										function: () =>
 											setCatalogueFlow({
@@ -79,7 +78,7 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin: 10px 0;
+	margin: 20px 0;
 	width: 100%;
 `;
 
@@ -124,14 +123,12 @@ const DialogueBoxContainer = styled.div`
 `;
 
 const ImageDiv = styled.div`
-	height: 480px;
-
 	width: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
-	max-height: 75vh;
+	max-height: 70vh;
 	max-width: 50%;
 `;
 
