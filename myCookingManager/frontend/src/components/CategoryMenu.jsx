@@ -61,26 +61,23 @@ const Container = styled.div`
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
-	max-width: 100vw;
-	background-color: var(--tertiary-color);
-	height: 100px;
-
-	background-color: #27540C; // darkest green
+	flex-wrap: wrap;
+	width: 90vw;
+	min-height: 10vh;
+	margin: 0 auto;
+	background-color: var(--tertiary-color); 
 `;
 
 const CategoryButton = styled.button`
 	margin: 10px;
-	padding: 10px 20px;
-	background-color: var(--secondary-color);
+	padding: 8px 15px;
 	font-family: var(--link-font-family);
-	color: var(--primary-color);
-	margin: 0 10px;
-	border: 2px solid var(--secondary-color);
-	min-width: 125px;
+	min-width: 115px;
 	border-radius: 5px;
-
-	background-color: #D67503;
-	color: black;
+	background-color: var(--secondary-color); 
+	border: 2px solid var(--secondary-color); 
+	color: var(--primary-color);
+	font-weight: bold; 
 
 	&:focus {
 		border: 2px solid black;
