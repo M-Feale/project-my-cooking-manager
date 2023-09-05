@@ -40,17 +40,13 @@ const RecipeCard = ({ recipe }) => {
 					{/* // Component used for the star rating. 
 					// With readOnly set to true, the stars are not interactive but can display non-integer ratings. */}
 					<Rating
-						style={{ maxWidth: 150 }}
+						style={{ maxWidth: 175 }}
 						readOnly={true}
 						value={overallRating.rating}
 					/>
 					<DateCopy>
 						<ItalicSpan>Last made: </ItalicSpan>
-						{recipe.dates_created.length ? (
-							lastDateMade
-						) : (
-							<ItalicSpan>Never</ItalicSpan>
-						)}
+						{recipe.dates_created.length ? lastDateMade : "Never"}
 					</DateCopy>
 				</LeftContainer>
 				<RightContainer>
@@ -93,16 +89,14 @@ const Image = styled.img`
 
 const RecipeName = styled.h1`
 	min-width: calc(300px - (2 * 24px));
-	font-size: 18px;
+	font-size: 20px;
 	display: block;
 	text-align: center;
 	padding: 5px 0;
 	background-color: var(--primary-color);
 	color: var(--secondary-color);
 	margin: 10px 0 4px 0;
-
-	background-color: #27540C; // darkest green
-	color: white;
+	font-weight: 600;
 `;
 
 const TextAndIconContainer = styled.div`
@@ -114,6 +108,7 @@ const TextAndIconContainer = styled.div`
 
 const ItalicSpan = styled.span`
 	font-style: italic;
+	font-weight: 400;
 `;
 
 const LeftContainer = styled.div`
@@ -128,9 +123,13 @@ const SmallItalicText = styled.p`
 	opacity: 0.8;
 	font-style: italic;
 	font-size: 14px;
+	font-weight: 400;
 `;
 
-const DateCopy = styled.p``;
+const DateCopy = styled.p`
+	font-weight: 600;
+	font-size: 16px;
+`;
 
 const RightContainer = styled.div`
 	flex-grow: 1;

@@ -19,7 +19,6 @@ const Button = styled.button`
 	min-width: 100px;
 	max-width: 175px;
 	border-radius: 3px;
-	font-family: var(--link-font-family);
 	border: 2px solid var(--tertiary-color);
 	background-color: var(--tertiary-color);
 	color: black;

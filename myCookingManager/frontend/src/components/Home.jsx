@@ -100,7 +100,6 @@ const HeroImage = styled.img`
 `;
 
 const Slogan = styled.h1`
-	font-family: var(--heading-font-family);
 	font-size: 40px;
 	text-align: center;
 	width: 80vw;
@@ -121,12 +120,10 @@ const ActionContainer = styled.div`
 `;
 
 const ActionText = styled.h2`
-	font-family: var(--copy-font-family);
 	margin-bottom: 16px;
 `;
 
 const ActionButton = styled.button`
-	font-family: var(--link-font-family);
 	background-color: var(--tertiary-color);
 	padding: 10px;
 	border: none;

@@ -21,6 +21,11 @@ const AnchorTag = styled.a`
 	text-decoration: none;
 	cursor: pointer;
 	margin-bottom: 20px;
+
+	/* &:focus {
+		border: 2px solid black;
+		outline: none;
+	} */
 `;
 
 const Wrapper = styled.div`
@@ -28,7 +33,6 @@ const Wrapper = styled.div`
 	background-color: var(--primary-color);
 	padding: 15px 10px;
 	border: none;
-	outline: none;
 	border-radius: 5px;
 
 	box-shadow:
@@ -38,7 +42,6 @@ const Wrapper = styled.div`
 
 const LinkText = styled.p`
 	color: var(--secondary-color);
-	font-family: var(--link-font-family);
 `;
 
 export default NavigateRecipeWebsite;

@@ -116,7 +116,6 @@ const RatingAndLabelContainer = styled.div`
 
 const TitleText = styled.h2`
 	color: var(--primary-color);
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
 `;

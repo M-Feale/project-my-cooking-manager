@@ -189,7 +189,6 @@ const Wrapper = styled.div`
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
 	padding: 5px 0;
@@ -200,6 +199,7 @@ const Textarea = styled.textarea`
 	border: 2px solid var(--input-bg-color);
 	resize: none;
 	background-color: var(--input-bg-color);
+	font-family: var(--input-font-family);
 
 	&:focus {
 		border: 2px solid black;

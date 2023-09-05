@@ -37,19 +37,16 @@ const Wrapper = styled.div`
 	background-color: var(--primary-color);
 	height: 10vh;
 	display: flex;
+	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	padding: 20px;
-
-	/* margin-bottom: 5px;
-	position: relative;
-	z-index: 2; */
 `;
 
 const BrandHeading = styled.h1`
 	color: var(--secondary-color);
-	font-size: var(--heading-font-size);
-	font-family: var(--heading-font-family);
+	font-size: 50px;
+	font-weight: 500;
 	cursor: pointer;
 `;
 
@@ -71,7 +68,10 @@ const NavBar = styled.div`
 const NavButtons = styled(NavLink)`
 	font-size: 16px;
 	margin: 0 10px;
-	font-family: var(--link-font-family);
+	font-style: italic;
+	font-weight: 400;
+	text-transform: lowercase;
+
 	text-decoration: none;
 	color: var(--secondary-color);
 

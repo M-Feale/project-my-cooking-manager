@@ -71,13 +71,16 @@ const Container = styled.div`
 const CategoryButton = styled.button`
 	margin: 10px;
 	padding: 8px 15px;
-	font-family: var(--link-font-family);
+	font-weight: 700;
+	font-size: 18px;
+	font-style: italic;
+
+
 	min-width: 115px;
 	border-radius: 5px;
 	background-color: var(--secondary-color); 
 	border: 2px solid var(--secondary-color); 
 	color: var(--primary-color);
-	font-weight: bold; 
 
 	&:focus {
 		border: 2px solid black;

@@ -156,7 +156,6 @@ const Input = styled.input`
 `;
 
 const Label = styled.label`
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
 	padding: 5px 0;
@@ -173,7 +172,6 @@ const Button = styled.button`
 	padding: 10px 20px;
 	min-width: 80px;
 	border-radius: 3px;
-	font-family: var(--link-font-family);
 	margin: 0 10px;
 	border-radius: 5px;
 	min-width: 85px;

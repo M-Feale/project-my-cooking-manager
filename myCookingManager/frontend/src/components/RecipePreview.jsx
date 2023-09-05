@@ -116,7 +116,6 @@ const TextContainer = styled.div`
 
 const SectionTitle = styled.h2`
 	color: var(--tertiary-color);
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
 	font-size: 22px;

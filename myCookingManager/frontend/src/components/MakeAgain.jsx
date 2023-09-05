@@ -104,10 +104,8 @@ const Wrapper = styled.div`
 `;
 const ComponentTitle = styled.h2`
 	color: var(--primary-color);
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
-
 	padding: 5px 0;
 `;
 
@@ -143,6 +141,7 @@ const Input = styled.input`
 	margin: 10px;
 	background-color: var(--input-bg-color);
 	border: 2px solid var(--input-bg-color);
+	font-family: var(--input-font-family);
 
 	&:focus {
 		border: 2px solid black;

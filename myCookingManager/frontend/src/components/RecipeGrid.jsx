@@ -68,9 +68,11 @@ const TextDiv = styled.div`
 `;
 
 const LinkText = styled.span`
-	font-size: 40px;
+	font-size: 42px;
 	max-width: 50%;
 	margin: 19px;
+	color: var(--primary-color);
+	font-weight: 700;
 `;
 
 const IconDiv = styled.div`
@@ -84,6 +86,9 @@ const PlusIcon = styled(FaPlus)`
 	width: 200px;
 	height: 200px;
 	color: rgba(185, 178, 178, 0.588);
+
+	color: rgba(39, 84, 12, 0.588);
+	/* color: rgba(214, 117, 3, 0.588) */
 `;
 
 export default RecipeGrid;

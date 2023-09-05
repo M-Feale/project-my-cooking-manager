@@ -136,14 +136,12 @@ const Wrapper = styled.div`
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
 	padding: 5px 0;
 `;
 
 const Select = styled.select`
-	font-family: var(--copy-font-family);
 	font-size: 16px;
 	line-height: 115%;
 	border-radius: 2px;
@@ -161,7 +159,6 @@ const Select = styled.select`
 const Option = styled.option`
 	font-size: 16px;
 	line-height: 115%;
-	font-family: var(--copy-font-family);
 	padding: 2px 2px 5px 2px;
 `;
 

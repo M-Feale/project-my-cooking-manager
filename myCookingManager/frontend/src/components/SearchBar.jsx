@@ -71,6 +71,8 @@ const Input = styled.input`
 	width: 50vw;
 	border: 2px solid var(--input-bg-color);
 	background-color: var(--input-bg-color);
+	font-family: var(--input-font-family);
+	font-size: 14px;
 
 	&:focus {
 		border: 2px solid black;
@@ -81,12 +83,13 @@ const Input = styled.input`
 const Button = styled.button`
 	padding: 10px 20px;
 	background-color: var(--primary-color);
-	font-family: var(--link-font-family);
 	color: var(--secondary-color);
 	margin: 0 10px;
 	border: 2px solid var(--primary-color);
 	border-radius: 5px;
 	min-width: 85px;
+	font-weight: 700;
+
 
 	&:focus {
 		border: 2px solid black;
