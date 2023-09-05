@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -18,13 +18,21 @@ const CataloguingPage = () => {
 	const { catalogueFlow, setCatalogueFlow } =
 		useContext(CatalogueFlowContext);
 
+	// -------------------------------------------------------------------------- //
+	// State to control a flag for an unsuccessful recipe creation.
+	// It will be set to true when a person attempts to add a recipe they already
+	// have in their recipe collection
+	// -------------------------------------------------------------------------- //
+	const [recipeAlreadyExists, setRecipeAlreadyExists] = useState({
+		answer: false,
+		recipeId: "",
+	});
+
 	// Import navigate
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (catalogueFlow.isCategoryConfirmed) {
-			console.log("The category is confirmed! Time to do the put");
-
 			fetch(`/api/user/${user.sub}/recipes`, {
 				method: "PUT",
 				headers: {
@@ -35,27 +43,18 @@ const CataloguingPage = () => {
 					newRecipe: catalogueFlow.recipeInfo,
 				}),
 			})
-				.then((res) => {
-					if (res.status === 200) {
-						return res.json();
-					} else {
-						return res;
-					}
-				})
+				.then((res) => res.json())
 				.then((parsedResponse) => {
 					if (parsedResponse.status === 200) {
-						// Decide if I want to add a success message for a successful search
-						console.log(
-							parsedResponse,
-							"this is PUT response from Cataloguing page"
-						);
 						setCatalogueFlow({
 							...catalogueFlow,
 							isPutSuccessful: true,
 						});
-					} else if (parsedResponse.status === 204) {
-						// Do a message for an unsuccessful transaction
-						console.log("this is the same recipe you already have");
+					} else if (parsedResponse.status === 206) {
+						setRecipeAlreadyExists({
+							answer: true,
+							recipeId: parsedResponse.data,
+						});
 					} else {
 						throw new Error(parsedResponse.message);
 					}
@@ -68,6 +67,7 @@ const CataloguingPage = () => {
 	}, [catalogueFlow.isCategoryConfirmed]);
 
 	const handleReset = () => {
+		setRecipeAlreadyExists({ answer: false, recipeId: "" });
 		setCatalogueFlow({
 			isRecipeInput: false,
 			isRecipePreviewCorrect: null,
@@ -92,12 +92,15 @@ const CataloguingPage = () => {
 
 	return (
 		<Wrapper>
-			{!catalogueFlow.isRecipePreviewCorrect && <UrlInput resetOnClickFunction={handleReset} />}
-			
-			{catalogueFlow.isRecipeInput && <RecipePreview />}
-			{catalogueFlow.isRecipePreviewCorrect && (
-				<CatalogueCategorySelect />
+			{!catalogueFlow.isRecipePreviewCorrect && (
+				<UrlInput resetOnClickFunction={handleReset} />
 			)}
+
+			{catalogueFlow.isRecipeInput && <RecipePreview />}
+			{catalogueFlow.isRecipePreviewCorrect &&
+				!catalogueFlow.isCategoryConfirmed && (
+					<CatalogueCategorySelect />
+				)}
 			{catalogueFlow.isRecipePreviewCorrect === false && (
 				<DialogueBox
 					title={"What do you want to do next ?"}
@@ -119,7 +122,7 @@ const CataloguingPage = () => {
 							function: () => handleReset(),
 						},
 						{
-							text: "Navigate to my new Recipe page!",
+							text: "Navigate to my new recipe's page!",
 							function: () =>
 								navigateAndReset(
 									`/recipes/${catalogueFlow.recipeInfo.recipeId}`
@@ -132,13 +135,33 @@ const CataloguingPage = () => {
 					]}
 				/>
 			)}
+			{recipeAlreadyExists.answer && (
+				<DialogueBox
+					title={
+						"This recipe already exists in your collection. What do you want to do next ?"
+					}
+					buttonArray={[
+						{ text: "Try Again", function: () => handleReset() },
+						{
+							text: "Navigate to the recipe page",
+							function: () =>
+								navigate(
+									`/recipes/${recipeAlreadyExists.recipeId}`
+								),
+						},
+					]}
+				/>
+			)}
 		</Wrapper>
 	);
 };
 
 const Wrapper = styled.div`
-	margin: 20px auto;
+	margin: 30px auto;
 	width: 80vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 `;
 
 export default CataloguingPage;
