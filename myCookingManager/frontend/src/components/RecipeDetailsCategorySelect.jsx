@@ -84,7 +84,7 @@ const RecipeDetailsCategorySelect = () => {
 			...currentRecipeDetails,
 			category: event.target.value,
 		});
-		setIsCategoryEdited(false)
+		setIsCategoryEdited(false);
 		if (event.target.value === "Unspecified Category") {
 			setCreateNewCategory(true);
 		}
@@ -149,8 +149,11 @@ const Wrapper = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
-	padding: 20px;
-	background-color: var(--secondary-color);
+	padding: 5px 20px 10px;
+
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
+	border-radius: 5px;
 `;
 
 const Label = styled.label`

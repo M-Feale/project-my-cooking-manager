@@ -137,8 +137,11 @@ const DateTracker = () => {
 
 const Wrapper = styled.div`
 	margin: 20px 0;
-	padding: 20px;
-	background-color: var(--secondary-color);
+	padding: 5px 20px 10px;
+
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
+	border-radius: 5px;
 `;
 
 const Label = styled.label`
@@ -146,6 +149,7 @@ const Label = styled.label`
 	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
+	padding: 5px 0;
 `;
 
 const ListParent = styled.ul`

@@ -23,13 +23,17 @@ const AnchorTag = styled.a`
 `;
 
 const Wrapper = styled.div`
-	width: 40vw;
+	width: 100%;
 	background-color: var(--tertiary-color);
 	padding: 10px;
 	border: none;
 	outline: none;
 	border-radius: 5px;
 	margin: 20px 0;
+
+	box-shadow:
+	0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 `;
 
 const LinkText = styled.p`
