@@ -4,10 +4,12 @@ import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
 
 const DialogueButton = ({ onClickFunc, text }) => {
 	// Import custom useRef hook that outputs a focused ref
-	const buttonRef = useAutoFocus()
+	const buttonRef = useAutoFocus();
 
 	return (
-			<Button ref={buttonRef} onClick={onClickFunc}>{text}</Button>
+		<Button ref={buttonRef} onClick={onClickFunc}>
+			{text}
+		</Button>
 	);
 };
 
