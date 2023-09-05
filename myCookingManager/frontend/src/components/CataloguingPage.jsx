@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -11,23 +11,29 @@ import DialogueBox from "./DialogueBox";
 import CatalogueCategorySelect from "./CatalogueCategorySelect";
 
 const CataloguingPage = () => {
-	// Temporary userid
-	const userId = 1234;
-
-		//Import user object from auth0
-		const {user} = useAuth0()
+	//Import user object from auth0
+	const { user } = useAuth0();
 
 	// Import context to control conditional rendering
 	const { catalogueFlow, setCatalogueFlow } =
 		useContext(CatalogueFlowContext);
 
+	// -------------------------------------------------------------------------- //
+	// State to control a flag for an unsuccessful recipe creation.
+	// It will be set to true when a person attempts to add a recipe they already
+	// have in their recipe collection
+	// -------------------------------------------------------------------------- //
+	const [recipeAlreadyExists, setRecipeAlreadyExists] = useState({
+		answer: false,
+		recipeId: "",
+	});
+
 	// Import navigate
 	const navigate = useNavigate();
 
+	// Send the recipe information to the BE when the category is confirmed
 	useEffect(() => {
 		if (catalogueFlow.isCategoryConfirmed) {
-			console.log("The category is confirmed! Time to do the put");
-
 			fetch(`/api/user/${user.sub}/recipes`, {
 				method: "PUT",
 				headers: {
@@ -38,39 +44,36 @@ const CataloguingPage = () => {
 					newRecipe: catalogueFlow.recipeInfo,
 				}),
 			})
-				.then((res) => {
-					if (res.status === 200) {
-						return res.json();
-					} else {
-						return res;
-					}
-				})
+				.then((res) => res.json())
 				.then((parsedResponse) => {
+					// If the recipe was successfully added, modify context to render next step in cataloguing flow.
 					if (parsedResponse.status === 200) {
-						// Decide if I want to add a success message for a successful search
-						console.log(
-							parsedResponse,
-							"this is PUT response from Cataloguing page"
-						);
 						setCatalogueFlow({
 							...catalogueFlow,
 							isPutSuccessful: true,
 						});
-					} else if (parsedResponse.status === 204) {
-						// Do a message for an unsuccessful transaction
-						console.log("this is the same recipe you already have");
+					// ------------------------------------------------------------------------------------------- //
+					// If a matching recipe was found in the database, render a partial success message and offer
+					// to the user to navigate to that recipe's page.
+					// ------------------------------------------------------------------------------------------- //
+					} else if (parsedResponse.status === 206) {
+						setRecipeAlreadyExists({
+							answer: true,
+							recipeId: parsedResponse.data,
+						});
 					} else {
 						throw new Error(parsedResponse.message);
 					}
 				})
 				.catch((error) => {
-					// Remove console.error before submitting the project
 					console.error("Fetch error:", error);
 				});
 		}
 	}, [catalogueFlow.isCategoryConfirmed]);
 
+	// Reset the context and partial success states to their initial values 
 	const handleReset = () => {
+		setRecipeAlreadyExists({ answer: false, recipeId: "" });
 		setCatalogueFlow({
 			isRecipeInput: false,
 			isRecipePreviewCorrect: null,
@@ -95,22 +98,20 @@ const CataloguingPage = () => {
 
 	return (
 		<Wrapper>
-			<UrlInput />
+			{!catalogueFlow.isRecipePreviewCorrect && (
+				<UrlInput resetOnClickFunction={handleReset} />
+			)}
+
 			{catalogueFlow.isRecipeInput && <RecipePreview />}
-			{catalogueFlow.isRecipePreviewCorrect && <CatalogueCategorySelect />}
+			{catalogueFlow.isRecipePreviewCorrect &&
+				!catalogueFlow.isCategoryConfirmed && (
+					<CatalogueCategorySelect />
+				)}
 			{catalogueFlow.isRecipePreviewCorrect === false && (
 				<DialogueBox
 					title={"What do you want to do next ?"}
 					buttonArray={[
-						{
-							text: "Try Again",
-							function: () =>
-								setCatalogueFlow({
-									...catalogueFlow,
-									isRecipeInput: false,
-									isRecipePreviewCorrect: null,
-								}),
-						},
+						{ text: "Try Again", function: () => handleReset() },
 						{
 							text: "Navigate to my Recipe Collection",
 							function: () => navigate("/recipes"),
@@ -127,7 +128,7 @@ const CataloguingPage = () => {
 							function: () => handleReset(),
 						},
 						{
-							text: "Navigate to my new Recipe page!",
+							text: "Navigate to my new recipe's page!",
 							function: () =>
 								navigateAndReset(
 									`/recipes/${catalogueFlow.recipeInfo.recipeId}`
@@ -140,13 +141,33 @@ const CataloguingPage = () => {
 					]}
 				/>
 			)}
+			{recipeAlreadyExists.answer && (
+				<DialogueBox
+					title={
+						"This recipe already exists in your collection. What do you want to do next ?"
+					}
+					buttonArray={[
+						{ text: "Try Again", function: () => handleReset() },
+						{
+							text: "Navigate to the recipe page",
+							function: () =>
+								navigate(
+									`/recipes/${recipeAlreadyExists.recipeId}`
+								),
+						},
+					]}
+				/>
+			)}
 		</Wrapper>
 	);
 };
 
 const Wrapper = styled.div`
-	margin: 20px auto;
+	margin: 20px auto 30px auto;
 	width: 80vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 `;
 
 export default CataloguingPage;

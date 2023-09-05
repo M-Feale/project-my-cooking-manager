@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { styled } from "styled-components";
 
+// Library used to create and manage the star ratings
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 
@@ -79,9 +80,9 @@ const RatingSystem = () => {
 				.map((rating) => {
 					return (
 						<RatingAndLabelContainer key={rating.label}>
-							<Label htmlFor={rating.label}>{rating.label}</Label>
+							<TitleText>{rating.label}</TitleText>
 							<Rating
-								id={rating.label}
+								visibleLabelId={rating.label}
 								style={{ maxWidth: 250 }}
 								value={rating.rating}
 								onChange={(newRating) =>
@@ -99,7 +100,6 @@ const Wrapper = styled.div`
 	margin: 20px 0;
 	padding: 20px;
 	background-color: var(--secondary-color);
-	flex-grow: 1;
 `;
 
 const RatingAndLabelContainer = styled.div`
@@ -109,7 +109,7 @@ const RatingAndLabelContainer = styled.div`
 	align-items: center;
 `;
 
-const Label = styled.label`
+const TitleText = styled.h2`
 	color: var(--primary-color);
 	font-family: var(--heading-font-family);
 	font-weight: bold;

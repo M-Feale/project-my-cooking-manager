@@ -8,12 +8,10 @@ import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
 import CategoryCreation from "./CategoryCreation";
 
 const CatalogueCategorySelect = () => {
-	// // temporary userId
-	// const userId = 1234;
-
 	//Import user object from auth0
-	const {user} = useAuth0()
+	const { user } = useAuth0();
 
+	// Import custom useRef hook that outputs a focused ref
 	const selectInput = useAutoFocus();
 
 	// Import the CatalogueFlow Context
@@ -75,13 +73,11 @@ const CatalogueCategorySelect = () => {
 					);
 				})}
 				<Option value="Unspecified Category">
-					{!catalogueFlow.recipeInfo.category
-						? "Create a New Category"
-						: `${catalogueFlow.recipeInfo.category}`}
+					Create a New Category
 				</Option>
 			</Select>
 			{!createNewCategory && catalogueFlow.recipeInfo.category && (
-				<button
+				<Button
 					onClick={() =>
 						setCatalogueFlow({
 							...catalogueFlow,
@@ -90,7 +86,7 @@ const CatalogueCategorySelect = () => {
 					}
 				>
 					Save New Recipe
-				</button>
+				</Button>
 			)}
 			{createNewCategory && (
 				<CategoryCreation
@@ -101,12 +97,12 @@ const CatalogueCategorySelect = () => {
 							isCategoryConfirmed: true,
 						})
 					}
-					inputOnChangeFunc={() =>
+					inputOnChangeFunc={(categoryName) =>
 						setCatalogueFlow({
 							...catalogueFlow,
 							recipeInfo: {
 								...catalogueFlow.recipeInfo,
-								category: event.target.value,
+								category: categoryName,
 							},
 						})
 					}
@@ -123,9 +119,16 @@ const Wrapper = styled.div`
 	align-items: center;
 	padding: 20px 0;
 	background-color: var(--secondary-color);
+	width: 80%;
 `;
 
-const Label = styled.label``;
+const Label = styled.label`
+	color: var(--primary-color);
+	font-family: var(--heading-font-family);
+	font-weight: bold;
+	display: block;
+	padding: 5px 0;
+`;
 
 const Select = styled.select`
 	font-family: var(--copy-font-family);
@@ -148,6 +151,21 @@ const Option = styled.option`
 	line-height: 115%;
 	font-family: var(--copy-font-family);
 	padding: 2px 2px 5px 2px;
+`;
+
+const Button = styled.button`
+	background-color: var(--tertiary-color);
+	color: black;
+	border: 2px solid var(--tertiary-color);
+	padding: 5px;
+	min-width: 80px;
+	border-radius: 3px;
+	margin: 10px 0;
+
+	&:focus {
+		border: 2px solid black;
+		outline: none;
+	}
 `;
 
 export default CatalogueCategorySelect;

@@ -26,6 +26,9 @@ const ActionButton = styled.button`
 	border: none;
 	outline: none;
 	border-radius: 5px;
+
+	background-color: #D67503;
+	color: black;
 `;
 
 export default LogoutButton;

@@ -40,6 +40,8 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	padding: 20px;
+
+	background-color: #27540C; // darkest green
 `;
 
 const BrandHeading = styled.h1`
@@ -47,6 +49,9 @@ const BrandHeading = styled.h1`
 	font-size: var(--heading-font-size);
 	font-family: var(--heading-font-family);
 	cursor: pointer;
+
+	color: white; // first choice
+	color: #FFE1BE; // orangy white
 `;
 
 const NavAndLogoutContainer = styled.div`

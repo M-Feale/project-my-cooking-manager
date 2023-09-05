@@ -1,26 +1,24 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
 
-const UrlInput = () => {
-	// temporary userId
-	const userId = 1234;
+const UrlInput = ({ resetOnClickFunction }) => {
+	//Import user object from auth0
+	const { user } = useAuth0();
 
-		//Import user object from auth0
-		const {user} = useAuth0()
-
-	const searchInput = useAutoFocus();
-
-	// Import context
+	// Import context to control conditional rendering
 	const { catalogueFlow, setCatalogueFlow } =
 		useContext(CatalogueFlowContext);
 
-	// This state will be used to notify when thw search is unsuccessful
+	// This state will be used to notify when the search is unsuccessful
 	const [failedSearch, setFailedSearch] = useState("");
 
+	// Initialize a useRef to bring focus to the search input with onClick function.
+	const searchRef = useRef(null);
+
+	// Fetch the submitted url only when the input contains something
 	const handleFindSubmit = (event) => {
 		if (
 			(event === undefined &&
@@ -47,18 +45,14 @@ const UrlInput = () => {
 				})
 				.then((parsedResponse) => {
 					if (parsedResponse.status === 200) {
-						// Decide if I want to add a success message for a successful search
-						console.log(parsedResponse);
+						// When successful, modify context to render next step in cataloguing flow.
 						setCatalogueFlow({
 							...catalogueFlow,
 							isRecipeInput: true,
 							recipeInfo: parsedResponse.data,
 						});
 					} else if (parsedResponse.status === 204) {
-						// Do a message for an unsuccessful url search
-						console.log(
-							"The URL you pasted didn't return any results. Verify your URL and try again."
-						);
+						// If not successful in a preditable way, provide feeback to the user.
 						setFailedSearch(
 							"The URL you pasted didn't return any results. Verify your URL and try again."
 						);
@@ -67,24 +61,24 @@ const UrlInput = () => {
 					}
 				})
 				.catch((error) => {
-					// Remove console.error before submitting the project
 					console.error("Fetch error:", error);
+					// ------------------------------------------------------------------------------------------------ //
+					// Because this endpoint interacts with a library that relies on link previews existing for an url,
+					// many unexpected things can go wrong. Therefore, I want the user to understand why a link
+					// is not working and provide a better user experience.
+					// ------------------------------------------------------------------------------------------------ //
 					setFailedSearch(
-						"The URL you pasted didn't return any results. Verify your URL and try again."
+						"The URL you pasted didn't return any results. Verify your URL and try again. If still unsuccessful, maybe your recipe link is not compatible with My Cooking Manager. We apologize for the inconvenience."
 					);
 				});
 		}
 	};
 
+	// Function that reset the context to its inital state, clear the search input and puts it in focus
 	const handleClearField = () => {
-		setCatalogueFlow({
-			...catalogueFlow,
-			recipeInfo: {
-				...catalogueFlow.recipeInfo,
-				recipe_url: "",
-			},
-		});
+		resetOnClickFunction();
 		setFailedSearch("");
+		searchRef.current.focus();
 	};
 
 	return (
@@ -99,7 +93,7 @@ const UrlInput = () => {
 					value={catalogueFlow.recipeInfo.recipe_url}
 					placeholder="Paste your recipe website address here !"
 					autoFocus={!catalogueFlow.isRecipeInput}
-					ref={searchInput}
+					ref={searchRef}
 					onChange={(event) =>
 						setCatalogueFlow({
 							...catalogueFlow,
@@ -111,6 +105,7 @@ const UrlInput = () => {
 					}
 					onKeyDown={handleFindSubmit}
 				/>
+				{/* // Call onClick function anonymously to allow for reuse of same function as onKeyDown */}
 				<Button onClick={() => handleFindSubmit()}>Find</Button>
 				<Button onClick={handleClearField}>Clear</Button>
 			</UrlInputContainer>
@@ -124,7 +119,7 @@ const Container = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	max-width: 100%;
+	width: 100%;
 	background-color: var(--secondary-color);
 	height: 100px;
 `;
@@ -147,10 +142,18 @@ const Input = styled.input`
 	}
 `;
 
-const Label = styled.label``;
+const Label = styled.label`
+	color: var(--primary-color);
+	font-family: var(--heading-font-family);
+	font-weight: bold;
+	display: block;
+	padding: 5px 0;
+`;
 
 const Button = styled.button`
 	padding: 10px 20px;
+	min-width: 80px;
+	border-radius: 3px;
 	background-color: var(--primary-color);
 	font-family: var(--link-font-family);
 	color: white;

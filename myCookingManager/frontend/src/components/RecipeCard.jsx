@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
+import { FaListUl } from "react-icons/fa";
+import { FaRegNoteSticky } from "react-icons/fa6";
 
 // Library used to create and manage the star ratings
 import { Rating } from "@smastrom/react-rating";
 
-import { FaListUl } from "react-icons/fa";
-import { FaRegNoteSticky } from "react-icons/fa6";
 import { lastDateCalculator } from "../utility_functions/lastDateCalculator";
 
 const RecipeCard = ({ recipe }) => {
@@ -100,6 +100,9 @@ const RecipeName = styled.h1`
 	background-color: var(--primary-color);
 	color: var(--secondary-color);
 	margin: 10px 0 4px 0;
+
+	background-color: #27540C; // darkest green
+	color: white;
 `;
 
 const TextAndIconContainer = styled.div`
