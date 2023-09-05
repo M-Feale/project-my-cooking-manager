@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+
 import DialogueButton from "./DialogueButton";
 
 const DialogueBox = ({ title, buttonArray }) => {
