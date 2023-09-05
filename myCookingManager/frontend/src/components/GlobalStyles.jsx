@@ -2,9 +2,10 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
-    --primary-color: #973324;
-    --secondary-color: #d5ba9c;
-    --tertiary-color: #b95821;
+    --primary-color: #27540C; 
+    --secondary-color: #ffffff;
+    --tertiary-color: #d67503;
+    --input-bg-color: #F1F1F1;
     --heading-font-family: "Space Grotesk", sans-serif;
     --copy-font-family: 'Archivo', sans-serif;
     --link-font-family: 'JetBrains Mono', monospace;
