@@ -2,8 +2,10 @@ import { useState } from "react";
 import { styled } from "styled-components";
 
 const SearchBar = ({ setSearchTerms, failedSearch }) => {
+	// State used to store the value of the search field during onChange
 	const [searchField, setSearchField] = useState("");
 
+	// Set the search terms only when the input contains something
 	const handleSearchSubmit = (event) => {
 		if (event === undefined && searchField) {
 			setSearchTerms(searchField);
@@ -49,12 +51,11 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
-	max-width: 100vw;
+	align-items: flex-end;
+	max-width: 80vw;
 	background-color: var(--secondary-color);
 	height: 100px;
-
-	background-color: white;
+	margin: 0 auto;
 `;
 
 const SearchInputContainer = styled.div`
@@ -65,10 +66,10 @@ const SearchInputContainer = styled.div`
 `;
 
 const Input = styled.input`
+	margin: 0 30px 0 0;
 	padding: 6px 0 6px 6px;
-	width: 60vw;
+	width: 50vw;
 	border: 2px solid var(--input-bg-color);
-
 	background-color: var(--input-bg-color);
 
 	&:focus {
@@ -81,12 +82,11 @@ const Button = styled.button`
 	padding: 10px 20px;
 	background-color: var(--primary-color);
 	font-family: var(--link-font-family);
-	color: white;
+	color: var(--secondary-color);
 	margin: 0 10px;
 	border: 2px solid var(--primary-color);
 	border-radius: 5px;
-
-	background-color: #27540C; // darkest green
+	min-width: 85px;
 
 	&:focus {
 		border: 2px solid black;
@@ -95,10 +95,13 @@ const Button = styled.button`
 `;
 
 const FailedSearchDiv = styled.div`
-	width: 60vw;
+	width: 100%;
 	min-height: 16px; // same height as the font-size of the FailedSearchText
+	text-align: center;
 `;
 
-const FailedSearchText = styled.p``;
+const FailedSearchText = styled.p`
+	text-align: center;
+`;
 
 export default SearchBar;

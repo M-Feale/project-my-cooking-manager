@@ -41,7 +41,7 @@ const RecipeCollection = () => {
 					setRecipes(parsedRes.data);
 				} else if (parsedRes.status === 204) {
 					setFailedSearch(
-						`${searchTerms} didn't point to any recipes in your Recipe Collection`
+						`Sorry, ${searchTerms} didn't point to any recipes in your Recipe Collection...`
 					);
 				}
 			})

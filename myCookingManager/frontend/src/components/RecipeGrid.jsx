@@ -32,7 +32,7 @@ const Wrapper = styled.div`
 	width: 90vw;
 	margin: 30px auto;
 	display: grid;
-	align-items: center;
+	place-items: center; // Magical grid property!
 	gap: 30px;
 	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 `;
@@ -49,9 +49,6 @@ const LinkContainer = styled.div`
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 	transition: all ease 200ms;
-
-	// Alternative Box shadow
-	//0 4px 40px 0 rgba(0, 0, 0, 0.19), 0 6px 60px 0 rgba(0, 0, 0, 0.18), 0 8px 700px 0 rgba(0, 0, 0, 0.17);
 
 	&:hover {
 		scale: 1.008;
