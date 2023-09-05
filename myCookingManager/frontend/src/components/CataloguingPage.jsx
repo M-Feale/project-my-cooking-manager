@@ -31,6 +31,7 @@ const CataloguingPage = () => {
 	// Import navigate
 	const navigate = useNavigate();
 
+	// Send the recipe information to the BE when the category is confirmed
 	useEffect(() => {
 		if (catalogueFlow.isCategoryConfirmed) {
 			fetch(`/api/user/${user.sub}/recipes`, {
@@ -45,11 +46,16 @@ const CataloguingPage = () => {
 			})
 				.then((res) => res.json())
 				.then((parsedResponse) => {
+					// If the recipe was successfully added, modify context to render next step in cataloguing flow.
 					if (parsedResponse.status === 200) {
 						setCatalogueFlow({
 							...catalogueFlow,
 							isPutSuccessful: true,
 						});
+					// ------------------------------------------------------------------------------------------- //
+					// If a matching recipe was found in the database, render a partial success message and offer
+					// to the user to navigate to that recipe's page.
+					// ------------------------------------------------------------------------------------------- //
 					} else if (parsedResponse.status === 206) {
 						setRecipeAlreadyExists({
 							answer: true,
@@ -60,12 +66,12 @@ const CataloguingPage = () => {
 					}
 				})
 				.catch((error) => {
-					// Remove console.error before submitting the project
 					console.error("Fetch error:", error);
 				});
 		}
 	}, [catalogueFlow.isCategoryConfirmed]);
 
+	// Reset the context and partial success states to their initial values 
 	const handleReset = () => {
 		setRecipeAlreadyExists({ answer: false, recipeId: "" });
 		setCatalogueFlow({
@@ -157,7 +163,7 @@ const CataloguingPage = () => {
 };
 
 const Wrapper = styled.div`
-	margin: 30px auto;
+	margin: 20px auto 30px auto;
 	width: 80vw;
 	display: flex;
 	flex-direction: column;
