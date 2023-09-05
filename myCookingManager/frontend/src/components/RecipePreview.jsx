@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { styled } from "styled-components";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
+import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
 
 import DialogueBox from "./DialogueBox";
 
@@ -10,6 +11,9 @@ const RecipePreview = () => {
 	const { catalogueFlow, setCatalogueFlow } =
 		useContext(CatalogueFlowContext);
 
+	// Import a custom useRef hook that outputs a scrolled into view ref
+	const viewComponent = useAutoScrollIntoView();
+	// ref = { viewComponent };
 	return (
 		<Wrapper>
 			{!catalogueFlow.recipeInfo.image ? (
@@ -37,7 +41,9 @@ const RecipePreview = () => {
 								</RecipePreviewCopy>
 							</div>
 						</TextContainer>
-						<DialogueBoxContainer $isVisible={!catalogueFlow.isRecipePreviewCorrect} >
+						<DialogueBoxContainer
+							$isVisible={!catalogueFlow.isRecipePreviewCorrect}
+						>
 							<DialogueBox
 								title={
 									"Is this the recipe you were looking to add to your collection ?"
@@ -63,7 +69,8 @@ const RecipePreview = () => {
 							/>
 						</DialogueBoxContainer>
 					</TextAndDialogueBoxContainer>
-					<ImageDiv>
+
+					<ImageDiv ref={viewComponent}>
 						<Image
 							src={catalogueFlow.recipeInfo.image}
 							alt={catalogueFlow.recipeInfo.name}
@@ -79,8 +86,13 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin: 20px 0;
 	width: 100%;
+
+	margin: 20px 0;
+	padding: 30px 20px 20px;
+	border-radius: 5px;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 `;
 
 const TextAndDialogueBoxContainer = styled.div`
@@ -121,7 +133,7 @@ const DialogueBoxContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: 30vw;
-	visibility: ${(props) => (props.$isVisible ? "visible" : "hidden" )};
+	visibility: ${(props) => (props.$isVisible ? "visible" : "hidden")};
 `;
 
 const ImageDiv = styled.div`
@@ -133,6 +145,7 @@ const ImageDiv = styled.div`
 	max-height: 70vh;
 	max-width: 50%;
 	min-height: 300px;
+	padding: 20px 0;
 `;
 
 const Image = styled.img`

@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
 import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
+import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
 
 import CategoryCreation from "./CategoryCreation";
 
@@ -13,6 +14,9 @@ const CatalogueCategorySelect = () => {
 
 	// Import custom useRef hook that outputs a focused ref
 	const selectInput = useAutoFocus();
+
+	// Import a custom useRef hook that outputs a scrolled into view ref
+	const viewComponent = useAutoScrollIntoView();
 
 	// Import the CatalogueFlow Context
 	const { catalogueFlow, setCatalogueFlow } =
@@ -78,6 +82,7 @@ const CatalogueCategorySelect = () => {
 			</Select>
 			{!createNewCategory && catalogueFlow.recipeInfo.category && (
 				<Button
+					ref={viewComponent}
 					onClick={() =>
 						setCatalogueFlow({
 							...catalogueFlow,
@@ -90,6 +95,7 @@ const CatalogueCategorySelect = () => {
 			)}
 			{createNewCategory && (
 				<CategoryCreation
+					ref={viewComponent}
 					label={"New Category Name"}
 					buttonClickFunc={() =>
 						setCatalogueFlow({
@@ -120,6 +126,12 @@ const Wrapper = styled.div`
 	padding: 20px 0;
 	background-color: var(--secondary-color);
 	width: 80%;
+
+	margin: 20px 0;
+	padding: 10px 20px;
+	border-radius: 5px;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 `;
 
 const Label = styled.label`

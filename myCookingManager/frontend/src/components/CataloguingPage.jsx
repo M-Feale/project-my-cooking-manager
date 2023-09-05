@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
+import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
 
 import UrlInput from "./UrlInput";
 import RecipePreview from "./RecipePreview";
@@ -31,6 +32,9 @@ const CataloguingPage = () => {
 	// Import navigate
 	const navigate = useNavigate();
 
+	// Import a custom useRef hook that outputs a scrolled into view ref
+	const viewComponent = useAutoScrollIntoView();
+
 	// Send the recipe information to the BE when the category is confirmed
 	useEffect(() => {
 		if (catalogueFlow.isCategoryConfirmed) {
@@ -52,10 +56,10 @@ const CataloguingPage = () => {
 							...catalogueFlow,
 							isPutSuccessful: true,
 						});
-					// ------------------------------------------------------------------------------------------- //
-					// If a matching recipe was found in the database, render a partial success message and offer
-					// to the user to navigate to that recipe's page.
-					// ------------------------------------------------------------------------------------------- //
+						// ------------------------------------------------------------------------------------------- //
+						// If a matching recipe was found in the database, render a partial success message and offer
+						// to the user to navigate to that recipe's page.
+						// ------------------------------------------------------------------------------------------- //
 					} else if (parsedResponse.status === 206) {
 						setRecipeAlreadyExists({
 							answer: true,
@@ -71,7 +75,12 @@ const CataloguingPage = () => {
 		}
 	}, [catalogueFlow.isCategoryConfirmed]);
 
-	// Reset the context and partial success states to their initial values 
+	// Reset the context when the page dismounts
+	useEffect(() => {
+		return () => handleReset();
+	}, []);
+
+	// Reset the context and partial success states to their initial values
 	const handleReset = () => {
 		setRecipeAlreadyExists({ answer: false, recipeId: "" });
 		setCatalogueFlow({
@@ -95,6 +104,8 @@ const CataloguingPage = () => {
 		handleReset();
 		navigate(url);
 	};
+
+	// ref={viewComponent}
 
 	return (
 		<Wrapper>
@@ -158,9 +169,15 @@ const CataloguingPage = () => {
 					]}
 				/>
 			)}
+			{/* <CheatingP ref={viewComponent}></CheatingP> */}
 		</Wrapper>
 	);
 };
+
+const CheatingP = styled.div`
+	position: fixed;
+	bottom: 0;
+`;
 
 const Wrapper = styled.div`
 	margin: 20px auto 30px auto;
@@ -168,6 +185,10 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	/* 
+	position: sticky;
+	/* top: calc(-10vh + 20px); // The Header height: ;
+	bottom: 0; */
 `;
 
 export default CataloguingPage;
