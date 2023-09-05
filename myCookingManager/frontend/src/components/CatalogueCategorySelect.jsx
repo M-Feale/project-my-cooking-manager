@@ -9,7 +9,7 @@ import CategoryCreation from "./CategoryCreation";
 
 const CatalogueCategorySelect = () => {
 	//Import user object from auth0
-	const {user} = useAuth0()
+	const { user } = useAuth0();
 
 	// Import custom useRef hook that outputs a focused ref
 	const selectInput = useAutoFocus();
@@ -73,9 +73,7 @@ const CatalogueCategorySelect = () => {
 					);
 				})}
 				<Option value="Unspecified Category">
-					{!catalogueFlow.recipeInfo.category
-						? "Create a New Category"
-						: `${catalogueFlow.recipeInfo.category}`}
+					Create a New Category
 				</Option>
 			</Select>
 			{!createNewCategory && catalogueFlow.recipeInfo.category && (
