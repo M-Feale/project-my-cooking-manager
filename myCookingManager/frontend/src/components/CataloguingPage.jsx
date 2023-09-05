@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -31,9 +31,6 @@ const CataloguingPage = () => {
 
 	// Import navigate
 	const navigate = useNavigate();
-
-	// Import a custom useRef hook that outputs a scrolled into view ref
-	const viewComponent = useAutoScrollIntoView();
 
 	// Send the recipe information to the BE when the category is confirmed
 	useEffect(() => {
@@ -105,8 +102,6 @@ const CataloguingPage = () => {
 		navigate(url);
 	};
 
-	// ref={viewComponent}
-
 	return (
 		<Wrapper>
 			{!catalogueFlow.isRecipePreviewCorrect && (
@@ -169,15 +164,9 @@ const CataloguingPage = () => {
 					]}
 				/>
 			)}
-			{/* <CheatingP ref={viewComponent}></CheatingP> */}
 		</Wrapper>
 	);
 };
-
-const CheatingP = styled.div`
-	position: fixed;
-	bottom: 0;
-`;
 
 const Wrapper = styled.div`
 	margin: 20px auto 30px auto;
@@ -185,10 +174,6 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* 
-	position: sticky;
-	/* top: calc(-10vh + 20px); // The Header height: ;
-	bottom: 0; */
 `;
 
 export default CataloguingPage;
