@@ -8,16 +8,17 @@ const UrlInput = ({ resetOnClickFunction }) => {
 	//Import user object from auth0
 	const { user } = useAuth0();
 
-	// Import context
+	// Import context to control conditional rendering
 	const { catalogueFlow, setCatalogueFlow } =
 		useContext(CatalogueFlowContext);
 
 	// This state will be used to notify when the search is unsuccessful
 	const [failedSearch, setFailedSearch] = useState("");
 
-	// Initialize a useRef to bring focus to the search input onClick later
+	// Initialize a useRef to bring focus to the search input with onClick function.
 	const searchRef = useRef(null);
 
+	// Fetch the submitted url only when the input contains something
 	const handleFindSubmit = (event) => {
 		if (
 			(event === undefined &&
@@ -44,18 +45,14 @@ const UrlInput = ({ resetOnClickFunction }) => {
 				})
 				.then((parsedResponse) => {
 					if (parsedResponse.status === 200) {
-						// Decide if I want to add a success message for a successful search
-						console.log(parsedResponse);
+						// When successful, modify context to render next step in cataloguing flow.
 						setCatalogueFlow({
 							...catalogueFlow,
 							isRecipeInput: true,
 							recipeInfo: parsedResponse.data,
 						});
 					} else if (parsedResponse.status === 204) {
-						// Do a message for an unsuccessful url search
-						console.log(
-							"The URL you pasted didn't return any results. Verify your URL and try again."
-						);
+						// If not successful in a preditable way, provide feeback to the user.
 						setFailedSearch(
 							"The URL you pasted didn't return any results. Verify your URL and try again."
 						);
@@ -64,15 +61,20 @@ const UrlInput = ({ resetOnClickFunction }) => {
 					}
 				})
 				.catch((error) => {
-					// Remove console.error before submitting the project
 					console.error("Fetch error:", error);
+					// ------------------------------------------------------------------------------------------------ //
+					// Because this endpoint interacts with a library that relies on link previews existing for an url,
+					// many unexpected things can go wrong. Therefore, I want the user to understand why a link
+					// is not working and provide a better user experience.
+					// ------------------------------------------------------------------------------------------------ //
 					setFailedSearch(
-						"The URL you pasted didn't return any results. Verify your URL and try again."
+						"The URL you pasted didn't return any results. Verify your URL and try again. If still unsuccessful, maybe your recipe link is not compatible with My Cooking Manager. We apologize for the inconvenience."
 					);
 				});
 		}
 	};
 
+	// Function that reset the context to its inital state, clear the search input and puts it in focus
 	const handleClearField = () => {
 		resetOnClickFunction();
 		setFailedSearch("");
@@ -103,6 +105,7 @@ const UrlInput = ({ resetOnClickFunction }) => {
 					}
 					onKeyDown={handleFindSubmit}
 				/>
+				{/* // Call onClick function anonymously to allow for reuse of same function as onKeyDown */}
 				<Button onClick={() => handleFindSubmit()}>Find</Button>
 				<Button onClick={handleClearField}>Clear</Button>
 			</UrlInputContainer>
