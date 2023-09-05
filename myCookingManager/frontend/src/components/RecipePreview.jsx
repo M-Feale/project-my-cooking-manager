@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { styled } from "styled-components";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
@@ -12,10 +12,10 @@ const RecipePreview = () => {
 		useContext(CatalogueFlowContext);
 
 	// Import a custom useRef hook that outputs a scrolled into view ref
-	const viewComponent = useAutoScrollIntoView();
-	// ref = { viewComponent };
+	const viewPreview = useAutoScrollIntoView();
+	
 	return (
-		<Wrapper>
+		<Wrapper ref={viewPreview} >
 			{!catalogueFlow.recipeInfo.image ? (
 				<h1>Loading...</h1>
 			) : (
@@ -43,6 +43,7 @@ const RecipePreview = () => {
 						</TextContainer>
 						<DialogueBoxContainer
 							$isVisible={!catalogueFlow.isRecipePreviewCorrect}
+							$isDisplayed={!catalogueFlow.isPutSuccessful}
 						>
 							<DialogueBox
 								title={
@@ -68,9 +69,11 @@ const RecipePreview = () => {
 								]}
 							/>
 						</DialogueBoxContainer>
+						<DialogueBoxContainer $isDisplayed={catalogueFlow.isPutSuccessful} $isVisible={catalogueFlow.isPutSuccessful} >
+							<DialogueBox title={"Success!"} buttonArray={[]} />
+						</DialogueBoxContainer>
 					</TextAndDialogueBoxContainer>
-
-					<ImageDiv ref={viewComponent}>
+					<ImageDiv>
 						<Image
 							src={catalogueFlow.recipeInfo.image}
 							alt={catalogueFlow.recipeInfo.name}
@@ -112,19 +115,19 @@ const TextContainer = styled.div`
 `;
 
 const SectionTitle = styled.h2`
-	color: var(--primary-color);
+	color: var(--tertiary-color);
 	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
-	font-size: 20px;
+	font-size: 22px;
 	margin: 5px 0;
 `;
 
 const RecipePreviewCopy = styled.p`
 	text-align: justify;
-	font-size: 16px;
+	font-size: 18px;
 	line-height: 115%;
-	margin: 5px 0 5px 5px;
+	margin: 5px 0;
 `;
 
 const DialogueBoxContainer = styled.div`
@@ -132,8 +135,10 @@ const DialogueBoxContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	flex-grow: 1;
 	width: 30vw;
 	visibility: ${(props) => (props.$isVisible ? "visible" : "hidden")};
+	display: ${(props) => (props.$isDisplayed ? "flex" : "none")};
 `;
 
 const ImageDiv = styled.div`
