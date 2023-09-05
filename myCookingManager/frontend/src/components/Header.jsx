@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "./LogoutButton";
 
 const Header = () => {
-	// Import isAutheticated from auth0 to show navigation conditionally
+	// Import isAuthenticated from auth0 to show navigation conditionally
 	const { isAuthenticated } = useAuth0();
 	const navigate = useNavigate();
 
@@ -40,6 +40,10 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	padding: 20px;
+
+	/* margin-bottom: 5px;
+	position: relative;
+	z-index: 2; */
 `;
 
 const BrandHeading = styled.h1`
