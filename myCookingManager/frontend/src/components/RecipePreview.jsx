@@ -37,7 +37,7 @@ const RecipePreview = () => {
 								</RecipePreviewCopy>
 							</div>
 						</TextContainer>
-						<DialogueBoxContainer>
+						<DialogueBoxContainer $isVisible={!catalogueFlow.isRecipePreviewCorrect} >
 							<DialogueBox
 								title={
 									"Is this the recipe you were looking to add to your collection ?"
@@ -121,6 +121,7 @@ const DialogueBoxContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: 30vw;
+	visibility: ${(props) => (props.$isVisible ? "visible" : "hidden" )};
 `;
 
 const ImageDiv = styled.div`
