@@ -125,15 +125,15 @@ const Container = styled.div`
 	align-items: center;
 	width: 100%;
 	height: 100px;
-
-	background-color: var(--secondary-color); // V1
-	/* background-color: var(--tertiary-color); // V2 */
+/* 
+	background-color: var(--secondary-color); // V1 */
+	background-color: var(--tertiary-color); // V2
 
 	padding: 10px 20px;
 	margin-bottom: 10px;
 	border-radius: 5px;
-	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
-		0 8px 30px 0 rgba(0, 0, 0, 0.18);
+	/* box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18); */
 `;
 
 const UrlInputContainer = styled.div`
@@ -164,9 +164,9 @@ const Label = styled.label`
 	max-width: 125px;
 	text-align: left;
 
-	color: var(--tertiary-color); // V1
-	/* color: var(--secondary-color); // V2 */
-	color: var(--primary-color); // V3
+	/* color: var(--tertiary-color); // V1 */
+	color: var(--secondary-color); // V2
+	/* color: var(--primary-color); // V3 */
 `;
 
 const Button = styled.button`
@@ -181,10 +181,10 @@ const Button = styled.button`
 	background-color: var(--primary-color); // V1 and V2
 	color: var(--secondary-color);
 	border: 2px solid var(--primary-color);
-
+/* 
 	background-color: var(--tertiary-color); // V3
 	color: black;
-	border: 2px solid var(--tertiary-color);
+	border: 2px solid var(--tertiary-color); */
 
 	&:focus {
 		border: 2px solid black;
