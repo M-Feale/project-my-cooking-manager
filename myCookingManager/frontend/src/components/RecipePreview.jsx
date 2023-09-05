@@ -6,6 +6,7 @@ import { CatalogueFlowContext } from "./CatalogueFlowContext";
 import DialogueBox from "./DialogueBox";
 
 const RecipePreview = () => {
+	// Import context to control conditional rendering
 	const { catalogueFlow, setCatalogueFlow } =
 		useContext(CatalogueFlowContext);
 
@@ -130,6 +131,7 @@ const ImageDiv = styled.div`
 	overflow: hidden;
 	max-height: 70vh;
 	max-width: 50%;
+	min-height: 300px;
 `;
 
 const Image = styled.img`
