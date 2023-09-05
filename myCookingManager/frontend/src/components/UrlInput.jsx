@@ -186,13 +186,6 @@ const Button = styled.button`
 	color: black;
 	border: 2px solid var(--tertiary-color);
 
-
-
-
-
-
-
-
 	&:focus {
 		border: 2px solid black;
 		outline: none;
