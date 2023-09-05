@@ -61,8 +61,6 @@ const RecipeDetailsCategorySelect = () => {
 				.then((response) => response.json())
 				.then((parsedResponse) => {
 					if (parsedResponse.status === 200) {
-						// Decide if I want to add a success message for a successful ingredient list update
-						console.log(parsedResponse);
 						setSelectCategories([
 							...selectCategories,
 							currentRecipeDetails.category,
@@ -80,6 +78,7 @@ const RecipeDetailsCategorySelect = () => {
 		}
 	}, [isNewCategoryConfirmed]);
 
+	// Function that sets a chosen category to the context or activates a flag that allows for a manual category input.
 	const handleCategoryChange = (event) => {
 		setCurrentRecipeDetails({
 			...currentRecipeDetails,
