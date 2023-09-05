@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
+import { filterSpecialCharacter } from "../utility_functions/filterSpecialCharacter";
 
 const UrlInput = ({ resetOnClickFunction }) => {
 	//Import user object from auth0
@@ -26,6 +27,9 @@ const UrlInput = ({ resetOnClickFunction }) => {
 			(event?.code === "Enter" &&
 				catalogueFlow.recipeInfo.recipe_url.length > 0)
 		) {
+			// Filter potential # and ? from the url using utility function.
+			const filteredUrl = filterSpecialCharacter(catalogueFlow.recipeInfo.recipe_url)
+
 			fetch(`/api/user/${user.sub}/catalogue`, {
 				method: "POST",
 				headers: {
@@ -33,7 +37,7 @@ const UrlInput = ({ resetOnClickFunction }) => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					recipe_url: catalogueFlow.recipeInfo.recipe_url,
+					recipe_url: filteredUrl,
 				}),
 			})
 				.then((res) => {
@@ -83,10 +87,10 @@ const UrlInput = ({ resetOnClickFunction }) => {
 
 	return (
 		<Container>
-			<Label htmlFor="urlInput">
-				Paste the URL of the coveted recipe and click "Find" !
-			</Label>
 			<UrlInputContainer>
+				<Label htmlFor="urlInput">
+					Enter a recipe url and click "Find" !
+				</Label>
 				<Input
 					id="urlInput"
 					type="text"
@@ -120,8 +124,16 @@ const Container = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	background-color: var(--secondary-color);
 	height: 100px;
+
+	background-color: var(--secondary-color); // V1
+	/* background-color: var(--tertiary-color); // V2 */
+
+	padding: 10px 20px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 `;
 
 const UrlInputContainer = styled.div`
@@ -144,22 +156,42 @@ const Input = styled.input`
 `;
 
 const Label = styled.label`
-	color: var(--primary-color);
 	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
 	padding: 5px 0;
+	margin-right: 10px;
+	max-width: 125px;
+	text-align: left;
+
+	color: var(--tertiary-color); // V1
+	/* color: var(--secondary-color); // V2 */
+	color: var(--primary-color); // V3
 `;
 
 const Button = styled.button`
 	padding: 10px 20px;
 	min-width: 80px;
 	border-radius: 3px;
-	background-color: var(--primary-color);
 	font-family: var(--link-font-family);
-	color: white;
 	margin: 0 10px;
+	border-radius: 5px;
+	min-width: 85px;
+
+	background-color: var(--primary-color); // V1 and V2
+	color: var(--secondary-color);
 	border: 2px solid var(--primary-color);
+
+	background-color: var(--tertiary-color); // V3
+	color: black;
+	border: 2px solid var(--tertiary-color);
+
+
+
+
+
+
+
 
 	&:focus {
 		border: 2px solid black;
