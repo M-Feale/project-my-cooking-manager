@@ -17,7 +17,7 @@ const createRecipePreview = async (req, res) => {
         const previewResult = await grabity.grab(recipe_url);
 
         // ----------------------------------------------------------------------- //
-        // If we get something back a preview and the data includes the recipe_url 
+        // If we get a preview back and the data includes the recipe_url 
         // that we used to get the preview, include only the useful fields of the 
         // preview to the returned data.
         // ----------------------------------------------------------------------- //
@@ -32,7 +32,7 @@ const createRecipePreview = async (req, res) => {
                 category: ""
             };
             return res.status(200).json({status: 200, message: "Success!", data: data})
-        } // If we don't, send 204 and let FE create an unsuccessful message for the preview
+        } // If we get an error or a preview that doesn't match, send 204 and let FE create an unsuccessful message for the preview
         else {
             return res.status(204).json({ status: 204 }) 
         }
