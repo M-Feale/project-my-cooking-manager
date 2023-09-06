@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
-import Home from "./Home";
+import Home from "./HomePage/Home";
 import RecipeCollection from "./RecipeCollection";
 import RecipeDetails from "./RecipeDetails";
 import Callback from "./Callback";
