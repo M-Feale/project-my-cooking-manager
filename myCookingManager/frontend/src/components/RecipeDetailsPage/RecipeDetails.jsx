@@ -10,7 +10,7 @@ import IngredientListInput from "./IngredientListInput";
 import MakeAgain from "./MakeAgain";
 import NavigateRecipeWebsite from "./NavigateRecipeWebsite";
 import Notepad from "./Notepad";
-import RatingSystem from "../RatingSystem";
+import RatingSystem from "../multipage_components/RatingSystem";
 import DateTracker from "./DateTracker";
 import RecipeDetailsCategorySelect from "./RecipeDetailsCategorySelect";
 

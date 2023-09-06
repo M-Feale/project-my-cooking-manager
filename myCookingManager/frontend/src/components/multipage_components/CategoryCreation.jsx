@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { useState } from "react";
 
-import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
+import useAutoFocus from "../../utility_functions/hooks/useAutoFocus";
 
 const CategoryCreation = ({ label, inputOnChangeFunc, buttonClickFunc }) => {
 	// Import custom useRef hook that outputs a focused ref
