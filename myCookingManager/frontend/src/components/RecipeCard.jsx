@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { FaListUl } from "react-icons/fa";
 import { FaRegNoteSticky } from "react-icons/fa6";
@@ -9,8 +9,6 @@ import { Rating } from "@smastrom/react-rating";
 import { lastDateCalculator } from "../utility_functions/lastDateCalculator";
 
 const RecipeCard = ({ recipe }) => {
-	const navigate = useNavigate();
-
 	// A recipe object has an array of 4 ratings. Here, the rating called "Overall" is used for the component.
 	const overallRating = recipe.ratings.find((rating) => {
 		return rating.label === "Overall";
@@ -21,42 +19,49 @@ const RecipeCard = ({ recipe }) => {
 	const lastDateMade = lastDateCalculator(arrayOfDateObjects);
 
 	return (
-		<Wrapper
-			key={recipe.recipeId}
-			onClick={() => navigate(`/recipes/${recipe.recipeId}`)}
-		>
-			<ImageContainer>
-				<Image src={recipe.image} alt={recipe.name} />
-			</ImageContainer>
-			<RecipeName>
-				{/* // Modify the recipe name to shorten it for a better display */}
-				{recipe.name.length > 30
-					? `${recipe.name.substring(0, 30)}...`
-					: recipe.name}
-			</RecipeName>
-			<TextAndIconContainer>
-				<LeftContainer>
-					<SmallItalicText>by {recipe.website}</SmallItalicText>
-					{/* // Component used for the star rating. 
+		<StyledLink to={`/recipes/${recipe.recipeId}`}>
+			<Wrapper
+			>
+				<ImageContainer>
+					<Image src={recipe.image} alt={recipe.name} />
+				</ImageContainer>
+				<RecipeName>
+					{/* // Modify the recipe name to shorten it for a better display */}
+					{recipe.name.length > 30
+						? `${recipe.name.substring(0, 30)}...`
+						: recipe.name}
+				</RecipeName>
+				<TextAndIconContainer>
+					<LeftContainer>
+						<SmallItalicText>by {recipe.website}</SmallItalicText>
+						{/* // Component used for the star rating. 
 					// With readOnly set to true, the stars are not interactive but can display non-integer ratings. */}
-					<Rating
-						style={{ maxWidth: 175 }}
-						readOnly={true}
-						value={overallRating.rating}
-					/>
-					<DateCopy>
-						<ItalicSpan>Last made: </ItalicSpan>
-						{recipe.dates_created.length ? lastDateMade : "Never"}
-					</DateCopy>
-				</LeftContainer>
-				<RightContainer>
-					<ListIcon $isPresent={recipe.shopping_list.length} />
-					<NoteIcon $isPresent={recipe.notes.length} />
-				</RightContainer>
-			</TextAndIconContainer>
-		</Wrapper>
+						<Rating
+							style={{ maxWidth: 175 }}
+							readOnly={true}
+							value={overallRating.rating}
+						/>
+						<DateCopy>
+							<ItalicSpan>Last made: </ItalicSpan>
+							{recipe.dates_created.length
+								? lastDateMade
+								: "Never"}
+						</DateCopy>
+					</LeftContainer>
+					<RightContainer>
+						<ListIcon $isPresent={recipe.shopping_list.length} />
+						<NoteIcon $isPresent={recipe.notes.length} />
+					</RightContainer>
+				</TextAndIconContainer>
+			</Wrapper>
+		</StyledLink>
 	);
 };
+
+const StyledLink = styled(Link)`
+	text-decoration: none;
+	color: black;
+`;
 
 const Wrapper = styled.div`
 	max-width: 400px;
