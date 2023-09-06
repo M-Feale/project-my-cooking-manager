@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import LoginButton from "./LoginButton";
 
-import ProductCarousel from "../assets/ProductCarousel.png";
+import HeroImage from "../assets/HeroImage.jpg"
 
 const Home = () => {
 	// Import info from auth0 context
@@ -56,9 +56,9 @@ const Home = () => {
 	return (
 		<Wrapper>
 			{/* // Placeholder image before the carousel is functional */}
-			<HeroImage
-				src={ProductCarousel}
-				alt="Carousel featuring Recipe Cards of the starter recipes"
+			<Hero
+				src={HeroImage}
+				alt="Three recipes, a soup, a chocolate dessert and salad."
 			/>
 			<Slogan>
 				Welcome to <ItalicSpan>My Cooking Manager</ItalicSpan>, the
@@ -95,16 +95,17 @@ const Wrapper = styled.div`
 	align-items: center;
 `;
 
-const HeroImage = styled.img`
+const Hero = styled.img`
 	width: 70vw;
+	filter: opacity(70%);
 `;
 
 const Slogan = styled.h1`
-	font-family: var(--heading-font-family);
 	font-size: 40px;
 	text-align: center;
 	width: 80vw;
 	margin: 20px 0;
+	color: var(--tertiary-color);
 `;
 
 const ItalicSpan = styled.span`
@@ -116,22 +117,29 @@ const ActionContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: var(--secondary-color);
 	padding: 20px;
+	min-width: 400px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 `;
 
 const ActionText = styled.h2`
-	font-family: var(--copy-font-family);
 	margin-bottom: 16px;
+	color: var(--primary-color);
+	font-size: 20px;
 `;
 
 const ActionButton = styled.button`
-	font-family: var(--link-font-family);
 	background-color: var(--tertiary-color);
 	padding: 10px;
-	border: none;
-	outline: none;
+	border: 2px solid var(--tertiary-color);
 	border-radius: 5px;
+	font-weight: 500;
+
+	&:focus {
+		border: 2px solid black;
+		outline: none;
+	}
 `;
 
 export default Home;

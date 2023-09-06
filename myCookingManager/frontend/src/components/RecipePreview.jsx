@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { styled } from "styled-components";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
+import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
 
 import DialogueBox from "./DialogueBox";
 
@@ -10,8 +11,11 @@ const RecipePreview = () => {
 	const { catalogueFlow, setCatalogueFlow } =
 		useContext(CatalogueFlowContext);
 
+	// Import a custom useRef hook that outputs a scrolled into view ref
+	const viewPreview = useAutoScrollIntoView();
+	
 	return (
-		<Wrapper>
+		<Wrapper ref={viewPreview} >
 			{!catalogueFlow.recipeInfo.image ? (
 				<h1>Loading...</h1>
 			) : (
@@ -37,7 +41,10 @@ const RecipePreview = () => {
 								</RecipePreviewCopy>
 							</div>
 						</TextContainer>
-						<DialogueBoxContainer $isVisible={!catalogueFlow.isRecipePreviewCorrect} >
+						<DialogueBoxContainer
+							$isVisible={!catalogueFlow.isRecipePreviewCorrect}
+							$isDisplayed={!catalogueFlow.isPutSuccessful}
+						>
 							<DialogueBox
 								title={
 									"Is this the recipe you were looking to add to your collection ?"
@@ -62,6 +69,9 @@ const RecipePreview = () => {
 								]}
 							/>
 						</DialogueBoxContainer>
+						<DialogueBoxContainer $isDisplayed={catalogueFlow.isPutSuccessful} $isVisible={catalogueFlow.isPutSuccessful} >
+							<DialogueBox title={"Success!"} buttonArray={[]} />
+						</DialogueBoxContainer>
 					</TextAndDialogueBoxContainer>
 					<ImageDiv>
 						<Image
@@ -79,8 +89,13 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin: 20px 0;
 	width: 100%;
+
+	margin: 20px 0;
+	padding: 30px 20px 20px;
+	border-radius: 5px;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 `;
 
 const TextAndDialogueBoxContainer = styled.div`
@@ -100,19 +115,18 @@ const TextContainer = styled.div`
 `;
 
 const SectionTitle = styled.h2`
-	color: var(--primary-color);
-	font-family: var(--heading-font-family);
+	color: var(--tertiary-color);
 	font-weight: bold;
 	display: block;
-	font-size: 20px;
+	font-size: 22px;
 	margin: 5px 0;
 `;
 
 const RecipePreviewCopy = styled.p`
 	text-align: justify;
-	font-size: 16px;
+	font-size: 18px;
 	line-height: 115%;
-	margin: 5px 0 5px 5px;
+	margin: 5px 0;
 `;
 
 const DialogueBoxContainer = styled.div`
@@ -120,8 +134,10 @@ const DialogueBoxContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	flex-grow: 1;
 	width: 30vw;
-	visibility: ${(props) => (props.$isVisible ? "visible" : "hidden" )};
+	visibility: ${(props) => (props.$isVisible ? "visible" : "hidden")};
+	display: ${(props) => (props.$isDisplayed ? "flex" : "none")};
 `;
 
 const ImageDiv = styled.div`
@@ -133,6 +149,7 @@ const ImageDiv = styled.div`
 	max-height: 70vh;
 	max-width: 50%;
 	min-height: 300px;
+	padding: 20px 0;
 `;
 
 const Image = styled.img`

@@ -125,7 +125,7 @@ const DateTracker = () => {
 				<InputDiv>
 					<Input
 						id="date"
-						placeholder="Write when you created this recipe here !"
+						placeholder="Accepted formats: Sept 5 2023 or 02-05-2023 "
 						value={singleDate}
 						onChange={(ev) => setSingleDate(ev.target.value)}
 					/>
@@ -137,15 +137,18 @@ const DateTracker = () => {
 
 const Wrapper = styled.div`
 	margin: 20px 0;
-	padding: 20px;
-	background-color: var(--secondary-color);
+	padding: 5px 20px 10px;
+
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
+	border-radius: 5px;
 `;
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
+	padding: 5px 0;
 `;
 
 const ListParent = styled.ul`
@@ -166,8 +169,9 @@ const InputDiv = styled.div`
 const Input = styled.input`
 	padding: 6px;
 	width: 70%;
-	border: 2px solid var(--secondary-color);
+	border: 2px solid var(--input-bg-color);
 	margin: 0 0 0 20px;
+	background-color: var(--input-bg-color);
 
 	&:focus {
 		border: 2px solid black;
@@ -207,8 +211,8 @@ const Button = styled.button`
 
 const TodayButton = styled.button`
 	background-color: var(--primary-color);
-	color: black;
 	border: 2px solid var(--primary-color);
+	color: var(--secondary-color);
 	padding: 5px;
 	width: 150px;
 	border-radius: 3px;

@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "./LogoutButton";
 
 const Header = () => {
-	// Import isAutheticated from auth0 to show navigation conditionally
+	// Import isAuthenticated from auth0 to show navigation conditionally
 	const { isAuthenticated } = useAuth0();
 	const navigate = useNavigate();
 
@@ -37,21 +37,17 @@ const Wrapper = styled.div`
 	background-color: var(--primary-color);
 	height: 10vh;
 	display: flex;
+	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	padding: 20px;
-
-	background-color: #27540C; // darkest green
 `;
 
 const BrandHeading = styled.h1`
 	color: var(--secondary-color);
-	font-size: var(--heading-font-size);
-	font-family: var(--heading-font-family);
+	font-size: 50px;
+	font-weight: 500;
 	cursor: pointer;
-
-	color: white; // first choice
-	color: #FFE1BE; // orangy white
 `;
 
 const NavAndLogoutContainer = styled.div`
@@ -72,7 +68,10 @@ const NavBar = styled.div`
 const NavButtons = styled(NavLink)`
 	font-size: 16px;
 	margin: 0 10px;
-	font-family: var(--link-font-family);
+	font-style: italic;
+	font-weight: 400;
+	text-transform: lowercase;
+
 	text-decoration: none;
 	color: var(--secondary-color);
 
@@ -83,16 +82,5 @@ const NavButtons = styled(NavLink)`
 		text-underline-offset: 10px;
 	}
 `;
-
-// const Button = styled.button`
-// 	background-color: var(--tertiary-color);
-// 	color: var(--secondary-color);
-// 	font-family: var(--link-font-family);
-// 	font-size: 18px;
-// 	padding: 10px 20px;
-// 	outline: none;
-// 	border: none;
-// 	border-radius: 10px;
-// `;
 
 export default Header;

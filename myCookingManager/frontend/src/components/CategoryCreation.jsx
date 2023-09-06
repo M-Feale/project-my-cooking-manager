@@ -47,7 +47,6 @@ const Container = styled.div`
 const Label = styled.label`
 	color: var(--primary-color);
 	font-size: 14px;
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
 	padding: 5px 0;
@@ -63,8 +62,10 @@ const InputAndButtonDiv = styled.div`
 const Input = styled.input`
 	padding: 6px 0 6px 6px;
 	width: 250px;
-	border: 2px solid var(--secondary-color);
+	border: 2px solid var(--input-bg-color);
 	margin: 0 0 10px 0;
+	background-color: var(--input-bg-color);
+	font-family: var(--input-font-family);
 
 	&:focus {
 		border: 2px solid black;

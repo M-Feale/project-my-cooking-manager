@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
 import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
+import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
 
 import CategoryCreation from "./CategoryCreation";
 
@@ -12,7 +13,11 @@ const CatalogueCategorySelect = () => {
 	const { user } = useAuth0();
 
 	// Import custom useRef hook that outputs a focused ref
-	const selectInput = useAutoFocus();
+	const focusSelectInput = useAutoFocus();
+
+	// Import and assign custom useRef hook that outputs a scrolled into view ref to some elements on the page
+	const viewCategorySelectWrapper = useAutoScrollIntoView();
+	const viewButton = useAutoScrollIntoView()
 
 	// Import the CatalogueFlow Context
 	const { catalogueFlow, setCatalogueFlow } =
@@ -53,14 +58,14 @@ const CatalogueCategorySelect = () => {
 		}
 	};
 	return (
-		<Wrapper>
+		<Wrapper ref={viewCategorySelectWrapper}>
 			<Label htmlFor="category-select">Categorize your New Recipe</Label>
 			<Select
 				id="category-select"
 				value={catalogueFlow.recipeInfo.category}
 				onChange={handleCategoryChange}
 				disabled={createNewCategory}
-				ref={selectInput}
+				ref={focusSelectInput}
 			>
 				<Option disabled={true} value="">
 					--Choose a Category--
@@ -78,6 +83,7 @@ const CatalogueCategorySelect = () => {
 			</Select>
 			{!createNewCategory && catalogueFlow.recipeInfo.category && (
 				<Button
+					ref={viewButton}
 					onClick={() =>
 						setCatalogueFlow({
 							...catalogueFlow,
@@ -120,18 +126,22 @@ const Wrapper = styled.div`
 	padding: 20px 0;
 	background-color: var(--secondary-color);
 	width: 80%;
+
+	margin: 20px 0;
+	padding: 10px 20px;
+	border-radius: 5px;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 `;
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
 	padding: 5px 0;
 `;
 
 const Select = styled.select`
-	font-family: var(--copy-font-family);
 	font-size: 16px;
 	line-height: 115%;
 	border-radius: 2px;
@@ -149,7 +159,6 @@ const Select = styled.select`
 const Option = styled.option`
 	font-size: 16px;
 	line-height: 115%;
-	font-family: var(--copy-font-family);
 	padding: 2px 2px 5px 2px;
 `;
 

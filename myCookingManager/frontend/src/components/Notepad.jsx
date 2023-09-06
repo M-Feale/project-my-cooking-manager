@@ -121,12 +121,14 @@ const Notepad = () => {
 const Wrapper = styled.div`
 	margin: 20px 0;
 	padding: 5px 20px 10px;
-	background-color: var(--secondary-color);
+
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
+	border-radius: 5px;
 `;
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
 	padding: 5px 0;
@@ -135,7 +137,9 @@ const Label = styled.label`
 const Input = styled.input`
 	padding: 6px;
 	width: 80%;
-	border: 2px solid var(--secondary-color);
+	border: 2px solid var(--input-bg-color);
+	background-color: var(--input-bg-color);
+	font-family: var(--input-font-family);
 
 	&:focus {
 		border: 2px solid black;

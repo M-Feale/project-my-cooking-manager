@@ -17,24 +17,31 @@ const NavigateRecipeWebsite = () => {
 };
 
 const AnchorTag = styled.a`
-	color: black;
+	
 	text-decoration: none;
 	cursor: pointer;
+	margin-bottom: 20px;
+
+	/* &:focus {
+		border: 2px solid black;
+		outline: none;
+	} */
 `;
 
 const Wrapper = styled.div`
-	width: 40vw;
-	background-color: var(--tertiary-color);
-	padding: 10px;
+	width: 100%;
+	background-color: var(--primary-color);
+	padding: 15px 10px;
 	border: none;
-	outline: none;
 	border-radius: 5px;
-	margin: 20px 0;
+
+	box-shadow:
+	0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 `;
 
 const LinkText = styled.p`
-	color: black;
-	font-family: var(--link-font-family);
+	color: var(--secondary-color);
 `;
 
 export default NavigateRecipeWebsite;

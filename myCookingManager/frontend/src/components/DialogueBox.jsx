@@ -7,7 +7,7 @@ const DialogueBox = ({ title, buttonArray }) => {
 		<Wrapper>
 			<SectionTitle>{title}</SectionTitle>
 			<ButtonWrapper>
-				{buttonArray.map((button) => {
+				{buttonArray.length ? buttonArray.map((button) => {
 					return (
 						<DialogueButton
 							key={button.text}
@@ -15,16 +15,20 @@ const DialogueBox = ({ title, buttonArray }) => {
 							onClickFunc={button.function}
 						/>
 					);
-				})}
+				}): ""}
 			</ButtonWrapper>
 		</Wrapper>
 	);
 };
 
 const Wrapper = styled.div`
-	border: 2px solid black;
 	background-color: var(--secondary-color);
 	width: 100%;
+	margin: 20px 0;
+	padding: 10px 20px;
+	border-radius: 5px;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 `;
 
 const SectionTitle = styled.span`
@@ -33,6 +37,7 @@ const SectionTitle = styled.span`
 	font-size: 20px;
 	margin: 10px 0;
 	text-align: center;
+	color: var(--primary-color);
 `;
 
 const ButtonWrapper = styled.div`

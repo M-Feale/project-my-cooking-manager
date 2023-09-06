@@ -181,12 +181,14 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 5px 20px;
-	background-color: var(--secondary-color);
+
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
+	border-radius: 5px;
 `;
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
 	padding: 5px 0;
@@ -194,9 +196,19 @@ const Label = styled.label`
 
 const Textarea = styled.textarea`
 	min-height: 160px; // 10 lines of 16px-high text
-	border: 2px solid var(--secondary-color);
+	border: 2px solid var(--input-bg-color);
 	resize: none;
-	/* background-color: white; */
+	background-color: var(--input-bg-color);
+	font-family: var(--input-font-family);
+
+	&:focus {
+		border: 2px solid black;
+		outline: none;
+	}
+
+	&:disabled{
+		background-color: #e1e1e1;
+	}
 `;
 
 const ButtonContainer = styled.div`

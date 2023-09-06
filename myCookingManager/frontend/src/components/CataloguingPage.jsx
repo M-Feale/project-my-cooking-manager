@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { CatalogueFlowContext } from "./CatalogueFlowContext";
+import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
 
 import UrlInput from "./UrlInput";
 import RecipePreview from "./RecipePreview";
@@ -52,10 +53,10 @@ const CataloguingPage = () => {
 							...catalogueFlow,
 							isPutSuccessful: true,
 						});
-					// ------------------------------------------------------------------------------------------- //
-					// If a matching recipe was found in the database, render a partial success message and offer
-					// to the user to navigate to that recipe's page.
-					// ------------------------------------------------------------------------------------------- //
+						// ------------------------------------------------------------------------------------------- //
+						// If a matching recipe was found in the database, render a partial success message and offer
+						// to the user to navigate to that recipe's page.
+						// ------------------------------------------------------------------------------------------- //
 					} else if (parsedResponse.status === 206) {
 						setRecipeAlreadyExists({
 							answer: true,
@@ -71,7 +72,12 @@ const CataloguingPage = () => {
 		}
 	}, [catalogueFlow.isCategoryConfirmed]);
 
-	// Reset the context and partial success states to their initial values 
+	// Reset the context when the page dismounts
+	useEffect(() => {
+		return () => handleReset();
+	}, []);
+
+	// Reset the context and partial success states to their initial values
 	const handleReset = () => {
 		setRecipeAlreadyExists({ answer: false, recipeId: "" });
 		setCatalogueFlow({

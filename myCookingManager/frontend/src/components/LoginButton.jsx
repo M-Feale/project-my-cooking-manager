@@ -21,12 +21,18 @@ const LoginButton = () => {
 };
 
 const ActionButton = styled.button`
-	font-family: var(--link-font-family);
 	background-color: var(--tertiary-color);
-	padding: 10px;
-	border: none;
-	outline: none;
+	padding: 10px 15px;
 	border-radius: 5px;
+	font-weight: 500;
+	text-transform: uppercase;
+	color: black;
+	border: 2px solid var(--tertiary-color);
+
+	&:focus {
+		border: 2px solid black;
+		outline: none;
+	}
 `;
 
 export default LoginButton;

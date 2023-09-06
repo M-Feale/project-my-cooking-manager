@@ -2,15 +2,12 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
-    --primary-color: #973324;
-    --secondary-color: #d5ba9c;
-    --tertiary-color: #b95821;
-    --heading-font-family: "Space Grotesk", sans-serif;
-    --copy-font-family: 'Archivo', sans-serif;
-    --link-font-family: 'JetBrains Mono', monospace;
-    --heading-font-weight: bold;
-    --heading-font-size: 30px;
-    
+    --primary-color: #27540C; 
+    --secondary-color: #ffffff;
+    --tertiary-color: #d67503;
+    --main-font-family: "Lora", serif;
+    --input-font-family: "Rubik", sans-serif;
+    --input-bg-color: #F1F1F1;
   }
 
   html, body, div, span, applet, object, iframe,
@@ -52,9 +49,8 @@ export default createGlobalStyle`
       content: '';
       content: none;
   }
-  h1, h2, h3 {
-    color: var(--primary-color);
-    font-family: var(--heading-font-family);
+  h1, h2, label, p, button, span, a {
+    font-family: var(--main-font-family);
   }
   button{
     cursor: pointer;

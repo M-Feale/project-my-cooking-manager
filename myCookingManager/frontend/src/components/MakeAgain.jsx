@@ -96,12 +96,17 @@ const MakeAgain = () => {
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+	padding: 5px 20px;
+
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
+	border-radius: 5px;
 `;
 const ComponentTitle = styled.h2`
 	color: var(--primary-color);
-	font-family: var(--heading-font-family);
 	font-weight: bold;
 	display: block;
+	padding: 5px 0;
 `;
 
 const InteractionContainer = styled.div`
@@ -134,6 +139,14 @@ const Input = styled.input`
 	width: 16px; // same as label font-size
 	height: 16px; // same as label font-size
 	margin: 10px;
+	background-color: var(--input-bg-color);
+	border: 2px solid var(--input-bg-color);
+	font-family: var(--input-font-family);
+
+	&:focus {
+		border: 2px solid black;
+		outline: none;
+	}
 `;
 
 export default MakeAgain;

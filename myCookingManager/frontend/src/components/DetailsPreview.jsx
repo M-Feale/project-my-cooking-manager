@@ -32,10 +32,10 @@ const Wrapper = styled.div`
 	justify-content: flex-start;
 	align-items: flex-start;
 	width: 40vw;
-	flex-grow: 1;
 
-	padding: 20px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+	padding: 20px 20px 40px 20px;
+	box-shadow:
+	0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 	border-radius: 10px;
 `;
@@ -47,7 +47,7 @@ const RecipeTitle = styled.h1`
 	padding: 5px 0;
 	font-size: 24px;
 
-	color:#D67503;
+	color: var(--tertiary-color);
 `;
 
 const RecipeAuthor = styled.p`

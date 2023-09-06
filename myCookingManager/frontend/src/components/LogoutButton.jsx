@@ -20,15 +20,18 @@ const LogoutButton = () => {
 };
 
 const ActionButton = styled.button`
-	font-family: var(--link-font-family);
 	background-color: var(--tertiary-color);
-	padding: 10px;
-	border: none;
-	outline: none;
+	border: 2px solid var(--tertiary-color);
+	padding: 10px 15px;
 	border-radius: 5px;
-
-	background-color: #D67503;
+	font-weight: 400;
+	text-transform: uppercase;
 	color: black;
+
+	&:focus {
+		border: 2px solid black;
+		outline: none;
+	}
 `;
 
 export default LogoutButton;
