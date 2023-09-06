@@ -70,7 +70,6 @@ const MakeAgain = () => {
 					<Label htmlFor="yes">Yes</Label>
 					<Label htmlFor="no">No</Label>
 				</LabelContainer>
-
 				<InputContainer>
 					<Input
 						id="yes"
@@ -96,10 +95,9 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 5px 20px;
-
+	border-radius: 5px;
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);
-	border-radius: 5px;
 `;
 const ComponentTitle = styled.h2`
 	color: var(--primary-color);
