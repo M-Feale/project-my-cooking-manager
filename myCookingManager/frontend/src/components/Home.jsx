@@ -3,9 +3,9 @@ import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 
-import LoginButton from "./LoginButton";
-
 import HeroImage from "../assets/HeroImage.jpg"
+
+import LoginButton from "./LoginButton";
 
 const Home = () => {
 	// Import info from auth0 context
@@ -13,6 +13,7 @@ const Home = () => {
 
 	const navigate = useNavigate();
 
+	// States helping with the conditional rendering of the text.
 	const [isDatabaseVerified, setIsDatabaseVerified] = useState(false);
 	const [isUserNew, setIsUserNew] = useState(false);
 
@@ -55,10 +56,9 @@ const Home = () => {
 
 	return (
 		<Wrapper>
-			{/* // Placeholder image before the carousel is functional */}
 			<Hero
 				src={HeroImage}
-				alt="Three recipes, a soup, a chocolate dessert and salad."
+				alt="Three recipes, a soup, a chocolate dessert and a salad."
 			/>
 			<Slogan>
 				Welcome to <ItalicSpan>My Cooking Manager</ItalicSpan>, the
@@ -73,7 +73,7 @@ const Home = () => {
 				<ActionContainer>
 					<ActionText>{`Nice to meet you, ${user.name}`}</ActionText>
 					<ActionButton onClick={() => navigate("/catalogue")}>
-						Add your first recipe!
+						Add your first recipe !
 					</ActionButton>
 				</ActionContainer>
 			) : (
@@ -103,7 +103,7 @@ const Hero = styled.img`
 const Slogan = styled.h1`
 	font-size: 40px;
 	text-align: center;
-	width: 80vw;
+	width: 60vw;
 	margin: 20px 0;
 	color: var(--tertiary-color);
 `;
