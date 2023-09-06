@@ -3,14 +3,14 @@ import { styled } from "styled-components";
 import { useParams } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { RecipeDetailsContext } from "./contexts/RecipeDetailsContext";
+import { RecipeDetailsContext } from "../contexts/RecipeDetailsContext";
 
 import DetailsPreview from "./DetailsPreview";
 import IngredientListInput from "./IngredientListInput";
 import MakeAgain from "./MakeAgain";
 import NavigateRecipeWebsite from "./NavigateRecipeWebsite";
 import Notepad from "./Notepad";
-import RatingSystem from "./RatingSystem";
+import RatingSystem from "../RatingSystem";
 import DateTracker from "./DateTracker";
 import RecipeDetailsCategorySelect from "./RecipeDetailsCategorySelect";
 

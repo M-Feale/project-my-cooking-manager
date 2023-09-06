@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { RecipeDetailsContext } from "./contexts/RecipeDetailsContext";
+import { RecipeDetailsContext } from "../contexts/RecipeDetailsContext";
 
-import CategoryCreation from "./CategoryCreation";
+import CategoryCreation from "../CategoryCreation";
 
 const RecipeDetailsCategorySelect = () => {
 	//Import user object from auth0

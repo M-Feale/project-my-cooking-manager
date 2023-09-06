@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { styled } from "styled-components";
 
-import { RecipeDetailsContext } from "./contexts/RecipeDetailsContext";
+import { RecipeDetailsContext } from "../contexts/RecipeDetailsContext";
 
 const IngredientListInput = () => {
 	//Import user object from auth0
