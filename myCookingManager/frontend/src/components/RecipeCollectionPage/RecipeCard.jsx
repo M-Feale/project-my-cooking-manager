@@ -6,7 +6,7 @@ import { FaRegNoteSticky } from "react-icons/fa6";
 // Library used to create and manage the star ratings
 import { Rating } from "@smastrom/react-rating";
 
-import { lastDateCalculator } from "../utility_functions/lastDateCalculator";
+import { lastDateCalculator } from "../../utility_functions/lastDateCalculator";
 
 const RecipeCard = ({ recipe }) => {
 	// A recipe object has an array of 4 ratings. Here, the rating called "Overall" is used for the component.
