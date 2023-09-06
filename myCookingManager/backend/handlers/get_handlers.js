@@ -9,7 +9,7 @@ const options = {
 }
 
 // Import constants
-const { DB_NAME, RE_COLL } = require("./constants");
+const { DB_NAME, RE_COLL } = require("../utilities/constants");
 
 
 const getRecipes = async (req, res) => {

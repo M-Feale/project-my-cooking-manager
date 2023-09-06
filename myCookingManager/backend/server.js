@@ -1,14 +1,10 @@
 const express = require("express");
 const morgan = require("morgan");
 
-// const { getRecipes, getSingleRecipe, insertRecipe, searchRecipes, getCategories, getRecipesByCategory, updateRecipeField } = require("./handlers");
-const { getRecipes, getSingleRecipe, searchRecipes, getCategories, getRecipesByCategory } = require("./get_handlers");
-const { updateRecipeField, insertRecipe, createNewUser } = require("./p_handlers");
-const { sendShoppingListEmail } = require("./sendgrid_handlers");
-const { createRecipePreview } = require("./grabity_handler");
-
-
-// const {createShoppingList} = require("./WIP_spoonacular_handler")
+const { getRecipes, getSingleRecipe, searchRecipes, getCategories, getRecipesByCategory } = require("./handlers/get_handlers");
+const { updateRecipeField, insertRecipe, createNewUser } = require("./handlers/p_handlers");
+const { sendShoppingListEmail } = require("./handlers/sendgrid_handlers");
+const { createRecipePreview } = require("./handlers/grabity_handler");
 
 const PORT = 4999;
 
@@ -17,11 +13,6 @@ const app = express();
 app.use(morgan("tiny"));
 app.use(express.json());
 // Endpoints
-
-// Test endpoint
-app.get("/api", (req, res) => {
-    res.status(200).json({ message: "Server is working!!!" })
-});
 
 // GET recipes for specified user (used in RecipeCollection for RecipeGrid)
 app.get("/api/user/:userId/recipes", getRecipes)

@@ -9,14 +9,14 @@ const options = {
 }
 
 // Import database constants
-const { DB_NAME, RE_COLL } = require("./constants");
+const { DB_NAME, RE_COLL } = require("../utilities/constants");
 
 // Send Grid setup
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 // Import Send Grid utilities
-const { ingredientListToHtml } = require("./sendgrid_utils_function")
+const { ingredientListToHtml } = require("../utilities/sendgrid_utils_function")
 
 const sendShoppingListEmail = async (req, res) => {
     // Extract userId and recipeId from the req.params
@@ -41,7 +41,7 @@ const sendShoppingListEmail = async (req, res) => {
         const recipeName = specificRecipeResult[0].recipes[0].name
 
         // Transform the shopping list into the right format for the API
-        const emailHtmlBody = ingredientListToHtml("./html_email_list.html", shoppingList)
+        const emailHtmlBody = ingredientListToHtml("./utilities/html_email_list.html", shoppingList)
 
         // Format the email message as per the API documentation
         const msg = {

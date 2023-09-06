@@ -9,7 +9,7 @@ const options = {
 }
 
 // Import constants
-const { DB_NAME, RE_COLL } = require("./constants");
+const { DB_NAME, RE_COLL } = require("../utilities/constants");
 
 const updateRecipeField = async (req, res) => {
     // Extract userId and recipeId from the req.params
