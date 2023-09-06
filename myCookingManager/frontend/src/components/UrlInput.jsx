@@ -145,6 +145,7 @@ const Input = styled.input`
 	border: 2px solid var(--input-bg-color);
 	background-color: var(--input-bg-color);
 	font-size: 15px;
+	font-family: var(--input-font-family);
 
 	&:focus {
 		border: 2px solid black;
@@ -153,13 +154,13 @@ const Input = styled.input`
 `;
 
 const Label = styled.label`
-	font-weight: bold;
 	display: block;
 	padding: 5px 0;
 	margin-right: 10px;
 	max-width: 125px;
 	text-align: center;
-	color: var(--secondary-color); 
+	color: black;
+	font-weight: 500;
 `;
 
 const Button = styled.button`
