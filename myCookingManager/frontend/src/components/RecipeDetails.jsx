@@ -28,11 +28,6 @@ const RecipeDetails = () => {
 	// On mount, fetch recipe associated with the specific recipe's page we are on.
 	// Store the data in the RecipeDetailsContext for the other components to have easy access to it.
 	useEffect(() => {
-		// If the context is empty or if the context contains a recipe different from the current RecipeDetails' page we are on, fetch the details for the page we're on.
-		// if (
-		// 	!currentRecipeDetails.recipeId &&
-		// 	currentRecipeDetails.recipeId !== recipeId
-		// ) {
 		fetch(`/api/user/${user.sub}/recipes/${recipeId}`)
 			.then((res) => res.json())
 			.then((parsedResponse) => {
