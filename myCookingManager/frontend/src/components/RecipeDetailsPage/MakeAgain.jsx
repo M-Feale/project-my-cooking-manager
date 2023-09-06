@@ -51,8 +51,7 @@ const MakeAgain = () => {
 				.then((response) => response.json())
 				.then((parsedResponse) => {
 					if (parsedResponse.status === 200) {
-						// Decide if I want to add a success message for a successful ingredient list update
-						console.log(parsedResponse.message);
+						// This is where I would have a modal with a success message.
 					} else {
 						throw new Error(parsedResponse);
 					}

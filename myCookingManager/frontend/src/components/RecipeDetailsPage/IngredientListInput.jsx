@@ -64,7 +64,7 @@ const IngredientListInput = () => {
 			.then((response) => response.json())
 			.then((parsedResponse) => {
 				if (parsedResponse.status === 200) {
-					// This is were I would have a modal with a success message.
+					// This is where I would have a modal with a success message.
 				} else {
 					throw new Error(parsedResponse);
 				}
@@ -114,7 +114,7 @@ const IngredientListInput = () => {
 			.then((response) => response.json())
 			.then((parsedResponse) => {
 				if (parsedResponse.status >= 200) {
-					// This is were I would have a modal with a success message.
+					// This is where I would have a modal with a success message.
 				} else {
 					throw new Error(parsedResponse);
 				}
