@@ -50,13 +50,16 @@ const sendShoppingListEmail = async (req, res) => {
                 email: 'mycookingmanager@gmail.com',
                 name: 'My Cooking Manager'
             },
-            subject: `Your shopping list for ${recipeName} is here!`, // Incorporate string interpolation here
+            subject: `Your shopping list for ${recipeName} is here!`, 
             html: emailHtmlBody
         }
 
         // Send the email
         const emailExpeditionResult = await sgMail.send(msg)
-        // If the Send Grid API answer is successful, sent a success message. If not, send 204 and let FE create an error message for an unsuccessful email expedition.
+        // ---------------------------------------------------------------------------------------- //
+        // If the Send Grid API answer is successful, sent a success message. 
+        // If not, send 204 and let FE create an error message for an unsuccessful email expedition.
+        // ---------------------------------------------------------------------------------------- //
         if (emailExpeditionResult[0].statusCode === 202) {
             return res.status(200).json({ status: 200, email, message: "Your shopping list was successfully sent to the email associated with your My Cooking Manage account" })
         } else {
