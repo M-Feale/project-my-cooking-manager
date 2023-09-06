@@ -40,7 +40,7 @@ const sendShoppingListEmail = async (req, res) => {
         ]).toArray();
         const recipeName = specificRecipeResult[0].recipes[0].name
 
-        // Transform the shopping list into the right format for the API
+        // Transform the shopping list into the right format for the API using our utility function.
         const emailHtmlBody = ingredientListToHtml("./utilities/html_email_list.html", shoppingList)
 
         // Format the email message as per the API documentation
