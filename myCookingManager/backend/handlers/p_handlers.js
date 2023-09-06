@@ -1,3 +1,8 @@
+// ------------------------------------------------------------------------------- //
+// This file contains the handlers for the endpoints starting with the letter "P"
+// so PATCH, PUT and POST endpoints.
+// ------------------------------------------------------------------------------- //
+
 // Mongo DB setup
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
@@ -79,7 +84,7 @@ const insertRecipe = async (req, res) => {
 
         // Create variables to make database interaction clearer
         const match = { $match: { _id: userId } }
-        // We're filtering our recipes array to only contain a recipe matching the information given by the grabity link preview.
+        // We're using the filter operator to find a recipe that matches the information given by the grabity link preview.
         const projection = {
             $project: {
                 recipes:
@@ -148,7 +153,6 @@ const insertRecipe = async (req, res) => {
 const createNewUser = async (req, res) => {
     // Extract the info from the req.body
     const { userId } = req.body
-    console.log(userId)
 
     const client = new MongoClient(MONGO_URI, options);
     try {
@@ -158,7 +162,6 @@ const createNewUser = async (req, res) => {
 
         // Check if a document with an _id matching the userId exists in the database
         const matchResult = await db.collection(RE_COLL).findOne({ _id: userId })
-        console.log(matchResult, "db response")
         // If the document exists, return a 200 with no data to notify FE
         if (matchResult) {
             return res.status(200).json({ status: 200, message: "Welcome back, user!" })
@@ -170,7 +173,6 @@ const createNewUser = async (req, res) => {
                 recipes: []
             }
             const createUserResult = await db.collection(RE_COLL).insertOne(newDocument)
-            console.log(createUserResult, "this is db answer")
             // If the database answers with the same insertedId we sent, send a 201 to the FE.
             if (createUserResult.insertedId === userId) {
                 return res.status(201).json({ status: 201, message: "Nice to meet you, user!" })
