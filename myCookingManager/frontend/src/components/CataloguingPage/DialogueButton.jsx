@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
+import useAutoFocus from "../../utility_functions/hooks/useAutoFocus";
 
 const DialogueButton = ({ onClickFunc, text }) => {
 	// Import custom useRef hook that outputs a focused ref

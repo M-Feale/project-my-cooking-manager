@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef } from "react";
 import { styled } from "styled-components";
 
-import { CatalogueFlowContext } from "./contexts/CatalogueFlowContext";
-import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
+import { CatalogueFlowContext } from "../contexts/CatalogueFlowContext";
+import useAutoScrollIntoView from "../../utility_functions/hooks/useAutoScrollIntoView";
 
 import DialogueBox from "./DialogueBox";
 

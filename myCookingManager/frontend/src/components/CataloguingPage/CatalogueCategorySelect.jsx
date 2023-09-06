@@ -2,11 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { CatalogueFlowContext } from "./contexts/CatalogueFlowContext";
-import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
-import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
+import { CatalogueFlowContext } from "../contexts/CatalogueFlowContext";
+import useAutoFocus from "../../utility_functions/hooks/useAutoFocus";
+import useAutoScrollIntoView from "../../utility_functions/hooks/useAutoScrollIntoView";
 
-import CategoryCreation from "./CategoryCreation";
+import CategoryCreation from "../CategoryCreation";
 
 const CatalogueCategorySelect = () => {
 	//Import user object from auth0

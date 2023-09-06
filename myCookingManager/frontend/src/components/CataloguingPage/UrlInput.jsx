@@ -2,8 +2,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { CatalogueFlowContext } from "./contexts/CatalogueFlowContext";
-import { filterSpecialCharacter } from "../utility_functions/filterSpecialCharacter";
+import { CatalogueFlowContext } from "../contexts/CatalogueFlowContext";
+import { filterSpecialCharacter } from "../../utility_functions/filterSpecialCharacter";
 
 const UrlInput = ({ resetOnClickFunction }) => {
 	//Import user object from auth0
