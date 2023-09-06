@@ -66,7 +66,7 @@ const NavBar = styled.div`
 `;
 
 const NavButtons = styled(NavLink)`
-	font-size: 16px;
+	font-size: 18px;
 	margin: 0 10px;
 	font-style: italic;
 	font-weight: 400;
