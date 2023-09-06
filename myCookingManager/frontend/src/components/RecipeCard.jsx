@@ -63,7 +63,7 @@ const Wrapper = styled.div`
 	height: 500px;
 	max-height: 500px;
 	border-radius: 10px;
-	background-color: white;
+	background-color: var(--secondary-color);
 	padding: 24px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);

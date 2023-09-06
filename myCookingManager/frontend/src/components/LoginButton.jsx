@@ -24,9 +24,10 @@ const ActionButton = styled.button`
 	background-color: var(--tertiary-color);
 	padding: 10px 15px;
 	border-radius: 5px;
-	font-weight: 400;
+	font-weight: 500;
 	text-transform: uppercase;
 	color: black;
+	border: 2px solid var(--tertiary-color);
 
 	&:focus {
 		border: 2px solid black;
