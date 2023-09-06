@@ -23,13 +23,19 @@ app.get("/api/user/:userId/recipes/:recipeId", getSingleRecipe)
 // GET recipes by searchTerms for specified user (used in RecipeCollection for SearchBar)
 app.get("/api/user/:userId/recipes/search/:searchTerms", searchRecipes)
 
-// GET distinct recipe categories for specified user (used in RecipeCollection for CategoryMenu)
+// ---------------------------------------------------------------------------------------------------- //
+// GET distinct recipe categories for specified user (used in RecipeCollection for CategoryMenu and in 
+// RecipeDetails / CataloguingPage for their respective CategorySelect components)
+// ---------------------------------------------------------------------------------------------------- //
 app.get("/api/user/:userId/categories", getCategories)
 
 // GET recipes by category for specified user (used in RecipeCollection for CategoryMenu)
 app.get("/api/user/:userId/categories/:category", getRecipesByCategory)
 
-// PATCH to update any field of the specified recipe for the specified user in the database (used in many components on RecipeDetails page)
+// ----------------------------------------------------------------------------------------------------------- //
+// PATCH to update any field of the specified recipe for the specified user in the database (used in 
+// RecipeDetailsCategorySelect, Notepad, IngredientListInput, MakeAgain, DateTracker on the RecipeDetails page)
+// ----------------------------------------------------------------------------------------------------------- //
 app.patch("/api/user/:userId/recipes/:recipeId/update", updateRecipeField)
 
 // PUT a new recipe inside the user associated document in the database (used in CataloguingPage)
