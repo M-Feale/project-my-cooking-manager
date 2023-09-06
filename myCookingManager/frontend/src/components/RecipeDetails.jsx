@@ -40,7 +40,29 @@ const RecipeDetails = () => {
 			.catch((error) => {
 				console.error("Fetch error:", error);
 			});
-		// }
+		
+		// Reset the context when the page dismounts
+		return () => {
+			setCurrentRecipeDetails({
+				recipeId: "",
+				name: "",
+				website: "",
+				image: "",
+				description: "",
+				ratings: [
+					{ label: "Overall", rating: 0 },
+					{ label: "Time Accuracy", rating: 0 },
+					{ label: "Easy Cleanup", rating: 0 },
+					{ label: "Taste", rating: 0 },
+				],
+				shopping_list: [],
+				dates_created: [],
+				notes: [],
+				make_again: null, 
+				category: "",
+				recipe_url: "",
+			});
+		};
 	}, []);
 
 	return (
