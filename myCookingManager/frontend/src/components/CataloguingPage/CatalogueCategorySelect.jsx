@@ -6,7 +6,7 @@ import { CatalogueFlowContext } from "../contexts/CatalogueFlowContext";
 import useAutoFocus from "../../utility_functions/hooks/useAutoFocus";
 import useAutoScrollIntoView from "../../utility_functions/hooks/useAutoScrollIntoView";
 
-import CategoryCreation from "../CategoryCreation";
+import CategoryCreation from "../multipage_components/CategoryCreation"
 
 const CatalogueCategorySelect = () => {
 	//Import user object from auth0

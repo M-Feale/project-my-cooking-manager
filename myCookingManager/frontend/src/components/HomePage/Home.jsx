@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 
-import HeroImage from "../assets/HeroImage.jpg"
+import HeroImage from "../../assets/HeroImage.jpg"
 
 import LoginButton from "./LoginButton";
 
