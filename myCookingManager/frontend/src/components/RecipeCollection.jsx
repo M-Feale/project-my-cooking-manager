@@ -27,7 +27,6 @@ const RecipeCollection = () => {
 		} else {
 			endpoint = `/api/user/${user.sub}/recipes`;
 		}
-
 		fetch(endpoint)
 			.then((res) => {
 				if (res.status !== 204) {
