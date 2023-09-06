@@ -189,9 +189,10 @@ const Wrapper = styled.div`
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-weight: bold;
 	display: block;
 	padding: 5px 0;
+	font-size: 18px;
+	font-weight: 700;
 `;
 
 const Textarea = styled.textarea`
@@ -200,6 +201,7 @@ const Textarea = styled.textarea`
 	resize: none;
 	background-color: var(--input-bg-color);
 	font-family: var(--input-font-family);
+	font-size: 15px;
 
 	&:focus {
 		border: 2px solid black;
@@ -208,6 +210,7 @@ const Textarea = styled.textarea`
 
 	&:disabled{
 		background-color: #e1e1e1;
+		color: grey;
 	}
 `;
 
@@ -226,6 +229,8 @@ const Button = styled.button`
 	padding: 5px;
 	min-width: 105px;
 	border-radius: 3px;
+	font-weight: 500;
+	font-size: 15px;
 
 	&:focus {
 		border: 2px solid black;

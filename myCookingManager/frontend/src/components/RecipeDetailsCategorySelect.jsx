@@ -159,9 +159,10 @@ const Wrapper = styled.div`
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-weight: bold;
 	display: block;
 	padding: 5px 0;
+	font-size: 18px;
+	font-weight: 700;
 `;
 
 const SelectAndButtonDiv = styled.div`
@@ -182,6 +183,7 @@ const Select = styled.select`
 	padding: 2px 2px 5px 2px;
 	text-align: center;
 	margin-bottom: 5px;
+	font-family: var(--main-font-family);
 
 	&:focus {
 		border: 2px solid black;
@@ -193,16 +195,19 @@ const Option = styled.option`
 	font-size: 16px;
 	line-height: 115%;
 	padding: 2px 2px 5px 2px;
+	font-family: var(--main-font-family);
 `;
 
 const Button = styled.button`
 	background-color: var(--tertiary-color);
 	color: black;
+	font-weight: 500;
 	border: 2px solid var(--tertiary-color);
 	padding: 5px;
-	min-width: 105px;
+	min-width: 150px;
 	border-radius: 3px;
 	margin: 5px 20px 9px;
+	font-size: 15px;
 
 	&:focus {
 		border: 2px solid black;

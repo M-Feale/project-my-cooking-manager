@@ -42,6 +42,8 @@ const Wrapper = styled.div`
 
 const LinkText = styled.p`
 	color: var(--secondary-color);
+	font-size: 18px;
+	font-weight: 700;
 `;
 
 export default NavigateRecipeWebsite;

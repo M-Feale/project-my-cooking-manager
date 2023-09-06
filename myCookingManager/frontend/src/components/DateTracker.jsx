@@ -146,9 +146,10 @@ const Wrapper = styled.div`
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-weight: bold;
 	display: block;
 	padding: 5px 0;
+	font-size: 18px;
+	font-weight: 700;
 `;
 
 const ListParent = styled.ul`
@@ -168,10 +169,11 @@ const InputDiv = styled.div`
 
 const Input = styled.input`
 	padding: 6px;
-	width: 70%;
+	width: 80%;
 	border: 2px solid var(--input-bg-color);
 	margin: 0 0 0 20px;
 	background-color: var(--input-bg-color);
+	font-size: 15px;
 
 	&:focus {
 		border: 2px solid black;
@@ -196,10 +198,12 @@ const ButtonDiv = styled.div`
 const Button = styled.button`
 	background-color: var(--tertiary-color);
 	color: black;
+	font-weight: 500;
 	border: 2px solid var(--tertiary-color);
 	padding: 5px;
 	width: 150px;
 	border-radius: 3px;
+	font-size: 15px;
 	opacity: ${(props) => (props.disabled ? "0.5" : "1")};
 	cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 
@@ -213,10 +217,12 @@ const TodayButton = styled.button`
 	background-color: var(--primary-color);
 	border: 2px solid var(--primary-color);
 	color: var(--secondary-color);
+	font-weight: 500;
 	padding: 5px;
 	width: 150px;
 	border-radius: 3px;
 	margin-bottom: 5px;
+	font-size: 15px;
 
 	&:focus {
 		border: 2px solid black;
@@ -252,6 +258,7 @@ const DateDiv = styled.div`
 
 const DateText = styled.span`
 	margin-right: 10px;
+	font-size: 15px;
 `;
 
 export default DateTracker;

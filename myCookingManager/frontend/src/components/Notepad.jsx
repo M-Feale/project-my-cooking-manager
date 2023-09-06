@@ -121,17 +121,17 @@ const Notepad = () => {
 const Wrapper = styled.div`
 	margin: 20px 0;
 	padding: 5px 20px 10px;
-
+	border-radius: 5px;
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);
-	border-radius: 5px;
 `;
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-weight: bold;
 	display: block;
 	padding: 5px 0;
+	font-size: 18px;
+	font-weight: 700;
 `;
 
 const Input = styled.input`
@@ -140,6 +140,7 @@ const Input = styled.input`
 	border: 2px solid var(--input-bg-color);
 	background-color: var(--input-bg-color);
 	font-family: var(--input-font-family);
+	font-size: 15px;
 
 	&:focus {
 		border: 2px solid black;
@@ -156,8 +157,10 @@ const InputAndButtonDiv = styled.div`
 
 const Button = styled.button`
 	background-color: var(--tertiary-color);
-	color: black;
 	border: 2px solid var(--tertiary-color);
+	font-weight: 500;
+	font-size: 15px;
+	color: black;
 	padding: 5px;
 	min-width: 80px;
 	border-radius: 3px;
@@ -174,6 +177,7 @@ const Button = styled.button`
 const DeleteButton = styled.button`
 	background-color: transparent;
 	border: 2px solid var(--secondary-color); // Same color as background of div
+	height: 25.2px; // To be a perfect square according to dev tools.
 
 	&:focus {
 		border: 2px solid black;
@@ -185,6 +189,7 @@ const DeleteIcon = styled(FaTimes)`
 	width: 20px;
 	height: 20px;
 	opacity: 0.5;
+	margin-top: 1px;
 `;
 
 const NoteDiv = styled.div`
@@ -193,6 +198,7 @@ const NoteDiv = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	margin-left: 7px;
 	width: calc(
 		80% + (2 * 6px) + (2 * 2px)
 	); // To be the same length as the input field
@@ -200,6 +206,7 @@ const NoteDiv = styled.div`
 
 const NoteText = styled.span`
 	margin-right: 10px;
+	font-size: 15px;
 `;
 
 export default Notepad;
