@@ -8,6 +8,7 @@ import RecipeCollection from "./RecipeCollection";
 import RecipeDetails from "./RecipeDetails";
 import Callback from "./Callback";
 import CataloguingPage from "./CataloguingPage";
+import ErrorPage from "./ErrorPage";
 
 const App = () => {
 	// For conditional rendering of a PageLoader when isLoading is true
@@ -36,7 +37,7 @@ const App = () => {
 						<Route path="/callback" element={<Callback />} />
 						<Route
 							path="*"
-							element={<h1>Welcome to the ERROR page</h1>}
+							element={<ErrorPage />}
 						/>
 					</Routes>
 				</>
