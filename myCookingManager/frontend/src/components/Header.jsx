@@ -71,7 +71,6 @@ const NavButtons = styled(NavLink)`
 	font-style: italic;
 	font-weight: 400;
 	text-transform: lowercase;
-
 	text-decoration: none;
 	color: var(--secondary-color);
 
