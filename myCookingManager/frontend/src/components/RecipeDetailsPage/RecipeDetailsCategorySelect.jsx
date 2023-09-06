@@ -61,6 +61,7 @@ const RecipeDetailsCategorySelect = () => {
 				.then((response) => response.json())
 				.then((parsedResponse) => {
 					if (parsedResponse.status === 200) {
+						// This is where I would have a modal with a success message.
 						setSelectCategories([
 							...selectCategories,
 							currentRecipeDetails.category,

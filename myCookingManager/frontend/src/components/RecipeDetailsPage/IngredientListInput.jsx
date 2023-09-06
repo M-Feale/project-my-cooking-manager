@@ -64,7 +64,7 @@ const IngredientListInput = () => {
 			.then((response) => response.json())
 			.then((parsedResponse) => {
 				if (parsedResponse.status === 200) {
-					// This is were I would have a modal with a success message.
+					// This is where I would have a modal with a success message.
 				} else {
 					throw new Error(parsedResponse);
 				}
@@ -114,7 +114,7 @@ const IngredientListInput = () => {
 			.then((response) => response.json())
 			.then((parsedResponse) => {
 				if (parsedResponse.status >= 200) {
-					// This is were I would have a modal with a success message.
+					// This is where I would have a modal with a success message.
 				} else {
 					throw new Error(parsedResponse);
 				}
@@ -179,10 +179,9 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 5px 20px;
-
+	border-radius: 5px;
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);
-	border-radius: 5px;
 `;
 
 const Label = styled.label`

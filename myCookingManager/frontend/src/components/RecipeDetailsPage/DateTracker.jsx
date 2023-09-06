@@ -36,8 +36,7 @@ const DateTracker = () => {
 				.then((response) => response.json())
 				.then((parsedResponse) => {
 					if (parsedResponse.status === 200) {
-						// Decide if I want to add a success message for a successful ingredient list update
-						console.log(parsedResponse);
+						// This is where I would have a modal with a success message.
 						setCurrentRecipeDetails({
 							...currentRecipeDetails,
 							dates_created: dates,
@@ -138,10 +137,9 @@ const DateTracker = () => {
 const Wrapper = styled.div`
 	margin: 20px 0;
 	padding: 5px 20px 10px;
-
+	border-radius: 5px;
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);
-	border-radius: 5px;
 `;
 
 const Label = styled.label`

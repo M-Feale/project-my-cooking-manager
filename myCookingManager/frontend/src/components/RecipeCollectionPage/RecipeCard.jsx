@@ -6,6 +6,7 @@ import { FaRegNoteSticky } from "react-icons/fa6";
 // Library used to create and manage the star ratings
 import { Rating } from "@smastrom/react-rating";
 
+// Import utility function used to display the latest recipe creation date. 
 import { lastDateCalculator } from "../../utility_functions/lastDateCalculator";
 
 const RecipeCard = ({ recipe }) => {
