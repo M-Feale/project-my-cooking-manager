@@ -2,9 +2,10 @@ const fs = require("fs");
 
 // -------------------------------------------------------------------------------------------- //
 // This function formats the shopping list into a complete html file in the form of a string.
-// The purpose of it is to comply with Send Grid API restrictions.
+// The purpose of it is to comply with Send Grid API restrictions until the resource is 
+// further explored and understood.
 // The function needs a path to an html file as a string and an shopping list as an array.
-// It returns an html file as a string
+// It returns an html file as a string.
 // -------------------------------------------------------------------------------------------- //
 
 const ingredientListToHtml = (path, listArray) => {
