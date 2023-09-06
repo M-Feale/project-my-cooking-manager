@@ -17,15 +17,9 @@ const NavigateRecipeWebsite = () => {
 };
 
 const AnchorTag = styled.a`
-	
 	text-decoration: none;
 	cursor: pointer;
 	margin-bottom: 20px;
-
-	/* &:focus {
-		border: 2px solid black;
-		outline: none;
-	} */
 `;
 
 const Wrapper = styled.div`
@@ -35,8 +29,7 @@ const Wrapper = styled.div`
 	border: none;
 	border-radius: 5px;
 
-	box-shadow:
-	0 6px 20px 0 rgba(0, 0, 0, 0.19),
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 `;
 
