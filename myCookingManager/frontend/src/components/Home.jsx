@@ -35,13 +35,9 @@ const Home = () => {
 				.then((response) => response.json())
 				.then((parsedResponse) => {
 					if (parsedResponse.status === 200) {
-						console.log(parsedResponse);
-						console.log("this user is not new");
 						setIsDatabaseVerified(true);
 						setIsUserNew(false);
 					} else if (parsedResponse.status === 201) {
-						console.log(parsedResponse);
-						console.log("this user is new");
 						setIsDatabaseVerified(true);
 						setIsUserNew(true);
 					} else {
