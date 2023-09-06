@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FaTimes } from "react-icons/fa";
 
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
+import { RecipeDetailsContext } from "./contexts/RecipeDetailsContext";
 
 const Notepad = () => {
 	//Import user object from auth0

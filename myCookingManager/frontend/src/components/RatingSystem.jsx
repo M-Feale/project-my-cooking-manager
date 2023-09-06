@@ -6,7 +6,7 @@ import { styled } from "styled-components";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
+import { RecipeDetailsContext } from "./contexts/RecipeDetailsContext";
 import { allRatingsCalculator } from "../utility_functions/allRatingsCalculator";
 
 const RatingSystem = () => {

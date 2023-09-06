@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { styled } from "styled-components";
 
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
+import { RecipeDetailsContext } from "./contexts/RecipeDetailsContext";
 
 const NavigateRecipeWebsite = () => {
 	// Import RecipeDetails context

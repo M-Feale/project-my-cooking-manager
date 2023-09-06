@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { CatalogueFlowContext } from "./CatalogueFlowContext";
+import { CatalogueFlowContext } from "./contexts/CatalogueFlowContext";
 import { filterSpecialCharacter } from "../utility_functions/filterSpecialCharacter";
 
 const UrlInput = ({ resetOnClickFunction }) => {

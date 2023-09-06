@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { CatalogueFlowContext } from "./CatalogueFlowContext";
+import { CatalogueFlowContext } from "./contexts/CatalogueFlowContext";
 import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
 
 import UrlInput from "./UrlInput";

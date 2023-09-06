@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { CatalogueFlowContext } from "./CatalogueFlowContext";
+import { CatalogueFlowContext } from "./contexts/CatalogueFlowContext";
 import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
 import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
 

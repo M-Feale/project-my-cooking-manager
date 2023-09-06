@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import { useParams } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
+import { RecipeDetailsContext } from "./contexts/RecipeDetailsContext";
 
 import DetailsPreview from "./DetailsPreview";
 import IngredientListInput from "./IngredientListInput";
