@@ -21,7 +21,6 @@ const Home = () => {
 	// If new, create the user in the database.
 	useEffect(() => {
 		if (!isLoading && isAuthenticated && !isDatabaseVerified && user.sub) {
-			console.log("this is the user id ", user.sub);
 			fetch("/api/user", {
 				method: "POST",
 				headers: {
