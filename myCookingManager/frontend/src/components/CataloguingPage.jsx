@@ -110,7 +110,7 @@ const CataloguingPage = () => {
 
 			{catalogueFlow.isRecipeInput && <RecipePreview />}
 			{catalogueFlow.isRecipePreviewCorrect &&
-				!catalogueFlow.isCategoryConfirmed && (
+				!catalogueFlow.isCategoryConfirmed && !catalogueFlow.isPutSuccessful &&(
 					<CatalogueCategorySelect />
 				)}
 			{catalogueFlow.isRecipePreviewCorrect === false && (

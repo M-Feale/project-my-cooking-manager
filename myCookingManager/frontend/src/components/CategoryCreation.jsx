@@ -46,8 +46,8 @@ const Container = styled.div`
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-size: 16px;
-	font-weight: bold;
+	font-size: 18px;
+	font-weight: 700;
 	display: block;
 	padding: 5px 0;
 `;
@@ -81,6 +81,7 @@ const Button = styled.button`
 	border: 2px solid var(--tertiary-color);
 	padding: 5px;
 	width: 200px;
+	font-weight: 500;
 	border-radius: 3px;
 	opacity: ${(props) => (props.disabled ? "0.5" : "1")};
 	cursor: ${(props) => (props.disabled ? "default" : "pointer")};
