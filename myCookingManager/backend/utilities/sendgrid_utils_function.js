@@ -10,7 +10,7 @@ const fs = require("fs");
 
 const ingredientListToHtml = (path, listArray) => {
     const ingredientListHtml = listArray.map((ingredient) => {
-        return ` <li style="list-style-type: none;"><input id="ingredient" type="checkbox" style="width: 12px; height: 12px; position: relative; vertical-align: middle; margin-right: 10px;"/><label for="ingredient" style="font-size: 16px;">${ingredient}</label></li>`
+        return ` <li style="list-style-type: none;"><input id="ingredient" type="checkbox" style="width: 12px; height: 12px; position: relative; top: 1px; margin-right: 10px;"/><label for="ingredient" style="font-size: 16px;">${ingredient}</label></li>`
     }).join("")
 
     const myHtmlString = fs.readFileSync(path, "utf-8").replace("origin", ingredientListHtml)
