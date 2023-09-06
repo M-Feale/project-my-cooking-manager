@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { styled } from "styled-components";
 
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
+import { RecipeDetailsContext } from "../contexts/RecipeDetailsContext";
 
 const DetailsPreview = () => {
 	// Import the context that provides information about the current recipe
@@ -32,21 +32,19 @@ const Wrapper = styled.div`
 	justify-content: flex-start;
 	align-items: flex-start;
 	width: 40vw;
-
 	padding: 20px 20px 40px 20px;
+	border-radius: 10px;
 	box-shadow:
 	0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);
-	border-radius: 10px;
 `;
 
 const RecipeTextContainer = styled.div``;
 
 const RecipeTitle = styled.h1`
 	display: block;
-	padding: 5px 0;
-	font-size: 24px;
-
+	padding: 0 0 10px;
+	font-size: 26px;
 	color: var(--tertiary-color);
 `;
 
@@ -57,7 +55,7 @@ const RecipeAuthor = styled.p`
 const RecipeDescription = styled.p`
 	text-align: justify;
 	margin: 10px 0;
-	font-size: 18px;
+	font-size: 17px;
 `;
 
 const RecipeImageContainer = styled.div`
@@ -66,7 +64,7 @@ const RecipeImageContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
-	flex-grow: 1; // This works with the current recipe image. I'll check if it looks good with any image. If not, change max-height.
+	flex-grow: 1;
 	max-height: 70vh;
 `;
 

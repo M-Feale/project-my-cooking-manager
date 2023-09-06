@@ -3,14 +3,14 @@ import { styled } from "styled-components";
 import { useParams } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
+import { RecipeDetailsContext } from "../contexts/RecipeDetailsContext";
 
 import DetailsPreview from "./DetailsPreview";
 import IngredientListInput from "./IngredientListInput";
 import MakeAgain from "./MakeAgain";
 import NavigateRecipeWebsite from "./NavigateRecipeWebsite";
 import Notepad from "./Notepad";
-import RatingSystem from "./RatingSystem";
+import RatingSystem from "../multipage_components/RatingSystem";
 import DateTracker from "./DateTracker";
 import RecipeDetailsCategorySelect from "./RecipeDetailsCategorySelect";
 
@@ -28,11 +28,6 @@ const RecipeDetails = () => {
 	// On mount, fetch recipe associated with the specific recipe's page we are on.
 	// Store the data in the RecipeDetailsContext for the other components to have easy access to it.
 	useEffect(() => {
-		// If the context is empty or if the context contains a recipe different from the current RecipeDetails' page we are on, fetch the details for the page we're on.
-		// if (
-		// 	!currentRecipeDetails.recipeId &&
-		// 	currentRecipeDetails.recipeId !== recipeId
-		// ) {
 		fetch(`/api/user/${user.sub}/recipes/${recipeId}`)
 			.then((res) => res.json())
 			.then((parsedResponse) => {
@@ -45,7 +40,29 @@ const RecipeDetails = () => {
 			.catch((error) => {
 				console.error("Fetch error:", error);
 			});
-		// }
+		
+		// Reset the context when the page dismounts
+		return () => {
+			setCurrentRecipeDetails({
+				recipeId: "",
+				name: "",
+				website: "",
+				image: "",
+				description: "",
+				ratings: [
+					{ label: "Overall", rating: 0 },
+					{ label: "Time Accuracy", rating: 0 },
+					{ label: "Easy Cleanup", rating: 0 },
+					{ label: "Taste", rating: 0 },
+				],
+				shopping_list: [],
+				dates_created: [],
+				notes: [],
+				make_again: null, 
+				category: "",
+				recipe_url: "",
+			});
+		};
 	}, []);
 
 	return (

@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { useState } from "react";
 
-import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
+import useAutoFocus from "../../utility_functions/hooks/useAutoFocus";
 
 const CategoryCreation = ({ label, inputOnChangeFunc, buttonClickFunc }) => {
 	// Import custom useRef hook that outputs a focused ref
@@ -46,8 +46,8 @@ const Container = styled.div`
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-size: 14px;
-	font-weight: bold;
+	font-size: 18px;
+	font-weight: 700;
 	display: block;
 	padding: 5px 0;
 `;
@@ -66,6 +66,7 @@ const Input = styled.input`
 	margin: 0 0 10px 0;
 	background-color: var(--input-bg-color);
 	font-family: var(--input-font-family);
+	font-size: 15px;
 
 	&:focus {
 		border: 2px solid black;
@@ -76,9 +77,11 @@ const Input = styled.input`
 const Button = styled.button`
 	background-color: var(--tertiary-color);
 	color: black;
+	font-size: 15px;
 	border: 2px solid var(--tertiary-color);
 	padding: 5px;
-	max-width: 150px;
+	width: 200px;
+	font-weight: 500;
 	border-radius: 3px;
 	opacity: ${(props) => (props.disabled ? "0.5" : "1")};
 	cursor: ${(props) => (props.disabled ? "default" : "pointer")};

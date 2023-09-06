@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
+import { RecipeDetailsContext } from "../contexts/RecipeDetailsContext";
 
-import CategoryCreation from "./CategoryCreation";
+import CategoryCreation from "../multipage_components/CategoryCreation";
 
 const RecipeDetailsCategorySelect = () => {
 	//Import user object from auth0
@@ -151,17 +151,17 @@ const Wrapper = styled.div`
 	align-items: flex-start;
 	padding: 5px 20px 10px;
 	margin: 0 0 20px 0;
-
+	border-radius: 5px;
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);
-	border-radius: 5px;
 `;
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-weight: bold;
 	display: block;
 	padding: 5px 0;
+	font-size: 18px;
+	font-weight: 700;
 `;
 
 const SelectAndButtonDiv = styled.div`
@@ -182,6 +182,7 @@ const Select = styled.select`
 	padding: 2px 2px 5px 2px;
 	text-align: center;
 	margin-bottom: 5px;
+	font-family: var(--main-font-family);
 
 	&:focus {
 		border: 2px solid black;
@@ -193,16 +194,19 @@ const Option = styled.option`
 	font-size: 16px;
 	line-height: 115%;
 	padding: 2px 2px 5px 2px;
+	font-family: var(--main-font-family);
 `;
 
 const Button = styled.button`
 	background-color: var(--tertiary-color);
 	color: black;
+	font-weight: 500;
 	border: 2px solid var(--tertiary-color);
 	padding: 5px;
-	min-width: 105px;
+	min-width: 150px;
 	border-radius: 3px;
 	margin: 5px 20px 9px;
+	font-size: 15px;
 
 	&:focus {
 		border: 2px solid black;

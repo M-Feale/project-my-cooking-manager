@@ -72,7 +72,7 @@ const Input = styled.input`
 	border: 2px solid var(--input-bg-color);
 	background-color: var(--input-bg-color);
 	font-family: var(--input-font-family);
-	font-size: 14px;
+	font-size: 15px;
 
 	&:focus {
 		border: 2px solid black;
@@ -89,7 +89,6 @@ const Button = styled.button`
 	border-radius: 5px;
 	min-width: 85px;
 	font-weight: 700;
-
 
 	&:focus {
 		border: 2px solid black;

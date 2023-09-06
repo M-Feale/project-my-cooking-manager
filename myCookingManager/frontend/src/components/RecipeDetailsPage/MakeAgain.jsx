@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
+import { RecipeDetailsContext } from "../contexts/RecipeDetailsContext";
 
 const MakeAgain = () => {
 	//Import user object from auth0
@@ -104,9 +104,10 @@ const Wrapper = styled.div`
 `;
 const ComponentTitle = styled.h2`
 	color: var(--primary-color);
-	font-weight: bold;
 	display: block;
 	padding: 5px 0;
+	font-size: 18px;
+	font-weight: 700;
 `;
 
 const InteractionContainer = styled.div`

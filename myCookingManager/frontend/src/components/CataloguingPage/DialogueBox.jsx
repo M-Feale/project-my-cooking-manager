@@ -33,7 +33,7 @@ const Wrapper = styled.div`
 
 const SectionTitle = styled.span`
 	display: block;
-	font-weight: bold;
+	font-weight: 700;
 	font-size: 20px;
 	margin: 10px 0;
 	text-align: center;

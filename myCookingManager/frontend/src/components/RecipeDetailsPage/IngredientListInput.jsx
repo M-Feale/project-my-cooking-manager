@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { styled } from "styled-components";
 
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
+import { RecipeDetailsContext } from "../contexts/RecipeDetailsContext";
 
 const IngredientListInput = () => {
 	//Import user object from auth0
@@ -64,8 +64,7 @@ const IngredientListInput = () => {
 			.then((response) => response.json())
 			.then((parsedResponse) => {
 				if (parsedResponse.status === 200) {
-					// Decide if I want to add a success message for a successful ingredient list update
-					console.log(parsedResponse.message);
+					// This is were I would have a modal with a success message.
 				} else {
 					throw new Error(parsedResponse);
 				}
@@ -115,8 +114,7 @@ const IngredientListInput = () => {
 			.then((response) => response.json())
 			.then((parsedResponse) => {
 				if (parsedResponse.status >= 200) {
-					// Decide if I want to send a success message on 200 and error message on 204
-					console.log(parsedResponse.message);
+					// This is were I would have a modal with a success message.
 				} else {
 					throw new Error(parsedResponse);
 				}
@@ -189,9 +187,10 @@ const Wrapper = styled.div`
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-weight: bold;
 	display: block;
 	padding: 5px 0;
+	font-size: 18px;
+	font-weight: 700;
 `;
 
 const Textarea = styled.textarea`
@@ -200,14 +199,16 @@ const Textarea = styled.textarea`
 	resize: none;
 	background-color: var(--input-bg-color);
 	font-family: var(--input-font-family);
+	font-size: 15px;
 
 	&:focus {
 		border: 2px solid black;
 		outline: none;
 	}
 
-	&:disabled{
+	&:disabled {
 		background-color: #e1e1e1;
+		color: grey;
 	}
 `;
 
@@ -226,6 +227,8 @@ const Button = styled.button`
 	padding: 5px;
 	min-width: 105px;
 	border-radius: 3px;
+	font-weight: 500;
+	font-size: 15px;
 
 	&:focus {
 		border: 2px solid black;

@@ -57,7 +57,6 @@ const LinkContainer = styled.div`
 
 const AddRecipeLink = styled(Link)`
 	text-decoration: none;
-	color: black;
 `;
 
 const TextDiv = styled.div`
@@ -85,10 +84,7 @@ const IconDiv = styled.div`
 const PlusIcon = styled(FaPlus)`
 	width: 200px;
 	height: 200px;
-	color: rgba(185, 178, 178, 0.588);
-
 	color: rgba(39, 84, 12, 0.588);
-	/* color: rgba(214, 117, 3, 0.588) */
 `;
 
 export default RecipeGrid;

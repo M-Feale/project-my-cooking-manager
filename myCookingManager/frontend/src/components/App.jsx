@@ -1,13 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import GlobalStyles from "./GlobalStyles";
-import Header from "./Header";
-import Home from "./Home";
-import RecipeCollection from "./RecipeCollection";
-import RecipeDetails from "./RecipeDetails";
-import Callback from "./Callback";
-import CataloguingPage from "./CataloguingPage";
+import GlobalStyles from "./global_components/GlobalStyles";
+import Header from "./global_components/Header";
+import Home from "./HomePage/Home";
+import RecipeCollection from "./RecipeCollectionPage/RecipeCollection";
+import RecipeDetails from "./RecipeDetailsPage/RecipeDetails"
+import Callback from "./global_components/Callback";
+import CataloguingPage from "./CataloguingPage/CataloguingPage";
+import ErrorPage from "./global_components/ErrorPage";
 
 const App = () => {
 	// For conditional rendering of a PageLoader when isLoading is true
@@ -36,7 +37,7 @@ const App = () => {
 						<Route path="/callback" element={<Callback />} />
 						<Route
 							path="*"
-							element={<h1>Welcome to the ERROR page</h1>}
+							element={<ErrorPage />}
 						/>
 					</Routes>
 				</>

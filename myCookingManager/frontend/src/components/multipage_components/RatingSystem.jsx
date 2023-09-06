@@ -6,8 +6,8 @@ import { styled } from "styled-components";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 
-import { RecipeDetailsContext } from "./RecipeDetailsContext";
-import { allRatingsCalculator } from "../utility_functions/allRatingsCalculator";
+import { RecipeDetailsContext } from "../contexts/RecipeDetailsContext";
+import { allRatingsCalculator } from "../../utility_functions/allRatingsCalculator";
 
 const RatingSystem = () => {
 	// Import user object from auth0
@@ -38,8 +38,7 @@ const RatingSystem = () => {
 				.then((response) => response.json())
 				.then((parsedResponse) => {
 					if (parsedResponse.status === 200) {
-						// Decide if I want to add a success message for a successful ingredient list update
-						console.log(parsedResponse);
+						// This is were I would have a modal with a success message.
 					} else {
 						throw new Error(parsedResponse.message);
 					}
@@ -98,13 +97,10 @@ const RatingSystem = () => {
 
 const Wrapper = styled.div`
 	margin: 20px 0;
-
 	padding: 5px 20px 10px;
-	
-	box-shadow:
-	0 6px 20px 0 rgba(0, 0, 0, 0.19),
-		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 	border-radius: 5px;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+		0 8px 30px 0 rgba(0, 0, 0, 0.18);
 `;
 
 const RatingAndLabelContainer = styled.div`
@@ -116,7 +112,8 @@ const RatingAndLabelContainer = styled.div`
 
 const TitleText = styled.h2`
 	color: var(--primary-color);
-	font-weight: bold;
 	display: block;
+	font-size: 18px;
+	font-weight: 700;
 `;
 export default RatingSystem;

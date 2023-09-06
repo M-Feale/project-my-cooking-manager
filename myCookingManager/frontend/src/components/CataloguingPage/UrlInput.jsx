@@ -2,8 +2,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { CatalogueFlowContext } from "./CatalogueFlowContext";
-import { filterSpecialCharacter } from "../utility_functions/filterSpecialCharacter";
+import { CatalogueFlowContext } from "../contexts/CatalogueFlowContext";
+import { filterSpecialCharacter } from "../../utility_functions/filterSpecialCharacter";
 
 const UrlInput = ({ resetOnClickFunction }) => {
 	//Import user object from auth0
@@ -125,15 +125,11 @@ const Container = styled.div`
 	align-items: center;
 	width: 100%;
 	height: 100px;
-/* 
-	background-color: var(--secondary-color); // V1 */
-	background-color: var(--tertiary-color); // V2
+	background-color: var(--tertiary-color); 
 
 	padding: 10px 20px;
 	margin-bottom: 10px;
 	border-radius: 5px;
-	/* box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
-		0 8px 30px 0 rgba(0, 0, 0, 0.18); */
 `;
 
 const UrlInputContainer = styled.div`
@@ -148,6 +144,8 @@ const Input = styled.input`
 	width: 60vw;
 	border: 2px solid var(--input-bg-color);
 	background-color: var(--input-bg-color);
+	font-size: 15px;
+	font-family: var(--input-font-family);
 
 	&:focus {
 		border: 2px solid black;
@@ -156,33 +154,26 @@ const Input = styled.input`
 `;
 
 const Label = styled.label`
-	font-weight: bold;
 	display: block;
 	padding: 5px 0;
 	margin-right: 10px;
 	max-width: 125px;
-	text-align: left;
-
-	/* color: var(--tertiary-color); // V1 */
-	color: var(--secondary-color); // V2
-	/* color: var(--primary-color); // V3 */
+	text-align: center;
+	color: black;
+	font-weight: 500;
 `;
 
 const Button = styled.button`
 	padding: 10px 20px;
-	min-width: 80px;
 	border-radius: 3px;
 	margin: 0 10px;
 	border-radius: 5px;
-	min-width: 85px;
-
-	background-color: var(--primary-color); // V1 and V2
+	width: 90px;
+	font-weight: 700;
+	font-size: 16px;
+	background-color: var(--primary-color); 
 	color: var(--secondary-color);
 	border: 2px solid var(--primary-color);
-/* 
-	background-color: var(--tertiary-color); // V3
-	color: black;
-	border: 2px solid var(--tertiary-color); */
 
 	&:focus {
 		border: 2px solid black;

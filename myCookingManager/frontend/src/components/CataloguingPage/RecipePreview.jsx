@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef } from "react";
 import { styled } from "styled-components";
 
-import { CatalogueFlowContext } from "./CatalogueFlowContext";
-import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
+import { CatalogueFlowContext } from "../contexts/CatalogueFlowContext";
+import useAutoScrollIntoView from "../../utility_functions/hooks/useAutoScrollIntoView";
 
 import DialogueBox from "./DialogueBox";
 
@@ -13,9 +13,9 @@ const RecipePreview = () => {
 
 	// Import a custom useRef hook that outputs a scrolled into view ref
 	const viewPreview = useAutoScrollIntoView();
-	
+
 	return (
-		<Wrapper ref={viewPreview} >
+		<Wrapper ref={viewPreview}>
 			{!catalogueFlow.recipeInfo.image ? (
 				<h1>Loading...</h1>
 			) : (
@@ -69,7 +69,10 @@ const RecipePreview = () => {
 								]}
 							/>
 						</DialogueBoxContainer>
-						<DialogueBoxContainer $isDisplayed={catalogueFlow.isPutSuccessful} $isVisible={catalogueFlow.isPutSuccessful} >
+						<DialogueBoxContainer
+							$isDisplayed={catalogueFlow.isPutSuccessful}
+							$isVisible={catalogueFlow.isPutSuccessful}
+						>
 							<DialogueBox title={"Success!"} buttonArray={[]} />
 						</DialogueBoxContainer>
 					</TextAndDialogueBoxContainer>
@@ -90,9 +93,8 @@ const Wrapper = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 	width: 100%;
-
 	margin: 20px 0;
-	padding: 30px 20px 20px;
+	padding: 20px 0;
 	border-radius: 5px;
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);
@@ -115,11 +117,10 @@ const TextContainer = styled.div`
 `;
 
 const SectionTitle = styled.h2`
-	color: var(--tertiary-color);
+	color: var(--primary-color);
 	font-weight: bold;
 	display: block;
 	font-size: 22px;
-	margin: 5px 0;
 `;
 
 const RecipePreviewCopy = styled.p`

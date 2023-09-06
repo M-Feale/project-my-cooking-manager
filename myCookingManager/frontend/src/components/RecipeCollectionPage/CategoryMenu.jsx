@@ -6,7 +6,7 @@ const CategoryMenu = ({ setCategory }) => {
 	//Import user object from auth0
 	const { user } = useAuth0();
 
-	// Stores the categories fetched for the current user.
+	// Stores the category recipes fetched for the current user.
 	const [menuCategories, setMenuCategories] = useState([]);
 
 	useEffect(() => {
@@ -71,17 +71,15 @@ const Container = styled.div`
 const CategoryButton = styled.button`
 	margin: 10px;
 	padding: 8px 15px;
-	font-weight: 700;
-	font-size: 18px;
-	font-style: italic;
-
-
 	min-width: 115px;
 	border-radius: 5px;
 	background-color: var(--secondary-color); 
 	border: 2px solid var(--secondary-color); 
 	color: var(--primary-color);
-
+	font-weight: 700;
+	font-size: 18px;
+	font-style: italic;
+	
 	&:focus {
 		border: 2px solid black;
 		outline: none;

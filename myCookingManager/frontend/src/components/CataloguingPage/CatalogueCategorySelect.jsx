@@ -2,11 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { CatalogueFlowContext } from "./CatalogueFlowContext";
-import useAutoFocus from "../utility_functions/hooks/useAutoFocus";
-import useAutoScrollIntoView from "../utility_functions/hooks/useAutoScrollIntoView";
+import { CatalogueFlowContext } from "../contexts/CatalogueFlowContext";
+import useAutoFocus from "../../utility_functions/hooks/useAutoFocus";
+import useAutoScrollIntoView from "../../utility_functions/hooks/useAutoScrollIntoView";
 
-import CategoryCreation from "./CategoryCreation";
+import CategoryCreation from "../multipage_components/CategoryCreation"
 
 const CatalogueCategorySelect = () => {
 	//Import user object from auth0
@@ -126,9 +126,8 @@ const Wrapper = styled.div`
 	padding: 20px 0;
 	background-color: var(--secondary-color);
 	width: 80%;
-
-	margin: 20px 0;
-	padding: 10px 20px;
+	margin: 0 0 30px 0;
+	padding: 10px 20px 20px;
 	border-radius: 5px;
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
 		0 8px 30px 0 rgba(0, 0, 0, 0.18);
@@ -136,9 +135,11 @@ const Wrapper = styled.div`
 
 const Label = styled.label`
 	color: var(--primary-color);
-	font-weight: bold;
+	font-weight: 700;
 	display: block;
 	padding: 5px 0;
+	font-size: 18px;
+	margin: 5px 0;
 `;
 
 const Select = styled.select`
@@ -149,6 +150,8 @@ const Select = styled.select`
 	box-sizing: border-box;
 	padding: 2px 2px 5px 2px;
 	text-align: center;
+	font-family: var(--main-font-family);
+	margin-bottom: 5px;
 
 	&:focus {
 		border: 2px solid black;
@@ -167,9 +170,11 @@ const Button = styled.button`
 	color: black;
 	border: 2px solid var(--tertiary-color);
 	padding: 5px;
-	min-width: 80px;
+	min-width: 150px;
 	border-radius: 3px;
 	margin: 10px 0;
+	font-family: var(--main-font-family);
+	font-weight: 500;
 
 	&:focus {
 		border: 2px solid black;
