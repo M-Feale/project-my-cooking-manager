@@ -54,7 +54,7 @@ const DateTracker = () => {
 
 	const handleClearInputAndAddDate = () => {
 		if (singleDate.length > 0) {
-			setDates([...dates, { id: singleDate, text: singleDate }]);
+			setDates([...dates, { id: singleDate + dates.length, text: singleDate }]);
 			setSingleDate("");
 			setWereDatesEdited(true);
 		}
@@ -86,7 +86,7 @@ const DateTracker = () => {
 			hour12: false,
 		});
 
-		setDates([...dates, { id: today, text: today }]);
+		setDates([...dates, { id: today + dates.length, text: today }]);
 		setWereDatesEdited(true);
 	};
 
@@ -124,7 +124,7 @@ const DateTracker = () => {
 				<InputDiv>
 					<Input
 						id="date"
-						placeholder="Accepted formats: Sept 5 2023 or 02-05-2023 "
+						placeholder="Accepted formats: Sept 5 2023 or 09-05-2023 "
 						value={singleDate}
 						onChange={(ev) => setSingleDate(ev.target.value)}
 					/>
